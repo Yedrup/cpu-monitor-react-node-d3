@@ -30,21 +30,19 @@ function App() {
 
   // saved data into the array of Trace
   const [traces, setTraces] = useState([]); // ARRAY OF TRACES
-  // Trace displayed -> the data needed for the window
-  const [tracesDisplayed, setTracesDisplayed] = useState([]); // ARRAY OF TRACES
 
 
   class Config {
-    constructor(intervalInMs = 10000 /*10sec*/ , windowInMs = 180000 /*10 min*/) { 
+    constructor(intervalInMs = 10000 /*10sec*/, windowInMs = 180000 /*10 min*/) {
       this.intervalInMs = intervalInMs;
       this.windowInMs = windowInMs;
-      this.windowArrayLength = this.windowInMs / this.intervalInMs;
+      this.windowArrayLength = Math.round(this.windowInMs / this.intervalInMs);
     }
   }
 
-  let config = new Config();
+  let currConfig = new Config();
   // config 
-  const [configs, setConfigs] = useState(config);
+  const [config, setConfig] = useState(currConfig);
 
   class Trace {
     constructor(cpuData) {
@@ -57,14 +55,24 @@ function App() {
     }
   }
 
+  // keep history of x element
+  const manageTracesLRU = (traces, newTrace) => {
+    let updatedTraces = [...traces, newTrace];
+    //LRU
+    if (updatedTraces.length > config.windowArrayLength) {
+      // if usage of config, see to slice if new windowArrayLength is smaller
+      updatedTraces.shift();
+    } 
+    return updatedTraces;
+  }
 
   //HERE TO START USING TWO LOGICS : LRU || ALERTS
   useEffect(() => {
     console.log("useEffect -  cpuDATA updated: ", cpuData.loadAverageLast1Min)
-    let trace = new Trace(cpuData);
+    let newTrace = new Trace(cpuData);
     const isHigherThanAverage = cpuData.loadAverageLast1Min > 1;
     if (isHigherThanAverage) console.log("SUPPOSE TO MANAGE IT, isHigherThanAverage check trace of prev data");
-    setTraces(traces => cpuData.loadAverageLast1Min ? [...traces, trace] : []);
+    setTraces(traces => cpuData.loadAverageLast1Min ? manageTracesLRU(traces, newTrace) : []);
     return () => null;
   }, [cpuData])
 
@@ -72,26 +80,8 @@ function App() {
   // traces updated
   useEffect(() => {
     console.log("useEffect - traces updated: ", traces);
-    // display
-    setTracesDisplayed(traces);
     return () => null;
   }, [traces])
-
-
-  // display traces
-  useEffect(() => {
-    console.log("useEffect - display traces: ", tracesDisplayed);
-    
-    //LRU
-    if (tracesDisplayed.length > configs.windowArrayLength) {
-      console.log("windowArrayLength", configs.windowArrayLength);
-      let updatedTraces = [...tracesDisplayed];
-      updatedTraces.shift();
-      setTracesDisplayed(updatedTraces);
-    }
-    return () => null;
-  }, [tracesDisplayed])
-  
 
 
   // request load average
@@ -106,14 +96,14 @@ function App() {
     return () => null;
   }, [isRequesting]);
 
-// setInterval
+  // setInterval
   useEffect(() => {
-    console.log("useEffect = configs ==>", configs);
+    console.log("useEffect = config ==>", config);
     const interval = setInterval(() => {
       setIsRequesting(true);
-    }, configs.intervalInMs);
+    }, config.intervalInMs);
     return () => clearInterval(interval);
-  }, [configs]);
+  }, [config]);
 
 
   let { loadAverageLast1Min, loadAverageLast5Mins, loadAverageLast15Mins } = cpuData;
@@ -142,8 +132,8 @@ function App() {
       </div>
 
       <button onClick={() =>
-        setConfigs(old => {
-          console.log("old",old)
+        setConfig(old => {
+          console.log("old", old)
           let updatedIntervalInMs = 3000;
           return { ...old, intervalInMs: updatedIntervalInMs };
         })}>change interval in ms</button>
