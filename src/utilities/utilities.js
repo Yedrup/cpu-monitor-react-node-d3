@@ -44,6 +44,9 @@ const getDurationInHMS = (startTimeMilliseconds, endTimeMilliseconds) => {
 }
 
 
+const getLengthOfArrForATimeWindow = (timeWindowInMs, intervalInMs) => {
+    return Math.round(timeWindowInMs / intervalInMs);
+  } 
 /*
  * ARRAY ******************************************************************************************
  */
@@ -70,6 +73,7 @@ module.exports = {
     convertSecInMs,
     returnTimeInMilliseconds,
     getDurationInHMS,
+    getLengthOfArrForATimeWindow,
     //ARRAY
     removeElementFromArray
 };
