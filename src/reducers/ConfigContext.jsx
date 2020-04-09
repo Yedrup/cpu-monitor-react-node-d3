@@ -14,9 +14,9 @@ export const ConfigContext = createContext();
 
 
 export const initialConfigState = {
-  cpuLoadConsiredAsHigh : 1,
-  durationMinCpuHighLoadInMs : 120000, /*2min*/
-  durationMinRecoveryInMs : 120000, /*2min*/
+  cpuLoadConsiredAsHigh : .4,
+  durationMinCpuHighLoadInMs : 60000, /*1min*/
+  durationMinRecoveryInMs : 60000, /*1min*/
   intervalInMs : 10000, /*10sec*/
   windowInMs : 180000,
   getTimeWindowArrayLength : function() {
@@ -49,7 +49,7 @@ export const ConfigProvider = (props) => {
   const [stateConfig, dispatchConfig] = useReducer(configReducer, initialConfigState);
 
   useEffect(() => {
-    console.log("useEffect = CONFIG HAS CHANGED ==>", stateConfig);
+    console.log("CONFIG HAS CHANGED ==>", stateConfig);
     const interval = setInterval(() => {
       setIsRequesting(true);
     }, stateConfig.intervalInMs);

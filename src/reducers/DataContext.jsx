@@ -9,7 +9,9 @@ export const initialDataState = {
     traces: [],
     highLoadConfirmed: [],
     recoveredFromHighLoadConfirmed: [],
-    reports: []
+    reports: [],
+    isCpusCurrentlyUnderHighLoadAverage: false,
+    isCpusCurrentlyRecovering: false 
 };
 
 export const dataReducer = (state, action) => {
@@ -21,12 +23,27 @@ export const dataReducer = (state, action) => {
                 traces: [...state.traces, action.payload]
             };
         case "UPDATE_TRACES":
-            // create Trace
-            console.log("UPDATE_TRACES action.payload",action.payload);
+            // usage for chart display line 
+            // console.log("UPDATE_TRACES action.payload",action.payload);
             return {
                 ...state,
                 traces: [...action.payload]
             };
+        case "CONFIRMED_HIGH_LOAD_AVERAGE":
+            
+        // console.log("CONFIRMED_HIGH_LOAD_AVERAGE",action.payload);
+        return {
+            ...state,
+            highLoadConfirmed: [...action.payload],
+            isCpusCurrentlyUnderHighLoadAverage: true
+        };
+        case "CONFIRMED_RECOVERED":
+        console.log("CONFIRMED_RECOVERED",action.payload);
+        return {
+            ...state,
+            recoveredFromHighLoadConfirmed: [...action.payload],
+            isCpusCurrentlyUnderHighLoadAverage: true
+        };
         default:
             return state
     }

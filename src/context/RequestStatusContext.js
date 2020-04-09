@@ -10,7 +10,6 @@ export const RequestStatusProvider =  (props) => {
   }
 
   useEffect(() => {
-    console.log("useEffect = isRequesting ==>", isRequesting);
     return () => null;
   }, [isRequesting]);
 
