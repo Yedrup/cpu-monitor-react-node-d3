@@ -277,10 +277,10 @@ const createReport = (types, traces) => {
                 let recoveringAverageNewReport = createReport("recovery",recoveryAverageConfirmed);
                
                 dispatchData({
-                    type: 'UPDATE_REPORT',
+                    type: 'UPDATE_REPORTS',
                     payload: {
-                        highLoadAverageNewReport,
-                        recoveringAverageNewReport}
+                        "highLoadReports": highLoadAverageNewReport,
+                        "recoveryReports": recoveringAverageNewReport}
                 })
 
                 //RESET ALL

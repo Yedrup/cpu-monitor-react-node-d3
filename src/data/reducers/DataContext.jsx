@@ -49,13 +49,13 @@ export const dataReducer = (state, action) => {
                 recoveredFromHighLoadConfirmed: [...action.payload],
                 isCpusCurrentlyUnderHighLoadAverage: true
             };
-        case "UPDATE_REPORT":
-            console.log("UPDATE_REPORT", action.payload);
+        case "UPDATE_REPORTS":
+            console.log("UPDATE_REPORTS", action.payload);
             return {
                 ...state,
-                eventsReports: [{ ...action.payload }],
-                highLoadReports: [...state.highLoadReports, action.payload.highLoadAverageNewReport],// recoveringAverageReport:{},
-                recoveryReports: [...state.highLoadReports, action.payload.recoveringAverageNewReport]
+                eventsReports: [...state.eventsReports,{ ...action.payload }],
+                highLoadReports: [...state.highLoadReports, action.payload.highLoadReports],
+                recoveryReports: [...state.recoveryReports, action.payload.recoveryReports]
             };
         default:
             return state
