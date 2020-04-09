@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import './App.css';
-import { RequestStatusContext } from './context/RequestStatusContext';
-import { DataContext } from "./reducers/DataContext";
-import { ConfigContext } from "./reducers/ConfigContext";
+import { RequestStatusContext } from './data/context/RequestStatusContext';
+import { DataContext } from "./data/reducers/DataContext";
+import { ConfigContext } from "./data/reducers/ConfigContext";
 import Header from "./components/Header";
 import ConfigPannel from "./components/ConfigPannel";
 import CpuInfo from "./components/CpuInfo";

@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import RequestProvider from "./context/RequestStatusContext";
-import ConfigProvider from "./reducers/ConfigContext";
-import DataProvider from "./reducers/DataContext";
-import DataTreatment from "./DataTreatment";
+import RequestProvider from "./data/context/RequestStatusContext";
+import ConfigProvider from "./data/reducers/ConfigContext";
+import DataProvider from "./data/reducers/DataContext";
+import DataTreatment from "./data/DataTreatment";
 
 import App from './App';
 import * as serviceWorker from './serviceWorker';

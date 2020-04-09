@@ -1,8 +1,8 @@
 // import {ConfigContext} from "../archiveContext/context/ConfigContext"
 import React, { useContext } from 'react'
-import { RequestStatusContext } from '../context/RequestStatusContext';
-import { DataContext } from "../reducers/DataContext";
-import { ConfigContext } from "../reducers/ConfigContext";
+import { RequestStatusContext } from '../data/context/RequestStatusContext';
+import { DataContext } from "../data/reducers/DataContext";
+import { ConfigContext } from "../data/reducers/ConfigContext";
 
 function Header() {
     const {stateConfig, dispatchConfig} = useContext(ConfigContext);

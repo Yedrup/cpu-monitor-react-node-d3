@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { ConfigContext } from '../reducers/ConfigContext';
+import { ConfigContext } from '../data/reducers/ConfigContext';
 import "./configPannel.css"
 
 function ConfigPannel() {

@@ -6,7 +6,7 @@ import React, {
 } from "react";
 import {
   getLengthOfArrForATimeWindow
-} from "../utilities/utilities";
+} from "../../utilities/utilities";
 import { RequestStatusContext } from '../context/RequestStatusContext';
 
 
@@ -14,9 +14,9 @@ export const ConfigContext = createContext();
 
 
 export const initialConfigState = {
-  cpuLoadConsiredAsHigh : .4,
-  durationMinCpuHighLoadInMs : 60000, /*1min*/
-  durationMinRecoveryInMs : 60000, /*1min*/
+  loadAverageByCpuConsiredAsHigh : .5,
+  durationMinCpuHighLoadInMs : 30000, /*1min*/
+  durationMinRecoveryInMs : 30000, /*1min*/
   intervalInMs : 10000, /*10sec*/
   windowInMs : 180000,
   getTimeWindowArrayLength : function() {
