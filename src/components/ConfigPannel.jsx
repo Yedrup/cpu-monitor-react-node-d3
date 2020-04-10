@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import { ConfigContext } from '../data/reducers/ConfigContext';
+import Button from '@material-ui/core/Button';
 import "./configPannel.css"
 
 function ConfigPannel() {
@@ -20,14 +21,12 @@ function ConfigPannel() {
             <p>timeWindowArrayLength:{timeWindowArrayLength}</p>
             <p>highLoadAverageMinArrayLength:{highLoadAverageMinArrayLength}</p>
             <p>recoveryArrayMinLength:{recoveryArrayMinLength}</p>
-            <button 
-            
-            onClick={() => {
+            <Button variant="contained" color="primary"  onClick={() => {
                 dispatchConfig({
                     type: 'UPDATE_INTERVAL',
                     payload: 3000
                 })
-            }}>change interval in ms</button>
+            }}>change interval in ms</Button>
         </div>
     )
 }

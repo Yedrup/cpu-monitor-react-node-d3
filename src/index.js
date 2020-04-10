@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import RequestProvider from "./data/context/RequestStatusContext";
+import ThemeProvider from "./data/context/ThemeContext";
 import ConfigProvider from "./data/reducers/ConfigContext";
 import DataProvider from "./data/reducers/DataContext";
 import DataTreatment from "./data/DataTreatment";
@@ -15,7 +16,9 @@ ReactDOM.render(
     <ConfigProvider>
       <DataProvider>
       <DataTreatment/>
-      <App />
+      <ThemeProvider>
+        <App />
+      </ThemeProvider>
       </DataProvider>
     </ConfigProvider>
     </RequestProvider>

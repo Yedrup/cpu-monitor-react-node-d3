@@ -1,32 +1,33 @@
 // import {ConfigContext} from "../archiveContext/context/ConfigContext"
 import React, { useContext } from 'react'
 import { RequestStatusContext } from '../data/context/RequestStatusContext';
+import { ThemeContext } from '../data/context/ThemeContext';
 import { DataContext } from "../data/reducers/DataContext";
-import { ConfigContext } from "../data/reducers/ConfigContext";
+import { Typography, makeStyles, Switch } from "@material-ui/core";
 
 function Header() {
-    const {stateConfig, dispatchConfig} = useContext(ConfigContext);
-    // console.log("config from header",stateConfig, dispatchConfig)
     const { isRequesting, setIsRequesting } = useContext(RequestStatusContext);
-    const { stateData, dispatchData } = useContext(DataContext);
+    const { isDarkTheme, setIsDarkTheme } = useContext(ThemeContext);
 
-    // console.log(stateData);
+    const useStyles = makeStyles(theme => ({
+        title: {
+            background: theme.palette.primary.dark,
+            color: theme.palette.secondary.dark
+        }
+    }));
 
+    const classes = useStyles();
     return (
-        <div>
-            <h2>CPU MONITOR HEADER</h2>
+        <div className={classes.title}>
+            <Typography variant="h1" >CPU MONITOR</Typography>
             status request : {isRequesting ? "📫" : "📪"}
-            {/* <div onClick={() => {
-                dispatch({
-                    type: 'ADD_TRACE',
-                    payload: {
-                        traces: {"test":"test"}
-                    }
-                })
-            }}> */}
-                {/* {JSON.stringify(state)} */}
-            {/* </div> */}
-            {/* <button onClick={() => config.log()}>click to update</button> */}
+            Dark theme:
+            <Switch
+                checked={isDarkTheme}
+                onChange={() => setIsDarkTheme(!isDarkTheme)}
+                name="switchTheme"
+                inputProps={{ 'aria-label': 'secondary checkbox' }}
+            />
         </div>
     )
 }
