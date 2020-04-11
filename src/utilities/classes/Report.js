@@ -1,5 +1,4 @@
-/************CLASS REPORT ***************************************************************************************************/
-import {getDurationInHMS, calculateTracesArrayAverage,getPeakAndTroughFromTraces} from "./utilities"
+import {getDurationInHMS, calculateTracesArrayAverage,getPeakAndTroughFromTraces} from "../utilities"
 
 export default class Report {
     constructor(type, traces) {

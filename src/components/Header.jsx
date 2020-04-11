@@ -1,8 +1,6 @@
-// import {ConfigContext} from "../archiveContext/context/ConfigContext"
 import React, { useContext } from 'react'
 import { RequestStatusContext } from '../data/context/RequestStatusContext';
 import { ThemeContext } from '../data/context/ThemeContext';
-import { DataContext } from "../data/reducers/DataContext";
 import { Typography, makeStyles, Switch } from "@material-ui/core";
 
 function Header() {
@@ -18,7 +16,7 @@ function Header() {
 
     const classes = useStyles();
     return (
-        <div className={classes.title}>
+        <header className={classes.title}>
             <Typography variant="h1" >CPU MONITOR</Typography>
             status request : {isRequesting ? "📫" : "📪"}
             Dark theme:
@@ -28,7 +26,7 @@ function Header() {
                 name="switchTheme"
                 inputProps={{ 'aria-label': 'secondary checkbox' }}
             />
-        </div>
+        </header>
     )
 }
 

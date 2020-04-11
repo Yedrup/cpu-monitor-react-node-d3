@@ -3,12 +3,12 @@ import {
     callApi,
     unmergeArraysConsecutivlyJoined
 } from "../utilities/utilities";
-import Trace from "../utilities/Trace";
-import Report from "../utilities/Report";
+import Trace from "../utilities/classes/Trace";
+import Report from "../utilities/classes/Report";
 import { RequestStatusContext } from './context/RequestStatusContext';
 import { DataContext } from "./reducers/DataContext";
 import { ConfigContext } from "./reducers/ConfigContext";
-
+import { NotificationContext } from "./reducers/NotificationContext";
 
 
 function DataTreatment() {
@@ -17,6 +17,7 @@ function DataTreatment() {
     const { isRequesting, setIsRequesting } = useContext(RequestStatusContext);
     const { dispatchData, stateData } = useContext(DataContext);
     const { stateConfig } = useContext(ConfigContext);
+    const { dispatchNotification } = useContext(NotificationContext);
     const [cpuData, setCpuData] = useState({});
 
     // STEPS 
@@ -175,7 +176,12 @@ const createReport = (types, traces) => {
                 setHighLoadAverageConfirmed([]);
             } else {
                 console.log("IS HIGH LOAD CONFIRMED", isHighLoadAverageConfirmed);
-                console.log("📢 NEED TO ALERT START OF INCIDENT, new Alert()")
+                let firstTraceOfPeriod = highLoadAverageSuspected[0]; // last trace created
+                console.log("📢 ALERT START OF INCIDENT");
+                dispatchNotification({
+                    type: 'CREATE_NEW_NOTIFACTION',
+                    payload: {"type": "highLoadConfirmed", "trace": firstTraceOfPeriod}
+                })
                 // update step
                 setCurrentStep(1);
                 //copy high load suspected to high load confirmed
@@ -257,7 +263,12 @@ const createReport = (types, traces) => {
                 if (currentStep === 2) setCurrentStep(null); // TODO reset all 
             } else {
                 console.log("✅ RECOVERING CONFIRMED => END OF EVENT");
-                console.log("📢 NEED TO ALERT END OF INCIDENT, new Alert()"); // maybe later with more context?
+                console.log("📢 ALERT END OF INCIDENT"); // maybe later with more context?
+                let newTrace = recoveryAverageSuspected[0]; // last trace created
+                dispatchNotification({
+                    type: 'CREATE_NEW_NOTIFACTION',
+                    payload: {"type": "recoveryConfirmed", "trace": newTrace}
+                })
                 setCurrentStep(2);
                 setRecoveryAverageConfirmed([...recoveryAverageSuspected])
             }
