@@ -14,7 +14,7 @@ export const ConfigContext = createContext();
 
 
 export const initialConfigState = {
-  loadAverageByCpuConsiredAsHigh : .5,
+  loadAverageByCpuConsiredAsHigh : .6,
   durationMinCpuHighLoadInMs : 30000, /*1min*/
   durationMinRecoveryInMs : 30000, /*1min*/
   intervalInMs : 10000, /*10sec*/

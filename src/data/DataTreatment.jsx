@@ -4,7 +4,7 @@ import {
     unmergeArraysConsecutivlyJoined
 } from "../utilities/utilities";
 import Trace from "../utilities/classes/Trace";
-import Report from "../utilities/classes/Report";
+import { Report, ReportFinished, ReportInProgress } from "../utilities/classes/Report";
 import { RequestStatusContext } from './context/RequestStatusContext';
 import { DataContext } from "./reducers/DataContext";
 import { ConfigContext } from "./reducers/ConfigContext";
@@ -21,78 +21,65 @@ function DataTreatment() {
     const [cpuData, setCpuData] = useState({});
 
     // STEPS 
-    const [currentStep, setCurrentStep] = useState(null); // default null
-   
+    const [currentStep, setCurrentStep] = useState(null);
 
     //STEP 0 HIGH LOAD AVERAGE - suspected 
-    const [isHighLoadAverageSuspected, setIsHighLoadAverageSuspected] = useState(false,"isHighLoadAverageSuspected");
-    const [highLoadAverageSuspected, setHighLoadAverageSuspected] = useState([],"highLoadAverageSuspected");
+    const [isHighLoadAverageSuspected, setIsHighLoadAverageSuspected] = useState(false, "isHighLoadAverageSuspected");
+    const [highLoadAverageSuspected, setHighLoadAverageSuspected] = useState([], "highLoadAverageSuspected");
 
     // STEP 1: HIGH LOAD AVERAGE - suspected  / RECOVERY - suspected
     //  high load confirmed
-    const [isHighLoadAverageConfirmed, setIsHighLoadAverageConfirmed] = useState(false,"isHighLoadAverageConfirmed");
-    const [highLoadAverageConfirmed, setHighLoadAverageConfirmed] = useState([],"highLoadAverageConfirmed");
+    const [isHighLoadAverageConfirmed, setIsHighLoadAverageConfirmed] = useState(false, "isHighLoadAverageConfirmed");
+    const [highLoadAverageConfirmed, setHighLoadAverageConfirmed] = useState([], "highLoadAverageConfirmed");
     // recovery suspected
-    const [isRecoveryAverageSuspected, setIsRecoveryAverageSuspected] = useState(false,"isRecoveryAverageSuspected");
-    const [recoveryAverageSuspected, setRecoveryAverageSuspected] = useState([],"recoveryAverageSuspected");
+    const [isRecoveryAverageSuspected, setIsRecoveryAverageSuspected] = useState(false, "isRecoveryAverageSuspected");
+    const [recoveryAverageSuspected, setRecoveryAverageSuspected] = useState([], "recoveryAverageSuspected");
 
     //STEP 2 RECOVERING AVERAGE confirmed
-    const [isRecoveryAverageConfirmed, setIsRecoveryAverageConfirmed] = useState(false,"isRecoveryAverageConfirmed");
-    const [recoveryAverageConfirmed, setRecoveryAverageConfirmed] = useState([],"recoveryAverageConfirmed");
-    
+    const [isRecoveryAverageConfirmed, setIsRecoveryAverageConfirmed] = useState(false, "isRecoveryAverageConfirmed");
+    const [recoveryAverageConfirmed, setRecoveryAverageConfirmed] = useState([], "recoveryAverageConfirmed");
+
     //RESET
-    const [isReseting, setIsReseting] = useState(false,"isReseting");
+    const [isReseting, setIsReseting] = useState(false, "isReseting");
 
 
-    // reference of steps
-    const steps = [
-        {
-            state: highLoadAverageSuspected, // Maybe incicent  // graph something kind of blury
-            update: setHighLoadAverageSuspected
-        },
-        {
-            state: highLoadAverageConfirmed, // high load average confirmed ....  recovery suspected treated same time as high load average confirmed
-            update: setHighLoadAverageConfirmed, //alert
-        },
-        {
-            state: recoveryAverageConfirmed,// alert, finish , report
-            update: setRecoveryAverageConfirmed
+
+
+
+    const [isTemporaryHighLoadReportCreated, setIsTemporaryHighLoadReportCreated] = useState(false)
+
+    /********* UTILITIES */
+
+    const manageTracesLRU = (traces, newTrace) => {
+        let updatedTraces = [...traces, newTrace];
+        let maxLength = stateConfig.getTimeWindowArrayLength();
+        if (updatedTraces.length > maxLength) {
+            // TODO : if update stateConfig, see to slice if new timeWindowArrayLength is smaller
+            updatedTraces.shift();
         }
-    ];
-
-
-  /********* UTILITIES */
-
-const manageTracesLRU = (traces, newTrace) => {
-    let updatedTraces = [...traces, newTrace];
-    let maxLength = stateConfig.getTimeWindowArrayLength();
-    if (updatedTraces.length > maxLength) {
-        // TODO : if update stateConfig, see to slice if new timeWindowArrayLength is smaller
-        updatedTraces.shift();
+        return updatedTraces;
     }
-    return updatedTraces;
-}
 
-const calculateTracesArrayAverage = (arrOfTraces) => {
-    let average = parseFloat(arrOfTraces.reduce((acc, currTrace) => {
-        return parseFloat(acc) + parseFloat(currTrace.loadAverageLast1Min)
-    }, 0) / arrOfTraces.length);
-    return average;
-}
+    const calculateTracesArrayAverage = (arrOfTraces) => {
+        let average = parseFloat(arrOfTraces.reduce((acc, currTrace) => {
+            return parseFloat(acc) + parseFloat(currTrace.loadAverageLast1Min)
+        }, 0) / arrOfTraces.length);
+        return average;
+    }
 
-const getHighLoadCleanConfirmedTraces = (highLoadsConfirmedAverages, recoveryConfirmedAverages, checkProp="dateInMs") => {
-    return unmergeArraysConsecutivlyJoined(highLoadsConfirmedAverages, recoveryConfirmedAverages, checkProp);
-}
-const createReport = (types, traces) => {
-    let report = new Report(types, traces);
-    return report;
-}
+    const getHighLoadCleanConfirmedTraces = (highLoadsConfirmedAverages, recoveryConfirmedAverages, checkProp = "dateInMs") => {
+        return unmergeArraysConsecutivlyJoined(highLoadsConfirmedAverages, recoveryConfirmedAverages, checkProp);
+    }
+    const createReport = (type, traces) => {
+        let report = new ReportFinished(type, traces);
+        return report;
+    }
 
-/*** Main state effect */
+    /*** Main state effect */
 
     useEffect(() => {
         if (isRequesting) {
-            console.log("requesting...");
+            console.log("requesting api ...");
             callApi("api/cpu/averages").then(data => {
                 setCpuData(data);
                 setIsRequesting(false);
@@ -102,7 +89,7 @@ const createReport = (types, traces) => {
     }, [isRequesting]);
 
     useEffect(() => {
-        let newTrace = new Trace(cpuData,stateConfig);
+        let newTrace = new Trace(cpuData, stateConfig);
         let updatedTraces = cpuData.loadAverageLast1Min ? manageTracesLRU(stateData.traces, newTrace) : [];
         dispatchData({
             type: 'UPDATE_TRACES',
@@ -112,20 +99,38 @@ const createReport = (types, traces) => {
         return () => null;
     }, [cpuData])
     useEffect(() => {
-        console.log("current step changed", currentStep);
-        if(currentStep === null && isReseting) {
-            console.log("reset");
+        console.log("Change previous step to =>", currentStep);
+        if (currentStep === null && isReseting) {
+            console.log("RESET : TODO REFACTO");
             setIsHighLoadAverageSuspected(false)
             setIsHighLoadAverageConfirmed(false)
             setIsRecoveryAverageSuspected(false)
+            setIsTemporaryHighLoadReportCreated(false)
             setIsRecoveryAverageConfirmed(false)
         }
         return () => null;
     }, [currentStep])
 
     /********* ALGO STEPS to refacto*/
+    // Management of high load average and recovery as steps.
+    // reference of steps
+    const steps = [
+        {
+            state: highLoadAverageSuspected, // Maybe high load average
+            update: setHighLoadAverageSuspected
+        },
+        {
+            state: highLoadAverageConfirmed, // high load average confirmed ....  recovery suspected treated same time as high load average confirmed
+            update: setHighLoadAverageConfirmed,
+        },
+        {
+            state: recoveryAverageConfirmed,// alert, finish , create reports
+            update: setRecoveryAverageConfirmed
+        }
+    ];
+    //TODO: remove step logic from this file 
 
-    //🔶👀 STEP 1 _ SUSPECT HIGH LOAD AVERAGE
+    //🔶👀 STEP index 0 _ SUSPECT HIGH LOAD AVERAGE
     //HIGH LOAD AVERAGE supected
     useEffect(() => {
         if (isInitialMount.current) {
@@ -164,7 +169,7 @@ const createReport = (types, traces) => {
         return () => null;
     }, [highLoadAverageSuspected])
 
-    //STEP 2 _ 🔴 CONFIRMED HIGH LOAD AVERAGE  + 🔷👀SUSPECT RECOVERY  
+    //STEP index 1 _ 🔴 CONFIRMED HIGH LOAD AVERAGE  + 🔷👀SUSPECT RECOVERY  
     //🔴 HIGH LOAD AVERAGE confirmed
     useEffect(() => {
         if (isInitialMount.current) {
@@ -180,7 +185,7 @@ const createReport = (types, traces) => {
                 console.log("📢 ALERT START OF INCIDENT");
                 dispatchNotification({
                     type: 'CREATE_NEW_NOTIFACTION',
-                    payload: {"type": "highLoadConfirmed", "trace": firstTraceOfPeriod}
+                    payload: { "type": "highLoadConfirmed", "trace": firstTraceOfPeriod }
                 })
                 // update step
                 setCurrentStep(1);
@@ -199,6 +204,24 @@ const createReport = (types, traces) => {
                 console.log("🔴 HIGH LOAD CONFIRMED ARRAY", highLoadAverageConfirmed);
                 let newTrace = highLoadAverageConfirmed[highLoadAverageConfirmed.length - 1];
                 let isALoadAverageDecrease = newTrace.loadAverageLast1Min < stateConfig.loadAverageByCpuConsiredAsHigh;
+
+                // create a new temporary report in reducer
+                if (!isTemporaryHighLoadReportCreated) {
+                    let newTemporaryReport = new ReportInProgress("temporary", highLoadAverageConfirmed)
+                    dispatchData({
+                        type: 'CREATE_REPORT_HIGH_LOAD_IN_PROGRESS',
+                        payload: newTemporaryReport
+                    })
+                    setIsTemporaryHighLoadReportCreated(true);
+
+                } else {
+                    // simply update with traces
+                    dispatchData({
+                        type: 'UPDATE_REPORT_HIGH_LOAD_IN_PROGRESS',
+                        payload: highLoadAverageConfirmed
+                    })
+                }
+
                 if (isALoadAverageDecrease && !isRecoveryAverageSuspected) {
                     setIsRecoveryAverageSuspected(true);
                 }
@@ -237,7 +260,6 @@ const createReport = (types, traces) => {
                 let isRecovering = currentSuspectedWindowAverage < stateConfig.loadAverageByCpuConsiredAsHigh;
                 let isWindowMinToConfirmReached = recoveryAverageSuspected.length >= stateConfig.getRecoveryArrayMinLength();
                 if (isRecovering) {
-                    console.log("isRecovering");
                     if (isWindowMinToConfirmReached) { // confirm the recovery if time min is passed
                         console.log("confirm THE END OF INCIDENT");
                         setIsRecoveryAverageConfirmed(true);
@@ -252,7 +274,7 @@ const createReport = (types, traces) => {
     }, [recoveryAverageSuspected])
 
 
-    //STEP 3 _ ✅ RECOVERY CONFIRMED _ REPORT END HIGH LOAD AVERAGE
+    //STEP index 2 _ ✅ RECOVERY CONFIRMED _ REPORT END HIGH LOAD AVERAGE
     useEffect(() => {
         if (isInitialMount.current) {
             isInitialMount.current = false;
@@ -267,7 +289,7 @@ const createReport = (types, traces) => {
                 let newTrace = recoveryAverageSuspected[0]; // last trace created
                 dispatchNotification({
                     type: 'CREATE_NEW_NOTIFACTION',
-                    payload: {"type": "recoveryConfirmed", "trace": newTrace}
+                    payload: { "type": "recoveryConfirmed", "trace": newTrace }
                 })
                 setCurrentStep(2);
                 setRecoveryAverageConfirmed([...recoveryAverageSuspected])
@@ -281,19 +303,15 @@ const createReport = (types, traces) => {
         } else {
             if (isRecoveryAverageConfirmed) {
                 console.log("UPDATE ARRAY - recoveryAverageConfirmed", recoveryAverageConfirmed);
-                let highLoadCleanConfirmedTraces = getHighLoadCleanConfirmedTraces(highLoadAverageConfirmed, recoveryAverageConfirmed);
-                console.log("highLoadCleanConfirmedTraces", highLoadCleanConfirmedTraces);
+                let { highLoadAverageNewReport, recoveringAverageNewReport } = getFinalReports(highLoadAverageConfirmed, recoveryAverageConfirmed);
 
-                let highLoadAverageNewReport = createReport("highLoad", highLoadCleanConfirmedTraces);
-                let recoveringAverageNewReport = createReport("recovery",recoveryAverageConfirmed);
-               
                 dispatchData({
-                    type: 'UPDATE_REPORTS',
+                    type: 'UPDATE_FINAL_REPORTS',
                     payload: {
                         "highLoadReports": highLoadAverageNewReport,
-                        "recoveryReports": recoveringAverageNewReport}
+                        "recoveryReports": recoveringAverageNewReport
+                    }
                 })
-
                 //RESET ALL
                 setIsReseting(true);
                 setCurrentStep(null);
@@ -302,25 +320,30 @@ const createReport = (types, traces) => {
         return () => null;
     }, [recoveryAverageConfirmed])
 
+    // main function 
     const controlTrace = (traces, newTrace) => {
         const isHigherThanAverage = newTrace.loadAverageLast1Min > stateConfig.loadAverageByCpuConsiredAsHigh;
         const isCurrentlyAProcess = currentStep !== null;
-        console.log("isCurrentlyAProcess",isCurrentlyAProcess,"currentStep",currentStep)
         if (!isCurrentlyAProcess) {
             if (isHigherThanAverage) {
-                //start step 0
                 setCurrentStep(0);
                 setIsHighLoadAverageSuspected(true);
                 setHighLoadAverageSuspected([...highLoadAverageSuspected, newTrace]);
             } else {
-                console.log("🏖 Nothing wrong for now")
+                console.log("🏖 Everything is ok so far");
             }
         } else {
-            // A Process is already started, we just need to update the array
+            // A Process is already started => update the current step array
             steps[currentStep].update([...steps[currentStep].state, newTrace]);
         }
     }
 
+    const getFinalReports = (highLoadAverageConfirmed, recoveryAverageConfirmed) => {
+        let highLoadCleanConfirmedTraces = getHighLoadCleanConfirmedTraces(highLoadAverageConfirmed, recoveryAverageConfirmed);
+        let highLoadAverageNewReport = createReport("highLoad", highLoadCleanConfirmedTraces); // this report is previously created
+        let recoveringAverageNewReport = createReport("recovery", recoveryAverageConfirmed);
+        return { highLoadAverageNewReport, recoveringAverageNewReport };
+    }
 
     return (null);
 

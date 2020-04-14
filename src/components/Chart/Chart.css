@@ -1,0 +1,93 @@
+/* TODO : refacto */
+
+.svg {
+    background: rgba(121, 121, 121, 0.947);
+}
+
+.legend {
+    background: rgba(255, 255, 255, 0.242);
+    fill: rgba(255, 255, 255, 0.303);
+}
+
+.title {
+    fill: white;
+    font-size: 1.5rem;
+}
+
+.tick {
+    color: rgb(201, 201, 201)
+}
+
+.max-line {
+    fill: none;
+    stroke: rgb(255, 0, 0);
+    stroke-dasharray: 8, 8;
+    stroke-width: 4px;
+}
+
+.max-line-text {
+    text-transform: uppercase;
+    stroke: rgb(11, 11, 11);
+    fill: rgb(0, 0, 0);
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.axis-label {
+    stroke: white;
+    fill: white;
+    font-size: 1.25rem;
+}
+
+.lines {
+    stroke-width: 4px;
+    fill: none;
+}
+
+.data-line {
+    stroke: rgb(27, 198, 255);
+}
+
+.data-line-highload {
+    stroke: red;
+}
+.data-line-recovery {
+    stroke: green;
+}
+
+.data-circle {
+    fill: rgb(104, 60, 186);
+}
+.frame {
+    opacity: .2;
+}
+
+.frame-highload,
+.frame-highload-in-progress {
+    fill: #FF0000
+}
+
+.frame-highload,
+.frame-highload-in-progress {
+    fill: #FF0000
+}
+
+.frame-recovery {
+    fill: rgb(34, 255, 0)
+}
+
+.frame-text {
+    fill: #000;
+    stroke: #000;
+}
+.tooltip {
+    position: absolute;
+    z-index: 999;
+    opacity: 0;
+    padding: .5rem 1rem;
+    font: 1rem;
+    background: rgb(91, 91, 91);
+    border: 0px;
+    border-radius: .2rem;
+    pointer-events: none;
+}

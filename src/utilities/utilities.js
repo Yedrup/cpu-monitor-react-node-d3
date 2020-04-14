@@ -7,7 +7,7 @@ const callApi = async ApiUrl => {
     try {
         const response = await fetch(ApiUrl);
         let data = await response.json();
-        console.log("data", data);
+        console.log("API response =>", data);
         return data;
     } catch (err) {
         console.log(err);
@@ -62,14 +62,30 @@ const getLengthOfArrForATimeWindow = (timeWindowInMs, intervalInMs) => {
 
 const removeElementFromArray = (arr, value) => {
     return arr.filter((element) => {
-        return element != value;
+        return element !== value;
     });
+}
+
+
+// TODO : REFACTO THESE TWO FUNCTIONS TO GET ONLY ONE
+const removeTracesFromReportObjToDisplayLRU = (arrOfReportsObj, prop, olderTraceDisplayed) => {
+    let filtered = arrOfReportsObj.filter(currentReport => {
+        return currentReport[prop] > olderTraceDisplayed
+    });
+    return filtered
+}
+
+const removeFromTracesArrToDisplayLRU = (traces, prop, olderTraceDisplayed) => {
+    let filtered = traces.filter(currentTraces => {
+        return currentTraces[prop] > olderTraceDisplayed
+    });
+    return filtered
 }
 
 const unmergeArraysConsecutivlyJoined = (arrayWithDuplicated, array, propTocheck) => {
     const firstDublicatedElement = array[0];
     const indexTraceStartPortionToRm = arrayWithDuplicated.findIndex(currElem => currElem[propTocheck] === firstDublicatedElement[propTocheck]);
-    return arrayWithDuplicated.slice(0, indexTraceStartPortionToRm);
+    return arrayWithDuplicated.slice(0, indexTraceStartPortionToRm + 1);  // +1 to join the end of first part to the next part in chart
 }
 
 const getPeakAndTroughFromTraces = (traces, propToCheck) => {
@@ -78,8 +94,6 @@ const getPeakAndTroughFromTraces = (traces, propToCheck) => {
         acc.peack = (acc.peack === undefined || trace[propToCheck] > acc.peack) ? trace[propToCheck] : acc.peack;
         return acc
     }, {});
-
-    console.log(peakAndTrough);
     return peakAndTrough;
 }
 
@@ -99,5 +113,7 @@ module.exports = {
     //ARRAY
     unmergeArraysConsecutivlyJoined,
     removeElementFromArray,
+    removeTracesFromReportObjToDisplayLRU,
+    removeFromTracesArrToDisplayLRU,
     getPeakAndTroughFromTraces
 };
