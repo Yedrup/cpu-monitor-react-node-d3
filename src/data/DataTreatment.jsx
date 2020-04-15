@@ -4,7 +4,7 @@ import {
     unmergeArraysConsecutivlyJoined
 } from "../utilities/utilities";
 import Trace from "../utilities/classes/Trace";
-import { Report, ReportFinished, ReportInProgress } from "../utilities/classes/Report";
+import { ReportFinished, ReportInProgress } from "../utilities/classes/Report";
 import { RequestStatusContext } from './context/RequestStatusContext';
 import { DataContext } from "./reducers/DataContext";
 import { ConfigContext } from "./reducers/ConfigContext";
@@ -54,7 +54,7 @@ function DataTreatment() {
         let updatedTraces = [...traces, newTrace];
         let maxLength = stateConfig.getTimeWindowArrayLength();
         if (updatedTraces.length > maxLength) {
-            // TODO : if update stateConfig, see to slice if new timeWindowArrayLength is smaller
+            //TODO: if update stateConfig, see to slice if new timeWindowArrayLength is smaller
             updatedTraces.shift();
         }
         return updatedTraces;
@@ -111,7 +111,7 @@ function DataTreatment() {
         return () => null;
     }, [currentStep])
 
-    /********* ALGO STEPS to refacto*/
+    /********* ALGO STEPS TODO: remove step logic from this file  */
     // Management of high load average and recovery as steps.
     // reference of steps
     const steps = [
@@ -128,7 +128,6 @@ function DataTreatment() {
             update: setRecoveryAverageConfirmed
         }
     ];
-    //TODO: remove step logic from this file 
 
     //🔶👀 STEP index 0 _ SUSPECT HIGH LOAD AVERAGE
     //HIGH LOAD AVERAGE supected
@@ -282,7 +281,7 @@ function DataTreatment() {
             if (!isRecoveryAverageConfirmed) {
                 console.log("END OF EVENT ===> RESET EVERYTHING");
                 setRecoveryAverageConfirmed([]);
-                if (currentStep === 2) setCurrentStep(null); // TODO reset all 
+                if (currentStep === 2) setCurrentStep(null); //TODO: reset all 
             } else {
                 console.log("✅ RECOVERING CONFIRMED => END OF EVENT");
                 console.log("📢 ALERT END OF INCIDENT"); // maybe later with more context?

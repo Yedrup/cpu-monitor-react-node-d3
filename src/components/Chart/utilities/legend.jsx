@@ -17,13 +17,14 @@ const legend = (elementParent, props) => {
     groupsEnter.append("circle")
         .merge(groups.select("circle"))
         .attr("r", circleRadius)
-        .attr("fill", d => d.color)
+        .attr("class", d => d.class)
 
     groupsEnter.append("text")
         .merge(groups.select("text"))
         .attr("x", textOffset)
-        .attr("dy", ".5rem")
+        .attr("dy", ".3rem")
         .text(d => d.title)
+        .attr("class", "legend-label")
 }
 
 

@@ -3,8 +3,7 @@ import React, {
     useState,
     useRef,
     useLayoutEffect,
-    useEffect,
-    Fragment
+    useEffect
 } from 'react'
 
 import {
@@ -21,6 +20,7 @@ import {
     axisBottom,
 } from "d3";
 
+import { Box } from "@material-ui/core";
 import { ConfigContext } from '../../data/reducers/ConfigContext';
 import { DataContext } from '../../data/reducers/DataContext';
 
@@ -44,8 +44,6 @@ function Chart(props) {
 
     const svgElementRef = useRef(null);
     const [svgElem, setSvgElem] = useState(null);
-    const legendElementRef = useRef(null);
-    const [legendElem, setLegendElem] = useState(null);
 
     const height = props.height;
     const width = props.width;
@@ -56,8 +54,6 @@ function Chart(props) {
     const title = "Monitoring CPU"
     const xAxisLabel = "Time (last x minutes)"; // get data from config
     const yAxisLabel = "CPU Load Average";
-    const maxLabel = "High Load Average";
-    const maxLabelOffset = -10;
 
     const timeConvHMS = timeFormat("%I:%M:%S");
     const defaultYMaxDomain = 3;
@@ -79,7 +75,7 @@ function Chart(props) {
         console.log("getTplFinalReport", report);
         let formattedStartDate = timeConvHMS(report.startDateString);
         return (`
-            <p>🕙From: ${ formattedStartDate} </p>
+            <p>🕙 Event started: ${ formattedStartDate} </p>
             <p>status: In progress</p>
         `)
     }
@@ -90,8 +86,8 @@ function Chart(props) {
         let duration = report.duration;
         let average = report.completeAverage;
         return (`
-            <p>🕙 From: ${ formattedStartDate} </p >
-            <p>🕥 To: ${ formattedEndDate} </p >
+            <p>🕙 Event started: ${ formattedStartDate} </p >
+            <p>🕥 Event finished: ${ formattedEndDate} </p >
             <p>⏱ Duration: ${duration}</p>
             <p>🏷 Average during this event: ${average}</p>
             <p>status: Finished</p>
@@ -101,9 +97,6 @@ function Chart(props) {
     const tooltipTpl = (tpl) => {
         return (tpl);
     }
-
-
-
 
     useLayoutEffect(() => {
         if (svgElementRef.current) {
@@ -127,19 +120,20 @@ function Chart(props) {
 
 
     const renderChart = ({ traces, highLoadFinalReportsToDisplay, recoveryFinalReportsToDisplay, highLoadTempReportToDisplay }) => {
-        selectAll("g").remove(); // avoid duplication before draw
+        selectAll(".mainGroup").remove(); // avoid duplication before draw
         selectAll(".tooltip").remove(); // remove the tooltip when it's display on body. TODO: find a better way
 
         const isHighLoadInProgress = !!highLoadTempReportToDisplay;
 
-        const tooltip = select("body").append("div") // TODO : extrat from render + ideally use mui tooltip
+        const tooltip = select("body").append("div") // TODO: extrat from render + ideally use mui tooltip
             .attr("class", "tooltip");
 
         const svg = select(svgElem)
             .attr("class", "svg");
 
         const mainGroup = svg.append("g")
-            .attr("transform", `translate(${margin.left},${margin.right})`);
+            .attr("transform", `translate(${margin.left},${margin.right})`)
+            .attr("class", "mainGroup");
         mainGroup.append("text")
             .attr("y", -20)
             .attr("x", innerWidth / 3)
@@ -214,7 +208,7 @@ function Chart(props) {
         // FRAME group
         const timeFrameGroup = mainGroup.append("g").attr("class", "timeframe");
 
-        // TEMPORARY HIGH LOAD IN PROGRESS TODO : isolate that Same logic in file and call it into group parent
+        // TEMPORARY HIGH LOAD IN PROGRESS TODO: isolate that Same logic in file and call it into group parent
         if (isHighLoadInProgress) {
             console.log("highLoadTempReportToDisplay", highLoadTempReportToDisplay)
             const framesTemporaryHighLoadInProgress = timeFrameGroup
@@ -307,7 +301,6 @@ function Chart(props) {
             .attr("x2", innerWidth)
             .attr("y2", yScale(loadAverageByCpuConsiredAsHigh));
         maxLoadAverage.append("text")
-            .attr("class", "max-line-text")
             .attr("y", yScale(loadAverageByCpuConsiredAsHigh))
 
 
@@ -340,7 +333,7 @@ function Chart(props) {
                     .style("opacity", .9);
                 tooltip.html(tooltipTpl(getTplTracePoint(d)))
                     .style("left", `${event.pageX}px`)
-                    .style("top", `${event.pageY - 28}px`);
+                    .style("top", `${event.pageY - 30}px`);
             })
             .on("mouseout", () => {
                 tooltip.transition()
@@ -349,29 +342,27 @@ function Chart(props) {
             });
 
 
+        // TODO: Legend needs to be totally outside
         const legendWidth = innerWidth;
         const legendHeight = 100;
         const legendYOffset = 10;
         const legendRadius = 10;
-        const legendElementPadding = 25;
+        const legendElementPadding = 20;
         const legendPointRadius = pointRadius;
 
         const dataLegendCircle = [
             {
                 title: "Time Frame High Load Average",
-                color: '#FF0000',
                 class: "frame frame-highload",
                 radius: legendRadius
             },
             {
                 title: "Time Frame Recovery",
-                color: '#00FF00',
                 class: "frame frame-recovery",
                 radius: legendRadius
             },
             {
-                title: "Average at specific time",
-                color: 'rgb(104, 60, 186)',
+                title: "Last Minute Average At Specific Time",
                 class: "data-circle",
                 radius: legendPointRadius
             }
@@ -388,7 +379,7 @@ function Chart(props) {
             dataLegendCircle,
             spacing: 30,
             circleRadius: legendRadius,
-            textOffset: 20,
+            textOffset: 15,
             padding: legendElementPadding
         });
 
@@ -399,26 +390,26 @@ function Chart(props) {
             .attr("x", `${innerWidth - 250 - legendElementPadding}`)
             .attr("y", `${legendElementPadding + 5}`)
             .attr("width", 60)
-            .attr("height", .3)
+            .attr("height", .5)
             .attr("class", "max-line")
 
         dashGroup.append("text")
-            .attr("x", `${innerWidth - 190 - legendElementPadding}`)
+            .attr("x", `${innerWidth - 180 - legendElementPadding}`)
             .attr("y", `${legendElementPadding}`)
-            .text("HIGH LOAD AVERAGE")
-            .attr("dy", 5)
-            .attr("class", "max-line-text");
+            .text("High Load Average")
+            .attr("dy", 10)
+            .attr("class", "legend-label")
     }
 
     return (
-        <Fragment>
+        <Box display="flex">
             <svg
                 width={props.width}
                 height={props.height}
                 ref={svgElementRef}
             >
             </svg>
-        </Fragment>
+        </Box>
     );
 
 

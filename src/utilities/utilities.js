@@ -67,7 +67,7 @@ const removeElementFromArray = (arr, value) => {
 }
 
 
-// TODO : REFACTO THESE TWO FUNCTIONS TO GET ONLY ONE
+//TODO: REFACTO THESE TWO FUNCTIONS TO GET ONLY ONE
 const removeTracesFromReportObjToDisplayLRU = (arrOfReportsObj, prop, olderTraceDisplayed) => {
     let filtered = arrOfReportsObj.filter(currentReport => {
         return currentReport[prop] > olderTraceDisplayed

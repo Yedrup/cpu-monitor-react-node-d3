@@ -1,4 +1,4 @@
-/* TODO : refacto */
+/* TODO: better class naming + use variable from theming? */
 
 .svg {
     background: rgba(121, 121, 121, 0.947);
@@ -8,10 +8,16 @@
     background: rgba(255, 255, 255, 0.242);
     fill: rgba(255, 255, 255, 0.303);
 }
+.legend-label {
+    fill: rgb(12, 12, 12);
+    stroke: rgba(7, 7, 7, 0.029);
+    font-weight: bold;
+}
 
 .title {
     fill: white;
-    font-size: 1.5rem;
+    font-size: 1.75rem;
+    font-weight: bold;
 }
 
 .tick {
@@ -20,17 +26,9 @@
 
 .max-line {
     fill: none;
-    stroke: rgb(255, 0, 0);
-    stroke-dasharray: 8, 8;
+    stroke: rgb(0, 0, 0);
+    stroke-dasharray: 70, 10;
     stroke-width: 4px;
-}
-
-.max-line-text {
-    text-transform: uppercase;
-    stroke: rgb(11, 11, 11);
-    fill: rgb(0, 0, 0);
-    font-size: 1rem;
-    font-weight: bold;
 }
 
 .axis-label {
@@ -45,7 +43,9 @@
 }
 
 .data-line {
-    stroke: rgb(27, 198, 255);
+    stroke: rgb(70, 221, 255);
+    mix-blend-mode: hard-light;
+    stroke-linejoin: miter;
 }
 
 .data-line-highload {
@@ -56,15 +56,10 @@
 }
 
 .data-circle {
-    fill: rgb(104, 60, 186);
+    fill: rgb(106, 0, 255);
 }
 .frame {
     opacity: .2;
-}
-
-.frame-highload,
-.frame-highload-in-progress {
-    fill: #FF0000
 }
 
 .frame-highload,
