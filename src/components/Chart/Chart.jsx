@@ -8,7 +8,6 @@ import React, {
 
 import {
     select,
-    timeFormat,
     selectAll,
     event,
     line,
@@ -22,7 +21,7 @@ import {
 
 import { Box } from "@material-ui/core";
 import { ConfigContext } from '../../data/reducers/ConfigContext';
-import { DataContext } from '../../data/reducers/DataContext';
+import { DataStateContext} from '../../data/reducers/DataContext';
 
 import legend from "./utilities/legend"
 import './Chart.css';
@@ -37,7 +36,7 @@ function Chart(props) {
             highLoadFinalReportsToDisplay,
             highLoadTempReportToDisplay
         }
-    } = useContext(DataContext);
+    } = useContext(DataStateContext);
 
     const { windowInMs, loadAverageByCpuConsiredAsHigh } = stateConfig
     let timeWindowArrayLength = stateConfig.getTimeWindowArrayLength();
@@ -55,41 +54,36 @@ function Chart(props) {
     const xAxisLabel = "Time (last x minutes)"; // get data from config
     const yAxisLabel = "CPU Load Average";
 
-    const timeConvHMS = timeFormat("%I:%M:%S");
     const defaultYMaxDomain = 3;
-    const xValue = d => d.date;
+    const xValue = d => d.dateObj;
     const yValue = d => +d.loadAverageLast1Min;
     const pointRadius = 5;
 
 
     const tooltipTransitionInMs = 100;
-    const getTplTracePoint = (data) => {
-        let formatted = timeConvHMS(data.date);
+    const getTplTracePoint = (trace) => {
+        const { dateString, loadAverageLast1Min } = trace;
         return (`
-            <p>🕒 Time: ${ formatted}</p >
-            <p>🏷 Average: ${data.loadAverageLast1Min}</p>
+            <p>🕒 Time: ${ dateString}</p >
+            <p>🏷 Average: ${loadAverageLast1Min}</p>
         `)
     }
 
     const getTplTemporaryReport = (report) => {
-        console.log("getTplFinalReport", report);
-        let formattedStartDate = timeConvHMS(report.startDateString);
         return (`
-            <p>🕙 Event started: ${ formattedStartDate} </p>
+            <h1>High Load Average</h1>
+            <p>🕙 Event started: ${ report.startDateString} </p>
             <p>status: In progress</p>
         `)
     }
     const getTplFinalReport = (report) => {
-        console.log("getTplFinalReport", report);
-        let formattedStartDate = timeConvHMS(report.startDateString);
-        let formattedEndDate = timeConvHMS(report.endDateString);
-        let duration = report.duration;
-        let average = report.completeAverage;
+        const { duration, completeAverage, startDateString, endDateString } = report;
         return (`
-            <p>🕙 Event started: ${ formattedStartDate} </p >
-            <p>🕥 Event finished: ${ formattedEndDate} </p >
+            <h1>High Load Average</h1>
+            <p>🕙 Event started: ${ startDateString} </p >
+            <p>🕥 Event finished: ${ endDateString} </p >
             <p>⏱ Duration: ${duration}</p>
-            <p>🏷 Average during this event: ${average}</p>
+            <p>🏷 Average during this event: ${completeAverage}</p>
             <p>status: Finished</p>
         `)
     }
@@ -120,7 +114,7 @@ function Chart(props) {
 
 
     const renderChart = ({ traces, highLoadFinalReportsToDisplay, recoveryFinalReportsToDisplay, highLoadTempReportToDisplay }) => {
-        selectAll(".mainGroup").remove(); // avoid duplication before draw
+        select(".mainGroup").remove(); // avoid duplication before draw
         selectAll(".tooltip").remove(); // remove the tooltip when it's display on body. TODO: find a better way
 
         const isHighLoadInProgress = !!highLoadTempReportToDisplay;
@@ -151,8 +145,9 @@ function Chart(props) {
 
         const xAxis = axisBottom(xScale)
             .tickSize(-innerHeight)
-            .tickPadding(10)
-            .ticks(timeWindowArrayLength);
+            .tickPadding(3)
+            .ticks(10)
+        // .ticks(timeWindowArrayLength/3);
 
         const xAxisG = mainGroup.append("g")
             .attr("class", "x-axis-group")
@@ -210,7 +205,6 @@ function Chart(props) {
 
         // TEMPORARY HIGH LOAD IN PROGRESS TODO: isolate that Same logic in file and call it into group parent
         if (isHighLoadInProgress) {
-            console.log("highLoadTempReportToDisplay", highLoadTempReportToDisplay)
             const framesTemporaryHighLoadInProgress = timeFrameGroup
                 .datum(highLoadTempReportToDisplay)
                 .append("rect")
@@ -396,14 +390,16 @@ function Chart(props) {
         dashGroup.append("text")
             .attr("x", `${innerWidth - 180 - legendElementPadding}`)
             .attr("y", `${legendElementPadding}`)
-            .text("High Load Average")
+            .text("High Load Average : x")
             .attr("dy", 10)
             .attr("class", "legend-label")
     }
 
+    //TODO: use theming
     return (
         <Box display="flex">
             <svg
+                // style={{backgroundColor: grey[200]}}
                 width={props.width}
                 height={props.height}
                 ref={svgElementRef}

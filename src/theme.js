@@ -1,9 +1,14 @@
 import {
     createMuiTheme
 } from '@material-ui/core/styles';
-import purple from '@material-ui/core/colors/purple';
-import cyan from '@material-ui/core/colors/cyan';
-import red from '@material-ui/core/colors/red';
+import {
+    blue,
+    green,
+    grey,
+    red,
+    cyan,
+    purple
+} from '@material-ui/core/colors';
 
 
 const HEADERS = {
@@ -30,6 +35,10 @@ const HEADERS = {
     h6: {
         fontSize: "1rem",
         fontWeight: "bold",
+    },
+    overline: {
+        fontSize: "3rem",
+        fontWeight: "bold",
     }
 }
 
@@ -52,27 +61,41 @@ const typography = createMuiTheme({
     ...HEADERS
 })
 
-export const darkThemeObj = {
+const darkTheme = createMuiTheme({
     palette: {
         type: 'dark',
         primary: {
-            light: purple[200],
-            main: purple[500],
-            dark: purple[900],
-            contrastText: "#FFF"
-
+            lighter: cyan[50],
+            light: cyan[100],
+            main: cyan[200],
+            dark: cyan[300],
+            darker: cyan[400],
+            contrastText: cyan[50]
         },
         secondary: {
-            light: cyan[200],
-            main: cyan[500],
-            dark: cyan[700],
-            contrastText: "#FFF"
+            lighter: purple[50],
+            light: purple[100],
+            main: purple[200],
+            dark: purple[300],
+            darker: purple[400],
+            contrastText: purple[50]
         },
         error: {
-            light: red[200],
-            main: red[500],
-            dark: red[700],
-            contrastText: "#FFF"
+            lighter: red[50],
+            light: red[100],
+            main: red[200],
+            dark: red[300],
+            darker: red[400],
+            contrastText: "#FAFAFA"
+        },
+        tile: {
+            backgroundColor: "#121212"
+        },
+        icons: {
+            highLoad: red[400],
+            recovery: green[400],
+            default: grey[200],
+            flat: blue[400]
         }
     },
     typography: {
@@ -100,14 +123,15 @@ export const darkThemeObj = {
         h6: {
             ...HEADERS.h6,
             color: cyan[600]
+        },
+        overline: {
+            ...HEADERS.overline,
+            color: cyan[600]
         }
     },
     overrides: {
-        // Style sheet name ⚛️
         MuiButton: {
-            // Name of the rule
             text: {
-                // Some CSS
                 background: `linear-gradient(45deg, ${purple[600]} 30%, ${purple[900]}  90%)`,
                 borderRadius: 3,
                 border: 0,
@@ -117,33 +141,65 @@ export const darkThemeObj = {
                 boxShadow: `0 2px 2px 1px ${purple[900]} `,
             },
         },
-    },
-}
+        MuiAppBar: {
+            root: {
+                background: `linear-gradient(45deg, ${cyan[600]} 30%, ${cyan[700]}  90%)`,
+                color: "white",
+                fontSize: "1.4rem"
+            }
+        },
+        MuiSwitch: {
+            track: {
+                backgroundColor: `${grey[700]}!important`,
+                opacity: `.9!important`
+            },
+            thumb: {
+                color: grey[900]
+            }
+        },
 
-export const lightThemeObj = {
+
+    },
+});
+
+const lightTheme = createMuiTheme({
     palette: {
         type: 'light',
         background: {
             default: purple[50]
         },
         primary: {
-            light: purple[50],
+            lighter: purple[50],
+            light: purple[200],
             main: purple[500],
-            dark: purple[900],
+            dark: purple[700],
+            darker: purple[900],
             contrastText: "#FFF"
-
         },
         secondary: {
-            light: cyan[200],
+            lighter: cyan[50],
+            light: cyan[100],
             main: cyan[500],
             dark: cyan[700],
+            darker: cyan[900],
             contrastText: "#FFF"
         },
         error: {
-            light: red[200],
+            lighter: red[50],
+            light: red[100],
             main: red[500],
             dark: red[700],
+            darker: red[900],
             contrastText: "#FFF"
+        },
+        tile: {
+            backgroundColor: "#FAFAFA"
+        },
+        icons: {
+            highLoad: red[700],
+            recovery: green[700],
+            default: grey[700],
+            flat: blue[700]
         }
     },
     typography: {
@@ -171,9 +227,13 @@ export const lightThemeObj = {
         h6: {
             ...HEADERS.h6,
             color: purple[600]
+        },
+        overline: {
+            ...HEADERS.overline,
+            color: purple[600]
         }
     },
-    overrides: { //test override
+    overrides: {
         MuiButton: {
             text: {
                 background: `linear-gradient(45deg, ${cyan[500]} 30%, ${cyan[900]}  90%)`,
@@ -185,8 +245,29 @@ export const lightThemeObj = {
                 boxShadow: `0 2px 2px 1px ${cyan[900]} `,
             },
         },
-    },
+        MuiAppBar: {
+            root: {
+                background: `linear-gradient(45deg, ${purple[600]} 30%, ${purple[900]}  90%)`,
+                color: "white",
+                fontSize: "1.4rem"
+            }
+        },
+        MuiSwitch: {
+            track: {
+                backgroundColor: `${purple[50]}!important`,
+                opacity: .6,
+            },
+            thumb: {
+                color: purple[50],
 
+            }
+        },
+    }
+});
+
+const themes = {
+    darkTheme,
+    lightTheme
 };
 
-export default darkThemeObj;
+export default themes;

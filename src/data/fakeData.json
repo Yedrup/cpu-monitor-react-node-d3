@@ -1,8 +1,9 @@
 {
     "traces": [
         {
-            "loadAverageLast1Min": 0.6444091796875,
-            "date": "2020-04-14T07:06:03.258Z",
+            "loadAverageLast1Min": "0.58",
+            "dateString": "Apr 17 11:49:15.976",
+            "dateObj": "2020-04-17T09:49:15.976Z",
             "configUsed": {
                 "loadAverageByCpuConsiredAsHigh": 0.6,
                 "durationMinCpuHighLoadInMs": 30000,
@@ -10,30 +11,145 @@
                 "intervalInMs": 10000,
                 "windowInMs": 180000
             },
-            "dateInMs": 1586847963258,
-            "loadAverageLast5Mins": 0.6536865234375,
-            "loadAverageLast15Mins": 0.7247314453125
+            "dateInMs": 1587116955976,
+            "loadAverageLast5Mins": "0.48",
+            "loadAverageLast15Mins": "0.51"
         },
         {
-            "loadAverageLast1Min": 0.64208984375,
-            "date": "2020-04-14T07:06:13.248Z",
-            "dateInMs": 1586847973248,
-            "loadAverageLast5Mins": 0.6527099609375,
-            "loadAverageLast15Mins": 0.7235107421875
+            "loadAverageLast1Min": "0.51",
+            "dateString": "Apr 17 11:49:25.976",
+            "dateObj": "2020-04-17T09:49:25.976Z",
+            "dateInMs": 1587116965976,
+            "loadAverageLast5Mins": "0.46",
+            "loadAverageLast15Mins": "0.50"
         },
         {
-            "loadAverageLast1Min": 0.60009765625,
-            "date": "2020-04-14T07:06:23.255Z",
-            "dateInMs": 1586847983255,
-            "loadAverageLast5Mins": 0.6434326171875,
-            "loadAverageLast15Mins": 0.7193603515625
+            "loadAverageLast1Min": "0.53",
+            "dateString": "Apr 17 11:49:35.975",
+            "dateObj": "2020-04-17T09:49:35.975Z",
+            "dateInMs": 1587116975975,
+            "loadAverageLast5Mins": "0.47",
+            "loadAverageLast15Mins": "0.51"
         },
         {
-            "loadAverageLast1Min": 0.5814208984375,
-            "date": "2020-04-14T07:06:33.256Z",
-            "dateInMs": 1586847993256,
-            "loadAverageLast5Mins": 0.638427734375,
-            "loadAverageLast15Mins": 0.7166748046875
+            "loadAverageLast1Min": "0.47",
+            "dateString": "Apr 17 11:49:45.975",
+            "dateObj": "2020-04-17T09:49:45.975Z",
+            "dateInMs": 1587116985975,
+            "loadAverageLast5Mins": "0.46",
+            "loadAverageLast15Mins": "0.50"
+        },
+        {
+            "loadAverageLast1Min": "0.43",
+            "dateString": "Apr 17 11:49:55.976",
+            "dateObj": "2020-04-17T09:49:55.976Z",
+            "dateInMs": 1587116995976,
+            "loadAverageLast5Mins": "0.45",
+            "loadAverageLast15Mins": "0.50"
+        },
+        {
+            "loadAverageLast1Min": "0.42",
+            "dateString": "Apr 17 11:50:5.975",
+            "dateObj": "2020-04-17T09:50:05.975Z",
+            "dateInMs": 1587117005975,
+            "loadAverageLast5Mins": "0.45",
+            "loadAverageLast15Mins": "0.50"
+        },
+        {
+            "loadAverageLast1Min": "0.45",
+            "dateString": "Apr 17 11:50:15.973",
+            "dateObj": "2020-04-17T09:50:15.973Z",
+            "dateInMs": 1587117015973,
+            "loadAverageLast5Mins": "0.45",
+            "loadAverageLast15Mins": "0.50"
+        },
+        {
+            "loadAverageLast1Min": "0.44",
+            "dateString": "Apr 17 11:50:25.977",
+            "dateObj": "2020-04-17T09:50:25.977Z",
+            "dateInMs": 1587117025977,
+            "loadAverageLast5Mins": "0.45",
+            "loadAverageLast15Mins": "0.50"
+        },
+        {
+            "loadAverageLast1Min": "0.43",
+            "dateString": "Apr 17 11:50:35.978",
+            "dateObj": "2020-04-17T09:50:35.978Z",
+            "dateInMs": 1587117035978,
+            "loadAverageLast5Mins": "0.45",
+            "loadAverageLast15Mins": "0.49"
+        },
+        {
+            "loadAverageLast1Min": "0.40",
+            "dateString": "Apr 17 11:50:45.979",
+            "dateObj": "2020-04-17T09:50:45.979Z",
+            "dateInMs": 1587117045979,
+            "loadAverageLast5Mins": "0.44",
+            "loadAverageLast15Mins": "0.49"
+        },
+        {
+            "loadAverageLast1Min": "0.40",
+            "dateString": "Apr 17 11:50:55.977",
+            "dateObj": "2020-04-17T09:50:55.977Z",
+            "dateInMs": 1587117055977,
+            "loadAverageLast5Mins": "0.44",
+            "loadAverageLast15Mins": "0.49"
+        },
+        {
+            "loadAverageLast1Min": "0.39",
+            "dateString": "Apr 17 11:51:5.978",
+            "dateObj": "2020-04-17T09:51:05.978Z",
+            "dateInMs": 1587117065978,
+            "loadAverageLast5Mins": "0.44",
+            "loadAverageLast15Mins": "0.49"
+        },
+        {
+            "loadAverageLast1Min": "0.53",
+            "dateString": "Apr 17 11:51:15.979",
+            "dateObj": "2020-04-17T09:51:15.979Z",
+            "dateInMs": 1587117075979,
+            "loadAverageLast5Mins": "0.46",
+            "loadAverageLast15Mins": "0.50"
+        },
+        {
+            "loadAverageLast1Min": "0.55",
+            "dateString": "Apr 17 11:51:25.980",
+            "dateObj": "2020-04-17T09:51:25.980Z",
+            "dateInMs": 1587117085980,
+            "loadAverageLast5Mins": "0.47",
+            "loadAverageLast15Mins": "0.50"
+        },
+        {
+            "loadAverageLast1Min": "0.52",
+            "dateString": "Apr 17 11:51:35.977",
+            "dateObj": "2020-04-17T09:51:35.977Z",
+            "dateInMs": 1587117095977,
+            "loadAverageLast5Mins": "0.47",
+            "loadAverageLast15Mins": "0.50"
+        },
+        {
+            "loadAverageLast1Min": "0.50",
+            "dateString": "Apr 17 11:51:45.982",
+            "dateObj": "2020-04-17T09:51:45.982Z",
+            "dateInMs": 1587117105982,
+            "loadAverageLast5Mins": "0.46",
+            "loadAverageLast15Mins": "0.50"
+        },
+        {
+            "loadAverageLast1Min": "0.54",
+            "dateString": "Apr 17 11:51:55.979",
+            "dateObj": "2020-04-17T09:51:55.979Z",
+            "dateInMs": 1587117115979,
+            "loadAverageLast5Mins": "0.47",
+            "loadAverageLast15Mins": "0.50"
+        },
+        {
+            "loadAverageLast1Min": "0.51",
+            "dateString": "Apr 17 11:52:5.981",
+            "dateObj": "2020-04-17T09:52:05.981Z",
+            "dateInMs": 1587117125981,
+            "loadAverageLast5Mins": "0.47",
+            "loadAverageLast15Mins": "0.50"
         }
     ],
     "eventsFinalReports": [
@@ -41,8 +157,9 @@
             "highLoadReports": {
                 "traces": [
                     {
-                        "loadAverageLast1Min": 0.685546875,
-                        "date": "2020-04-14T06:53:13.224Z",
+                        "loadAverageLast1Min": "0.68",
+                        "dateString": "Apr 17 11:52:52.699",
+                        "dateObj": "2020-04-17T09:52:52.699Z",
                         "configUsed": {
                             "loadAverageByCpuConsiredAsHigh": 0.6,
                             "durationMinCpuHighLoadInMs": 30000,
@@ -50,99 +167,92 @@
                             "intervalInMs": 10000,
                             "windowInMs": 180000
                         },
-                        "dateInMs": 1586847193224,
-                        "loadAverageLast5Mins": 0.74658203125,
-                        "loadAverageLast15Mins": 0.84716796875
+                        "dateInMs": 1587117172699,
+                        "loadAverageLast5Mins": "0.52",
+                        "loadAverageLast15Mins": "0.51"
                     },
                     {
-                        "loadAverageLast1Min": 0.67529296875,
-                        "date": "2020-04-14T06:53:23.222Z",
-                        "dateInMs": 1586847203222,
-                        "loadAverageLast5Mins": 0.742431640625,
-                        "loadAverageLast15Mins": 0.844482421875
+                        "loadAverageLast1Min": "0.73",
+                        "dateString": "Apr 17 11:53:2.656",
+                        "dateObj": "2020-04-17T09:53:02.656Z",
+                        "dateInMs": 1587117182656,
+                        "loadAverageLast5Mins": "0.53",
+                        "loadAverageLast15Mins": "0.52"
                     },
                     {
-                        "loadAverageLast1Min": 0.6650390625,
-                        "date": "2020-04-14T06:53:33.227Z",
-                        "dateInMs": 1586847213227,
-                        "loadAverageLast5Mins": 0.7384033203125,
-                        "loadAverageLast15Mins": 0.841796875
+                        "loadAverageLast1Min": "0.66",
+                        "dateString": "Apr 17 11:53:12.661",
+                        "dateObj": "2020-04-17T09:53:12.661Z",
+                        "dateInMs": 1587117192661,
+                        "loadAverageLast5Mins": "0.52",
+                        "loadAverageLast15Mins": "0.52"
                     },
                     {
-                        "loadAverageLast1Min": 0.6915283203125,
-                        "date": "2020-04-14T06:53:43.224Z",
-                        "dateInMs": 1586847223224,
-                        "loadAverageLast5Mins": 0.7425537109375,
-                        "loadAverageLast15Mins": 0.842041015625
+                        "loadAverageLast1Min": "0.63",
+                        "dateString": "Apr 17 11:53:22.663",
+                        "dateObj": "2020-04-17T09:53:22.663Z",
+                        "dateInMs": 1587117202663,
+                        "loadAverageLast5Mins": "0.52",
+                        "loadAverageLast15Mins": "0.52"
                     },
                     {
-                        "loadAverageLast1Min": 0.6588134765625,
-                        "date": "2020-04-14T06:53:53.234Z",
-                        "dateInMs": 1586847233234,
-                        "loadAverageLast5Mins": 0.734375,
-                        "loadAverageLast15Mins": 0.837890625
-                    },
-                    {
-                        "loadAverageLast1Min": 0.6142578125,
-                        "date": "2020-04-14T06:54:03.221Z",
-                        "dateInMs": 1586847243221,
-                        "loadAverageLast5Mins": 0.722412109375,
-                        "loadAverageLast15Mins": 0.832275390625
-                    },
-                    {
-                        "loadAverageLast1Min": 0.5582275390625,
-                        "date": "2020-04-14T06:54:13.223Z",
-                        "dateInMs": 1586847253223,
-                        "loadAverageLast5Mins": 0.7066650390625,
-                        "loadAverageLast15Mins": 0.825439453125
+                        "loadAverageLast1Min": "0.59",
+                        "dateString": "Apr 17 11:53:32.659",
+                        "dateObj": "2020-04-17T09:53:32.659Z",
+                        "dateInMs": 1587117212659,
+                        "loadAverageLast5Mins": "0.52",
+                        "loadAverageLast15Mins": "0.51"
                     }
                 ],
                 "type": "highLoad",
-                "startDateInMs": 1586847193224,
-                "startDateString": "2020-04-14T06:53:13.224Z",
+                "startDateInMs": 1587117172699,
+                "startDateString": "Apr 17 11:52:52.699",
                 "isReportFinished": true,
-                "endDateInMs": 1586847253223,
-                "endDateString": "2020-04-14T06:54:13.223Z",
-                "peack": 0.6915283203125,
-                "though": 0.5582275390625,
-                "completeAverage": 0.6498151506696429,
-                "duration": "0:0:59s"
+                "endDateInMs": 1587117212659,
+                "endDateString": "Apr 17 11:53:32.659",
+                "peack": "0.73",
+                "though": "0.59",
+                "completeAverage": "0.66",
+                "duration": "0:0:39s"
             },
             "recoveryReports": {
                 "traces": [
                     {
-                        "loadAverageLast1Min": 0.4923095703125,
-                        "date": "2020-04-14T06:54:23.224Z",
-                        "dateInMs": 1586847263224,
-                        "loadAverageLast5Mins": 0.6873779296875,
-                        "loadAverageLast15Mins": 0.817138671875
+                        "loadAverageLast1Min": "0.58",
+                        "dateString": "Apr 17 11:53:42.660",
+                        "dateObj": "2020-04-17T09:53:42.660Z",
+                        "dateInMs": 1587117222660,
+                        "loadAverageLast5Mins": "0.52",
+                        "loadAverageLast15Mins": "0.51"
                     },
                     {
-                        "loadAverageLast1Min": 0.513427734375,
-                        "date": "2020-04-14T06:54:33.219Z",
-                        "dateInMs": 1586847273219,
-                        "loadAverageLast5Mins": 0.6851806640625,
-                        "loadAverageLast15Mins": 0.814697265625
+                        "loadAverageLast1Min": "0.53",
+                        "dateString": "Apr 17 11:53:52.660",
+                        "dateObj": "2020-04-17T09:53:52.660Z",
+                        "dateInMs": 1587117232660,
+                        "loadAverageLast5Mins": "0.51",
+                        "loadAverageLast15Mins": "0.51"
                     }
                 ],
                 "type": "recovery",
-                "startDateInMs": 1586847253223,
-                "startDateString": "2020-04-14T06:54:13.223Z",
+                "startDateInMs": 1587117212659,
+                "startDateString": "Apr 17 11:53:32.659",
                 "isReportFinished": true,
-                "endDateInMs": 1586847273219,
-                "endDateString": "2020-04-14T06:54:33.219Z",
-                "peack": 0.5582275390625,
-                "though": 0.4923095703125,
-                "completeAverage": 0.5213216145833334,
-                "duration": "0:0:19s"
+                "endDateInMs": 1587117232660,
+                "endDateString": "Apr 17 11:53:52.660",
+                "peack": "0.59",
+                "though": "0.53",
+                "completeAverage": "0.57",
+                "duration": "0:0:20s"
             }
         },
         {
             "highLoadReports": {
                 "traces": [
                     {
-                        "loadAverageLast1Min": 0.685546875,
-                        "date": "2020-04-14T06:53:13.224Z",
+                        "loadAverageLast1Min": "0.68",
+                        "dateString": "Apr 17 11:52:52.699",
+                        "dateObj": "2020-04-17T09:52:52.699Z",
                         "configUsed": {
                             "loadAverageByCpuConsiredAsHigh": 0.6,
                             "durationMinCpuHighLoadInMs": 30000,
@@ -150,193 +260,186 @@
                             "intervalInMs": 10000,
                             "windowInMs": 180000
                         },
-                        "dateInMs": 1586847193224,
-                        "loadAverageLast5Mins": 0.74658203125,
-                        "loadAverageLast15Mins": 0.84716796875
+                        "dateInMs": 1587117172699,
+                        "loadAverageLast5Mins": "0.52",
+                        "loadAverageLast15Mins": "0.51"
                     },
                     {
-                        "loadAverageLast1Min": 0.67529296875,
-                        "date": "2020-04-14T06:53:23.222Z",
-                        "dateInMs": 1586847203222,
-                        "loadAverageLast5Mins": 0.742431640625,
-                        "loadAverageLast15Mins": 0.844482421875
+                        "loadAverageLast1Min": "0.73",
+                        "dateString": "Apr 17 11:53:2.656",
+                        "dateObj": "2020-04-17T09:53:02.656Z",
+                        "dateInMs": 1587117182656,
+                        "loadAverageLast5Mins": "0.53",
+                        "loadAverageLast15Mins": "0.52"
                     },
                     {
-                        "loadAverageLast1Min": 0.6650390625,
-                        "date": "2020-04-14T06:53:33.227Z",
-                        "dateInMs": 1586847213227,
-                        "loadAverageLast5Mins": 0.7384033203125,
-                        "loadAverageLast15Mins": 0.841796875
+                        "loadAverageLast1Min": "0.66",
+                        "dateString": "Apr 17 11:53:12.661",
+                        "dateObj": "2020-04-17T09:53:12.661Z",
+                        "dateInMs": 1587117192661,
+                        "loadAverageLast5Mins": "0.52",
+                        "loadAverageLast15Mins": "0.52"
                     },
                     {
-                        "loadAverageLast1Min": 0.6915283203125,
-                        "date": "2020-04-14T06:53:43.224Z",
-                        "dateInMs": 1586847223224,
-                        "loadAverageLast5Mins": 0.7425537109375,
-                        "loadAverageLast15Mins": 0.842041015625
+                        "loadAverageLast1Min": "0.63",
+                        "dateString": "Apr 17 11:53:22.663",
+                        "dateObj": "2020-04-17T09:53:22.663Z",
+                        "dateInMs": 1587117202663,
+                        "loadAverageLast5Mins": "0.52",
+                        "loadAverageLast15Mins": "0.52"
                     },
                     {
-                        "loadAverageLast1Min": 0.6588134765625,
-                        "date": "2020-04-14T06:53:53.234Z",
-                        "dateInMs": 1586847233234,
-                        "loadAverageLast5Mins": 0.734375,
-                        "loadAverageLast15Mins": 0.837890625
-                    },
-                    {
-                        "loadAverageLast1Min": 0.6142578125,
-                        "date": "2020-04-14T06:54:03.221Z",
-                        "dateInMs": 1586847243221,
-                        "loadAverageLast5Mins": 0.722412109375,
-                        "loadAverageLast15Mins": 0.832275390625
-                    },
-                    {
-                        "loadAverageLast1Min": 0.5582275390625,
-                        "date": "2020-04-14T06:54:13.223Z",
-                        "dateInMs": 1586847253223,
-                        "loadAverageLast5Mins": 0.7066650390625,
-                        "loadAverageLast15Mins": 0.825439453125
+                        "loadAverageLast1Min": "0.59",
+                        "dateString": "Apr 17 11:53:32.659",
+                        "dateObj": "2020-04-17T09:53:32.659Z",
+                        "dateInMs": 1587117212659,
+                        "loadAverageLast5Mins": "0.52",
+                        "loadAverageLast15Mins": "0.51"
                     }
                 ],
                 "type": "highLoad",
-                "startDateInMs": 1586847193224,
-                "startDateString": "2020-04-14T06:53:13.224Z",
+                "startDateInMs": 1587117172699,
+                "startDateString": "Apr 17 11:52:52.699",
                 "isReportFinished": true,
-                "endDateInMs": 1586847253223,
-                "endDateString": "2020-04-14T06:54:13.223Z",
-                "peack": 0.6915283203125,
-                "though": 0.5582275390625,
-                "completeAverage": 0.6498151506696429,
-                "duration": "0:0:59s"
+                "endDateInMs": 1587117212659,
+                "endDateString": "Apr 17 11:53:32.659",
+                "peack": "0.73",
+                "though": "0.59",
+                "completeAverage": "0.66",
+                "duration": "0:0:39s"
             },
             "recoveryReports": {
                 "traces": [
                     {
-                        "loadAverageLast1Min": 0.4923095703125,
-                        "date": "2020-04-14T06:54:23.224Z",
-                        "dateInMs": 1586847263224,
-                        "loadAverageLast5Mins": 0.6873779296875,
-                        "loadAverageLast15Mins": 0.817138671875
+                        "loadAverageLast1Min": "0.58",
+                        "dateString": "Apr 17 11:53:42.660",
+                        "dateObj": "2020-04-17T09:53:42.660Z",
+                        "dateInMs": 1587117222660,
+                        "loadAverageLast5Mins": "0.52",
+                        "loadAverageLast15Mins": "0.51"
                     },
                     {
-                        "loadAverageLast1Min": 0.513427734375,
-                        "date": "2020-04-14T06:54:33.219Z",
-                        "dateInMs": 1586847273219,
-                        "loadAverageLast5Mins": 0.6851806640625,
-                        "loadAverageLast15Mins": 0.814697265625
+                        "loadAverageLast1Min": "0.53",
+                        "dateString": "Apr 17 11:53:52.660",
+                        "dateObj": "2020-04-17T09:53:52.660Z",
+                        "dateInMs": 1587117232660,
+                        "loadAverageLast5Mins": "0.51",
+                        "loadAverageLast15Mins": "0.51"
                     }
                 ],
                 "type": "recovery",
-                "startDateInMs": 1586847253223,
-                "startDateString": "2020-04-14T06:54:13.223Z",
+                "startDateInMs": 1587117212659,
+                "startDateString": "Apr 17 11:53:32.659",
                 "isReportFinished": true,
-                "endDateInMs": 1586847273219,
-                "endDateString": "2020-04-14T06:54:33.219Z",
-                "peack": 0.5582275390625,
-                "though": 0.4923095703125,
-                "completeAverage": 0.5213216145833334,
-                "duration": "0:0:19s"
+                "endDateInMs": 1587117232660,
+                "endDateString": "Apr 17 11:53:52.660",
+                "peack": "0.59",
+                "though": "0.53",
+                "completeAverage": "0.57",
+                "duration": "0:0:20s"
             }
-        }
-    ],
-    "highLoadFinalReports": [
-        {
-            "traces": [
-                {
-                    "loadAverageLast1Min": 0.6444091796875,
-                    "date": "2020-04-14T07:06:03.258Z",
-                    "configUsed": {
-                        "loadAverageByCpuConsiredAsHigh": 0.6,
-                        "durationMinCpuHighLoadInMs": 30000,
-                        "durationMinRecoveryInMs": 30000,
-                        "intervalInMs": 10000,
-                        "windowInMs": 180000
-                    },
-                    "dateInMs": 1586847963258,
-                    "loadAverageLast5Mins": 0.6536865234375,
-                    "loadAverageLast15Mins": 0.7247314453125
-                },
-                {
-                    "loadAverageLast1Min": 0.64208984375,
-                    "date": "2020-04-14T07:06:13.248Z",
-                    "dateInMs": 1586847973248,
-                    "loadAverageLast5Mins": 0.6527099609375,
-                    "loadAverageLast15Mins": 0.7235107421875
-                },
-                {
-                    "loadAverageLast1Min": 0.60009765625,
-                    "date": "2020-04-14T07:06:23.255Z",
-                    "dateInMs": 1586847983255,
-                    "loadAverageLast5Mins": 0.6434326171875,
-                    "loadAverageLast15Mins": 0.7193603515625
-                },
-                {
-                    "loadAverageLast1Min": 0.5814208984375,
-                    "date": "2020-04-14T07:06:33.256Z",
-                    "dateInMs": 1586847993256,
-                    "loadAverageLast5Mins": 0.638427734375,
-                    "loadAverageLast15Mins": 0.7166748046875
-                }
-            ],
-            "type": "highLoad",
-            "startDateInMs": 1586847963258,
-            "startDateString": "2020-04-14T07:06:03.258Z",
-            "isReportFinished": true,
-            "endDateInMs": 1586847993256,
-            "endDateString": "2020-04-14T07:06:33.256Z",
-            "peack": 0.6444091796875,
-            "though": 0.5814208984375,
-            "completeAverage": 0.61700439453125,
-            "duration": "0:0:29s"
         },
         {
-            "traces": [
-                {
-                    "loadAverageLast1Min": 0.6610107421875,
-                    "date": "2020-04-14T07:05:13.253Z",
-                    "configUsed": {
-                        "loadAverageByCpuConsiredAsHigh": 0.6,
-                        "durationMinCpuHighLoadInMs": 30000,
-                        "durationMinRecoveryInMs": 30000,
-                        "intervalInMs": 10000,
-                        "windowInMs": 180000
+            "highLoadReports": {
+                "traces": [
+                    {
+                        "loadAverageLast1Min": "0.68",
+                        "dateString": "Apr 17 11:52:52.699",
+                        "dateObj": "2020-04-17T09:52:52.699Z",
+                        "configUsed": {
+                            "loadAverageByCpuConsiredAsHigh": 0.6,
+                            "durationMinCpuHighLoadInMs": 30000,
+                            "durationMinRecoveryInMs": 30000,
+                            "intervalInMs": 10000,
+                            "windowInMs": 180000
+                        },
+                        "dateInMs": 1587117172699,
+                        "loadAverageLast5Mins": "0.52",
+                        "loadAverageLast15Mins": "0.51"
                     },
-                    "dateInMs": 1586847913253,
-                    "loadAverageLast5Mins": 0.6629638671875,
-                    "loadAverageLast15Mins": 0.7325439453125
-                },
-                {
-                    "loadAverageLast1Min": 0.61767578125,
-                    "date": "2020-04-14T07:05:23.254Z",
-                    "dateInMs": 1586847923254,
-                    "loadAverageLast5Mins": 0.6533203125,
-                    "loadAverageLast15Mins": 0.7281494140625
-                },
-                {
-                    "loadAverageLast1Min": 0.5794677734375,
-                    "date": "2020-04-14T07:05:33.254Z",
-                    "dateInMs": 1586847933254,
-                    "loadAverageLast5Mins": 0.64404296875,
-                    "loadAverageLast15Mins": 0.7239990234375
-                }
-            ],
-            "type": "highLoad",
-            "startDateInMs": 1586847913253,
-            "startDateString": "2020-04-14T07:05:13.253Z",
-            "isReportFinished": true,
-            "endDateInMs": 1586847933254,
-            "endDateString": "2020-04-14T07:05:33.254Z",
-            "peack": 0.6610107421875,
-            "though": 0.5794677734375,
-            "completeAverage": 0.619384765625,
-            "duration": "0:0:20s"
+                    {
+                        "loadAverageLast1Min": "0.73",
+                        "dateString": "Apr 17 11:53:2.656",
+                        "dateObj": "2020-04-17T09:53:02.656Z",
+                        "dateInMs": 1587117182656,
+                        "loadAverageLast5Mins": "0.53",
+                        "loadAverageLast15Mins": "0.52"
+                    },
+                    {
+                        "loadAverageLast1Min": "0.66",
+                        "dateString": "Apr 17 11:53:12.661",
+                        "dateObj": "2020-04-17T09:53:12.661Z",
+                        "dateInMs": 1587117192661,
+                        "loadAverageLast5Mins": "0.52",
+                        "loadAverageLast15Mins": "0.52"
+                    },
+                    {
+                        "loadAverageLast1Min": "0.63",
+                        "dateString": "Apr 17 11:53:22.663",
+                        "dateObj": "2020-04-17T09:53:22.663Z",
+                        "dateInMs": 1587117202663,
+                        "loadAverageLast5Mins": "0.52",
+                        "loadAverageLast15Mins": "0.52"
+                    },
+                    {
+                        "loadAverageLast1Min": "0.59",
+                        "dateString": "Apr 17 11:53:32.659",
+                        "dateObj": "2020-04-17T09:53:32.659Z",
+                        "dateInMs": 1587117212659,
+                        "loadAverageLast5Mins": "0.52",
+                        "loadAverageLast15Mins": "0.51"
+                    }
+                ],
+                "type": "highLoad",
+                "startDateInMs": 1587117172699,
+                "startDateString": "Apr 17 11:52:52.699",
+                "isReportFinished": true,
+                "endDateInMs": 1587117212659,
+                "endDateString": "Apr 17 11:53:32.659",
+                "peack": "0.73",
+                "though": "0.59",
+                "completeAverage": "0.66",
+                "duration": "0:0:39s"
+            },
+            "recoveryReports": {
+                "traces": [
+                    {
+                        "loadAverageLast1Min": "0.58",
+                        "dateString": "Apr 17 11:53:42.660",
+                        "dateObj": "2020-04-17T09:53:42.660Z",
+                        "dateInMs": 1587117222660,
+                        "loadAverageLast5Mins": "0.52",
+                        "loadAverageLast15Mins": "0.51"
+                    },
+                    {
+                        "loadAverageLast1Min": "0.53",
+                        "dateString": "Apr 17 11:53:52.660",
+                        "dateObj": "2020-04-17T09:53:52.660Z",
+                        "dateInMs": 1587117232660,
+                        "loadAverageLast5Mins": "0.51",
+                        "loadAverageLast15Mins": "0.51"
+                    }
+                ],
+                "type": "recovery",
+                "startDateInMs": 1587117212659,
+                "startDateString": "Apr 17 11:53:32.659",
+                "isReportFinished": true,
+                "endDateInMs": 1587117232660,
+                "endDateString": "Apr 17 11:53:52.660",
+                "peack": "0.59",
+                "though": "0.53",
+                "completeAverage": "0.57",
+                "duration": "0:0:20s"
+            }
         }
     ],
     "recoveryFinalReports": [
         {
             "traces": [
                 {
-                    "loadAverageLast1Min": 0.5753173828125,
-                    "date": "2020-04-14T06:46:03.203Z",
+                    "loadAverageLast1Min": 0.58,
+                    "dateString": "Apr 17 15:38:55.4",
+                    "dateObj": "2020-04-17T13:38:55.004Z",
                     "configUsed": {
                         "loadAverageByCpuConsiredAsHigh": 0.6,
                         "durationMinCpuHighLoadInMs": 30000,
@@ -344,41 +447,128 @@
                         "intervalInMs": 10000,
                         "windowInMs": 180000
                     },
-                    "dateInMs": 1586846763203,
-                    "loadAverageLast5Mins": 0.9105224609375,
-                    "loadAverageLast15Mins": 0.9447021484375
+                    "dateInMs": 1587130735004,
+                    "loadAverageLast5Mins": 0.52,
+                    "loadAverageLast15Mins": 0.61
                 },
                 {
-                    "loadAverageLast1Min": 0.5804443359375,
-                    "date": "2020-04-14T06:46:13.198Z",
-                    "dateInMs": 1586846773198,
-                    "loadAverageLast5Mins": 0.90087890625,
-                    "loadAverageLast15Mins": 0.9407958984375
+                    "loadAverageLast1Min": 0.55,
+                    "dateString": "Apr 17 15:39:5.2",
+                    "dateObj": "2020-04-17T13:39:05.002Z",
+                    "dateInMs": 1587130745002,
+                    "loadAverageLast5Mins": 0.51,
+                    "loadAverageLast15Mins": 0.61
                 },
                 {
-                    "loadAverageLast1Min": 0.56640625,
-                    "date": "2020-04-14T06:46:23.190Z",
-                    "dateInMs": 1586846783190,
-                    "loadAverageLast5Mins": 0.887451171875,
-                    "loadAverageLast15Mins": 0.9354248046875
+                    "loadAverageLast1Min": 0.52,
+                    "dateString": "Apr 17 15:39:15.5",
+                    "dateObj": "2020-04-17T13:39:15.005Z",
+                    "dateInMs": 1587130755005,
+                    "loadAverageLast5Mins": 0.51,
+                    "loadAverageLast15Mins": 0.6
                 }
             ],
             "type": "recovery",
-            "startDateInMs": 1586846763203,
-            "startDateString": "2020-04-14T06:46:03.203Z",
+            "startDateInMs": 1587130735004,
+            "startDateString": "Apr 17 15:38:55.4",
+            "startDateObj": "2020-04-17T13:38:55.004Z",
             "isReportFinished": true,
-            "endDateInMs": 1586846783190,
-            "endDateString": "2020-04-14T06:46:23.190Z",
-            "peack": 0.5804443359375,
-            "though": 0.56640625,
-            "completeAverage": 0.5740559895833334,
-            "duration": "0:0:19s"
+            "endDateInMs": 1587130755005,
+            "endDateString": "Apr 17 15:39:15.5",
+            "endDateObj": "2020-04-17T13:39:15.005Z",
+            "peack": 0.58,
+            "though": 0.52,
+            "completeAverage": "0.55",
+            "duration": "0:0:20s"
         },
         {
             "traces": [
                 {
-                    "loadAverageLast1Min": 0.5826416015625,
-                    "date": "2020-04-14T06:52:43.218Z",
+                    "loadAverageLast1Min": 0.59,
+                    "dateString": "Apr 17 15:42:5.15",
+                    "dateObj": "2020-04-17T13:42:05.015Z",
+                    "dateInMs": 1587130925015,
+                    "loadAverageLast5Mins": 0.57,
+                    "loadAverageLast15Mins": 0.61
+                },
+                {
+                    "loadAverageLast1Min": 0.54,
+                    "dateString": "Apr 17 15:42:15.15",
+                    "dateObj": "2020-04-17T13:42:15.015Z",
+                    "dateInMs": 1587130935015,
+                    "loadAverageLast5Mins": 0.56,
+                    "loadAverageLast15Mins": 0.61
+                },
+                {
+                    "loadAverageLast1Min": 0.65,
+                    "dateString": "Apr 17 15:42:25.92",
+                    "dateObj": "2020-04-17T13:42:25.092Z",
+                    "dateInMs": 1587130945092,
+                    "loadAverageLast5Mins": 0.58,
+                    "loadAverageLast15Mins": 0.62
+                }
+            ],
+            "type": "recovery",
+            "startDateInMs": 1587130925015,
+            "startDateString": "Apr 17 15:42:5.15",
+            "startDateObj": "2020-04-17T13:42:05.015Z",
+            "isReportFinished": true,
+            "endDateInMs": 1587130945092,
+            "endDateString": "Apr 17 15:42:25.92",
+            "endDateObj": "2020-04-17T13:42:25.092Z",
+            "peack": 0.65,
+            "though": 0.54,
+            "completeAverage": "0.59",
+            "duration": "0:0:20s"
+        },
+        {
+            "traces": [
+                {
+                    "loadAverageLast1Min": 0.59,
+                    "dateString": "Apr 17 15:44:55.20",
+                    "dateObj": "2020-04-17T13:44:55.020Z",
+                    "dateInMs": 1587131095020,
+                    "loadAverageLast5Mins": 0.63,
+                    "loadAverageLast15Mins": 0.63
+                },
+                {
+                    "loadAverageLast1Min": 0.54,
+                    "dateString": "Apr 17 15:45:5.17",
+                    "dateObj": "2020-04-17T13:45:05.017Z",
+                    "dateInMs": 1587131105017,
+                    "loadAverageLast5Mins": 0.62,
+                    "loadAverageLast15Mins": 0.63
+                },
+                {
+                    "loadAverageLast1Min": 0.59,
+                    "dateString": "Apr 17 15:45:15.22",
+                    "dateObj": "2020-04-17T13:45:15.022Z",
+                    "dateInMs": 1587131115022,
+                    "loadAverageLast5Mins": 0.63,
+                    "loadAverageLast15Mins": 0.63
+                }
+            ],
+            "type": "recovery",
+            "startDateInMs": 1587131095020,
+            "startDateString": "Apr 17 15:44:55.20",
+            "startDateObj": "2020-04-17T13:44:55.020Z",
+            "isReportFinished": true,
+            "endDateInMs": 1587131115022,
+            "endDateString": "Apr 17 15:45:15.22",
+            "endDateObj": "2020-04-17T13:45:15.022Z",
+            "peack": 0.59,
+            "though": 0.54,
+            "completeAverage": "0.57",
+            "duration": "0:0:20s"
+        }
+    ],
+    "highLoadFinalReports": [
+        {
+            "traces": [
+                {
+                    "loadAverageLast1Min": 0.61,
+                    "dateString": "Apr 17 15:38:14.929",
+                    "dateObj": "2020-04-17T13:38:14.929Z",
                     "configUsed": {
                         "loadAverageByCpuConsiredAsHigh": 0.6,
                         "durationMinCpuHighLoadInMs": 30000,
@@ -386,35 +576,303 @@
                         "intervalInMs": 10000,
                         "windowInMs": 180000
                     },
-                    "dateInMs": 1586847163218,
-                    "loadAverageLast5Mins": 0.7412109375,
-                    "loadAverageLast15Mins": 0.849365234375
+                    "dateInMs": 1587130694929,
+                    "loadAverageLast5Mins": 0.51,
+                    "loadAverageLast15Mins": 0.61
                 },
                 {
-                    "loadAverageLast1Min": 0.58984375,
-                    "date": "2020-04-14T06:52:53.225Z",
-                    "dateInMs": 1586847173225,
-                    "loadAverageLast5Mins": 0.7373046875,
-                    "loadAverageLast15Mins": 0.8466796875
+                    "loadAverageLast1Min": 0.74,
+                    "dateString": "Apr 17 15:38:25.53",
+                    "dateObj": "2020-04-17T13:38:25.053Z",
+                    "dateInMs": 1587130705053,
+                    "loadAverageLast5Mins": 0.54,
+                    "loadAverageLast15Mins": 0.62
                 },
                 {
-                    "loadAverageLast1Min": 0.5574951171875,
-                    "date": "2020-04-14T06:53:03.227Z",
-                    "dateInMs": 1586847183227,
-                    "loadAverageLast5Mins": 0.7252197265625,
-                    "loadAverageLast15Mins": 0.841064453125
+                    "loadAverageLast1Min": 0.68,
+                    "dateString": "Apr 17 15:38:35.6",
+                    "dateObj": "2020-04-17T13:38:35.006Z",
+                    "dateInMs": 1587130715006,
+                    "loadAverageLast5Mins": 0.53,
+                    "loadAverageLast15Mins": 0.62
+                },
+                {
+                    "loadAverageLast1Min": 0.62,
+                    "dateString": "Apr 17 15:38:45.10",
+                    "dateObj": "2020-04-17T13:38:45.010Z",
+                    "dateInMs": 1587130725010,
+                    "loadAverageLast5Mins": 0.52,
+                    "loadAverageLast15Mins": 0.61
+                },
+                {
+                    "loadAverageLast1Min": 0.58,
+                    "dateString": "Apr 17 15:38:55.4",
+                    "dateObj": "2020-04-17T13:38:55.004Z",
+                    "dateInMs": 1587130735004,
+                    "loadAverageLast5Mins": 0.52,
+                    "loadAverageLast15Mins": 0.61
                 }
             ],
-            "type": "recovery",
-            "startDateInMs": 1586847163218,
-            "startDateString": "2020-04-14T06:52:43.218Z",
+            "type": "highLoad",
+            "startDateInMs": 1587130694929,
+            "startDateString": "Apr 17 15:38:14.929",
+            "startDateObj": "2020-04-17T13:38:14.929Z",
             "isReportFinished": true,
-            "endDateInMs": 1586847183227,
-            "endDateString": "2020-04-14T06:53:03.227Z",
-            "peack": 0.58984375,
-            "though": 0.5574951171875,
-            "completeAverage": 0.57666015625,
-            "duration": "0:0:20s"
+            "endDateInMs": 1587130735004,
+            "endDateString": "Apr 17 15:38:55.4",
+            "endDateObj": "2020-04-17T13:38:55.004Z",
+            "peack": 0.74,
+            "though": 0.58,
+            "completeAverage": "0.65",
+            "duration": "0:0:40s"
+        },
+        {
+            "traces": [
+                {
+                    "loadAverageLast1Min": 0.62,
+                    "dateString": "Apr 17 15:40:15.0",
+                    "dateObj": "2020-04-17T13:40:15.000Z",
+                    "dateInMs": 1587130815000,
+                    "loadAverageLast5Mins": 0.53,
+                    "loadAverageLast15Mins": 0.6
+                },
+                {
+                    "loadAverageLast1Min": 0.86,
+                    "dateString": "Apr 17 15:40:25.4",
+                    "dateObj": "2020-04-17T13:40:25.004Z",
+                    "dateInMs": 1587130825004,
+                    "loadAverageLast5Mins": 0.59,
+                    "loadAverageLast15Mins": 0.62
+                },
+                {
+                    "loadAverageLast1Min": 0.78,
+                    "dateString": "Apr 17 15:40:35.5",
+                    "dateObj": "2020-04-17T13:40:35.005Z",
+                    "dateInMs": 1587130835005,
+                    "loadAverageLast5Mins": 0.58,
+                    "loadAverageLast15Mins": 0.62
+                },
+                {
+                    "loadAverageLast1Min": 0.7,
+                    "dateString": "Apr 17 15:40:45.5",
+                    "dateObj": "2020-04-17T13:40:45.005Z",
+                    "dateInMs": 1587130845005,
+                    "loadAverageLast5Mins": 0.57,
+                    "loadAverageLast15Mins": 0.62
+                },
+                {
+                    "loadAverageLast1Min": 0.65,
+                    "dateString": "Apr 17 15:40:55.3",
+                    "dateObj": "2020-04-17T13:40:55.003Z",
+                    "dateInMs": 1587130855003,
+                    "loadAverageLast5Mins": 0.56,
+                    "loadAverageLast15Mins": 0.61
+                },
+                {
+                    "loadAverageLast1Min": 0.67,
+                    "dateString": "Apr 17 15:41:5.6",
+                    "dateObj": "2020-04-17T13:41:05.006Z",
+                    "dateInMs": 1587130865006,
+                    "loadAverageLast5Mins": 0.57,
+                    "loadAverageLast15Mins": 0.61
+                },
+                {
+                    "loadAverageLast1Min": 0.62,
+                    "dateString": "Apr 17 15:41:15.9",
+                    "dateObj": "2020-04-17T13:41:15.009Z",
+                    "dateInMs": 1587130875009,
+                    "loadAverageLast5Mins": 0.56,
+                    "loadAverageLast15Mins": 0.61
+                },
+                {
+                    "loadAverageLast1Min": 0.78,
+                    "dateString": "Apr 17 15:41:25.6",
+                    "dateObj": "2020-04-17T13:41:25.006Z",
+                    "dateInMs": 1587130885006,
+                    "loadAverageLast5Mins": 0.6,
+                    "loadAverageLast15Mins": 0.62
+                },
+                {
+                    "loadAverageLast1Min": 0.72,
+                    "dateString": "Apr 17 15:41:35.4",
+                    "dateObj": "2020-04-17T13:41:35.004Z",
+                    "dateInMs": 1587130895004,
+                    "loadAverageLast5Mins": 0.59,
+                    "loadAverageLast15Mins": 0.62
+                },
+                {
+                    "loadAverageLast1Min": 0.72,
+                    "dateString": "Apr 17 15:41:45.2",
+                    "dateObj": "2020-04-17T13:41:45.002Z",
+                    "dateInMs": 1587130905002,
+                    "loadAverageLast5Mins": 0.59,
+                    "loadAverageLast15Mins": 0.62
+                },
+                {
+                    "loadAverageLast1Min": 0.65,
+                    "dateString": "Apr 17 15:41:55.11",
+                    "dateObj": "2020-04-17T13:41:55.011Z",
+                    "dateInMs": 1587130915011,
+                    "loadAverageLast5Mins": 0.58,
+                    "loadAverageLast15Mins": 0.62
+                },
+                {
+                    "loadAverageLast1Min": 0.59,
+                    "dateString": "Apr 17 15:42:5.15",
+                    "dateObj": "2020-04-17T13:42:05.015Z",
+                    "dateInMs": 1587130925015,
+                    "loadAverageLast5Mins": 0.57,
+                    "loadAverageLast15Mins": 0.61
+                }
+            ],
+            "type": "highLoad",
+            "startDateInMs": 1587130815000,
+            "startDateString": "Apr 17 15:40:15.0",
+            "startDateObj": "2020-04-17T13:40:15.000Z",
+            "isReportFinished": true,
+            "endDateInMs": 1587130925015,
+            "endDateString": "Apr 17 15:42:5.15",
+            "endDateObj": "2020-04-17T13:42:05.015Z",
+            "peack": 0.86,
+            "though": 0.59,
+            "completeAverage": "0.70",
+            "duration": "0:1:50s"
+        },
+        {
+            "traces": [
+                {
+                    "loadAverageLast1Min": 0.77,
+                    "dateString": "Apr 17 15:42:35.18",
+                    "dateObj": "2020-04-17T13:42:35.018Z",
+                    "dateInMs": 1587130955018,
+                    "loadAverageLast5Mins": 0.61,
+                    "loadAverageLast15Mins": 0.63
+                },
+                {
+                    "loadAverageLast1Min": 0.71,
+                    "dateString": "Apr 17 15:42:45.25",
+                    "dateObj": "2020-04-17T13:42:45.025Z",
+                    "dateInMs": 1587130965025,
+                    "loadAverageLast5Mins": 0.6,
+                    "loadAverageLast15Mins": 0.62
+                },
+                {
+                    "loadAverageLast1Min": 0.66,
+                    "dateString": "Apr 17 15:42:55.18",
+                    "dateObj": "2020-04-17T13:42:55.018Z",
+                    "dateInMs": 1587130975018,
+                    "loadAverageLast5Mins": 0.6,
+                    "loadAverageLast15Mins": 0.62
+                },
+                {
+                    "loadAverageLast1Min": 0.61,
+                    "dateString": "Apr 17 15:43:5.33",
+                    "dateObj": "2020-04-17T13:43:05.033Z",
+                    "dateInMs": 1587130985033,
+                    "loadAverageLast5Mins": 0.59,
+                    "loadAverageLast15Mins": 0.62
+                },
+                {
+                    "loadAverageLast1Min": 0.6,
+                    "dateString": "Apr 17 15:43:15.52",
+                    "dateObj": "2020-04-17T13:43:15.052Z",
+                    "dateInMs": 1587130995052,
+                    "loadAverageLast5Mins": 0.59,
+                    "loadAverageLast15Mins": 0.62
+                },
+                {
+                    "loadAverageLast1Min": 0.52,
+                    "dateString": "Apr 17 15:43:25.19",
+                    "dateObj": "2020-04-17T13:43:25.019Z",
+                    "dateInMs": 1587131005019,
+                    "loadAverageLast5Mins": 0.57,
+                    "loadAverageLast15Mins": 0.61
+                },
+                {
+                    "loadAverageLast1Min": 0.93,
+                    "dateString": "Apr 17 15:43:35.55",
+                    "dateObj": "2020-04-17T13:43:35.055Z",
+                    "dateInMs": 1587131015055,
+                    "loadAverageLast5Mins": 0.66,
+                    "loadAverageLast15Mins": 0.64
+                },
+                {
+                    "loadAverageLast1Min": 0.9,
+                    "dateString": "Apr 17 15:43:45.16",
+                    "dateObj": "2020-04-17T13:43:45.016Z",
+                    "dateInMs": 1587131025016,
+                    "loadAverageLast5Mins": 0.66,
+                    "loadAverageLast15Mins": 0.64
+                },
+                {
+                    "loadAverageLast1Min": 0.88,
+                    "dateString": "Apr 17 15:43:55.18",
+                    "dateObj": "2020-04-17T13:43:55.018Z",
+                    "dateInMs": 1587131035018,
+                    "loadAverageLast5Mins": 0.66,
+                    "loadAverageLast15Mins": 0.64
+                },
+                {
+                    "loadAverageLast1Min": 0.97,
+                    "dateString": "Apr 17 15:44:5.14",
+                    "dateObj": "2020-04-17T13:44:05.014Z",
+                    "dateInMs": 1587131045014,
+                    "loadAverageLast5Mins": 0.69,
+                    "loadAverageLast15Mins": 0.65
+                },
+                {
+                    "loadAverageLast1Min": 0.88,
+                    "dateString": "Apr 17 15:44:15.19",
+                    "dateObj": "2020-04-17T13:44:15.019Z",
+                    "dateInMs": 1587131055019,
+                    "loadAverageLast5Mins": 0.68,
+                    "loadAverageLast15Mins": 0.65
+                },
+                {
+                    "loadAverageLast1Min": 0.82,
+                    "dateString": "Apr 17 15:44:25.20",
+                    "dateObj": "2020-04-17T13:44:25.020Z",
+                    "dateInMs": 1587131065020,
+                    "loadAverageLast5Mins": 0.67,
+                    "loadAverageLast15Mins": 0.65
+                },
+                {
+                    "loadAverageLast1Min": 0.73,
+                    "dateString": "Apr 17 15:44:35.29",
+                    "dateObj": "2020-04-17T13:44:35.029Z",
+                    "dateInMs": 1587131075029,
+                    "loadAverageLast5Mins": 0.66,
+                    "loadAverageLast15Mins": 0.64
+                },
+                {
+                    "loadAverageLast1Min": 0.68,
+                    "dateString": "Apr 17 15:44:45.23",
+                    "dateObj": "2020-04-17T13:44:45.023Z",
+                    "dateInMs": 1587131085023,
+                    "loadAverageLast5Mins": 0.65,
+                    "loadAverageLast15Mins": 0.64
+                },
+                {
+                    "loadAverageLast1Min": 0.59,
+                    "dateString": "Apr 17 15:44:55.20",
+                    "dateObj": "2020-04-17T13:44:55.020Z",
+                    "dateInMs": 1587131095020,
+                    "loadAverageLast5Mins": 0.63,
+                    "loadAverageLast15Mins": 0.63
+                }
+            ],
+            "type": "highLoad",
+            "startDateInMs": 1587130955018,
+            "startDateString": "Apr 17 15:42:35.18",
+            "startDateObj": "2020-04-17T13:42:35.018Z",
+            "isReportFinished": true,
+            "endDateInMs": 1587131095020,
+            "endDateString": "Apr 17 15:44:55.20",
+            "endDateObj": "2020-04-17T13:44:55.020Z",
+            "peack": 0.97,
+            "though": 0.52,
+            "completeAverage": "0.75",
+            "duration": "0:2:20s"
         }
     ]
 }

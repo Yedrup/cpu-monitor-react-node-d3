@@ -13,7 +13,7 @@ function ConfigPanel() {
 
         <Card>
             <CardContent>
-                <Typography variant="h6" color="secondary">CONFIG PANNEL</Typography>
+                <Typography variant="h6" color="primary">CONFIG PANNEL</Typography>
 
                 {Object.entries(stateConfig)
                     .map((conf, index) => {
@@ -24,7 +24,7 @@ function ConfigPanel() {
                 <p>timeWindowArrayLength:{timeWindowArrayLength}</p>
                 <p>highLoadAverageMinArrayLength:{highLoadAverageMinArrayLength}</p>
                 <p>recoveryArrayMinLength:{recoveryArrayMinLength}</p>
-                <Button variant="contained" color="primary" onClick={() => {
+                <Button variant="contained" color="secondary" onClick={() => {
                     dispatchConfig({
                         type: 'UPDATE_INTERVAL',
                         payload: 3000

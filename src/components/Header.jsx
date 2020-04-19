@@ -1,36 +1,46 @@
-import React, { useContext } from 'react'
+import React, { useContext, Fragment } from 'react'
 import { RequestStatusContext } from '../data/context/RequestStatusContext';
 import { ThemeContext } from '../data/context/ThemeContext';
-import { Typography, makeStyles, Switch } from "@material-ui/core";
+import { Typography, makeStyles, Switch, AppBar, Toolbar, Button, IconButton } from "@material-ui/core";
 
-// TODO: use mui app toolbar
 function Header() {
     const { isRequesting, setIsRequesting } = useContext(RequestStatusContext);
-    const { isDarkTheme, setIsDarkTheme } = useContext(ThemeContext);
+    const { currentThemeName, setCurrentThemeName } = useContext(ThemeContext);
 
-    const useStyles = makeStyles(theme => ({
+    const useStyles = makeStyles((theme) => ({
+        root: {
+            flexGrow: 1
+        },
         title: {
-            background: "white",
-            color: theme.palette.secondary.dark,
-            padding: "1rem",
-            marginBottom: "2rem"
-        }
+            flexGrow: 1,
+            fontSize: "2rem"
+        },
     }));
+
+    const handleChange = (event) => {
+        if (event.target.checked) {
+            setCurrentThemeName("darkTheme")
+        } else {
+            setCurrentThemeName("lightTheme")
+        }
+    };
 
     const classes = useStyles();
     return (
-        <header className={classes.title}>
-            <Typography variant="h2" >CPU MONITOR</Typography>
-            status request : {isRequesting ? "📫" : "📪"}
-            
-            Dark theme:
-            <Switch
-                checked={isDarkTheme}
-                onChange={() => setIsDarkTheme(!isDarkTheme)}
-                name="switchTheme"
-                inputProps={{ 'aria-label': 'secondary checkbox' }}
-            />
-        </header>
+        <AppBar position="sticky" className={classes.root}>
+            <Toolbar >
+                <Typography className={classes.title}>
+                    CPU Monitor
+          </Typography>
+                <Switch
+                    checked={currentThemeName === "darkTheme"}
+                    onChange={handleChange}
+                    name="switchTheme"
+                    inputProps={{ 'aria-label': 'checkbox' }}
+                /> 
+                <Typography component="span">Dark Theme</Typography>
+            </Toolbar>
+        </AppBar>
     )
 }
 

@@ -45,7 +45,7 @@ function CpuInfo() {
         <Card>
             <CardContent>
                 <Typography color="textSecondary" gutterBottom>CPUS INFO </Typography>
-                <Typography color="secondary">
+                <Typography color="primary">
                     CPU Number: {cpuInfo.cpusCount}
                 </Typography>
                 <CardActions disableSpacing>
@@ -81,20 +81,3 @@ function CpuInfo() {
 }
 
 export default CpuInfo
-
-
-// <div className="panel-cpu-info">
-// <h2>CPUS INFO</h2>
-// <ul className="cpu-info">
-//     <li>CPU Number: {cpuInfo.cpusCount}</li>
-//     {cpuInfo.cpusList.map((cpu, index) => {
-//         return (
-//             <li key={index}>
-//                 <span>cpu n°{index} </span>
-//                 <span>model:{cpu.model} </span>
-//                 <span>speed:{cpu.speed}</span>
-//             </li>
-//         )
-//     })}
-// </ul>
-// </div>

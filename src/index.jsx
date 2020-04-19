@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import RequestProvider from "./data/context/RequestStatusContext";
 import ThemeProvider from "./data/context/ThemeContext";
 import NotificationProvider from "./data/reducers/NotificationContext";

@@ -1,0 +1,64 @@
+{
+    "header": {
+        "title": "CPU Monitor"
+    },
+    "chart": {
+        "title": "Monitoring CPU",
+        "axis": {
+            "xAxisLabel": "Time (last x minutes)",
+            "yAxisLabel": "CPU Load Average"
+        },
+        "tooltip": {
+            "common": {
+                "duration": "Duration",
+                "time": "Time",
+                "average": {
+                    "specificTime": "Average",
+                    "onPeriod": "Average during this event"
+                },
+                "status": {
+                    "finished": "Status: Finished",
+                    "inProgress": "Status: In Progress"
+                }
+            },
+            "highLoad": {
+                "title": "High Load Average"
+            },
+            "recovery": {
+                "title": "Recovery"
+            }
+        },
+        "legend": {
+            "timeFrames": {
+                "highLoad": {
+                    "title": "Time Frame High Load Average"
+                },
+                "recovery": {
+                    "title": "Time Frame Recovery"
+                }
+            },
+            "points": {
+                "title": "Last Minute Average At Specific Time"
+            },
+            "limit": {
+                "title": "High Load Average : x"
+            }
+        }
+    },
+    "report": {
+        "common": {
+            "duration": "Duration",
+            "startDateString": "Start",
+            "endDateString": "End",
+            "completeAverage": "Average",
+            "peack": "Peack",
+            "though": "Though"
+        },
+        "highLoad": {
+            "displayName": "High Load"
+        },
+        "recovery": {
+            "displayName": "Recovery"
+        }
+    }
+}

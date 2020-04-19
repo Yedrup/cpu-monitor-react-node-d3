@@ -1,5 +1,4 @@
 import React from 'react';
-import './App.css';
 import Header from "./components/Header";
 import Main from "./components/Main";
 import { Container } from '@material-ui/core';
@@ -7,9 +6,9 @@ import { Container } from '@material-ui/core';
 function App() {
 
   return (
-    <div className="App">
+    <div >
       <Header className="App-header" />
-      <Container>
+      <Container align="center"  component="main" >
         <Main />
       </Container>
     </div>

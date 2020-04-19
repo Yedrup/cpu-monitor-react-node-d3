@@ -3,11 +3,13 @@ import React, {
     useReducer
 } from "react";
 
-import { 
+import {
     removeTracesFromReportObjToDisplayLRU,
-    removeFromTracesArrToDisplayLRU } from "../../utilities/utilities"
+    removeFromTracesArrToDisplayLRU
+} from "../../utilities/utilities"
 
-export const DataContext = createContext();
+export const DataStateContext = createContext();
+export const DataDispatchContext = createContext();
 
 export const initialDataState = {
     // data for main line
@@ -36,7 +38,7 @@ const updateReportsDisplayed = (highLoadFinalReportsToDisplay, recoveryFinalRepo
 
 export const dataReducer = (state, action) => {
     let olderTraceTimeInMs = state.traces[0]?.dateInMs;
-    let lastTraceTimeInMs = state.traces[state.traces.length -1]?.dateInMs;
+    let lastTraceTimeInMs = state.traces[state.traces.length - 1]?.dateInMs;
 
     switch (action.type) {
         case "UPDATE_TRACES":
@@ -58,10 +60,10 @@ export const dataReducer = (state, action) => {
             console.log("UPDATE_REPORT_HIGH_LOAD_IN_PROGRESS", action.payload);
             olderTraceTimeInMs = state.traces[0]?.dateInMs;
             let tempReportTraces = action.payload;
-            let updatedTracesDisplay = removeFromTracesArrToDisplayLRU(tempReportTraces,"dateInMs", olderTraceTimeInMs)
+            let updatedTracesDisplay = removeFromTracesArrToDisplayLRU(tempReportTraces, "dateInMs", olderTraceTimeInMs)
             return {
                 ...state,
-                highLoadTempReportToDisplay: { ...state.highLoadTempReportToDisplay, traces: updatedTracesDisplay, lastUpdateInMs: lastTraceTimeInMs}
+                highLoadTempReportToDisplay: { ...state.highLoadTempReportToDisplay, traces: updatedTracesDisplay, lastUpdateInMs: lastTraceTimeInMs }
             };
         case "UPDATE_FINAL_REPORTS":
             console.log("UPDATE_FINAL_REPORTS", action.payload);
@@ -80,13 +82,14 @@ export const dataReducer = (state, action) => {
 };
 
 
-export const DataProvider = (props) => {
+export const DataProvider = ({children}) => {
     const [stateData, dispatchData] = useReducer(dataReducer, initialDataState);
     return (
-        <DataContext.Provider
-            value={{ dispatchData, stateData }}>
-            {props.children}
-        </DataContext.Provider>
+        <DataStateContext.Provider value={{stateData}}>
+            <DataDispatchContext.Provider value={{dispatchData}}>
+                {children}
+            </DataDispatchContext.Provider>
+        </DataStateContext.Provider>
     );
 };
 

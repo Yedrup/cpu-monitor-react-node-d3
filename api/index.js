@@ -9,11 +9,12 @@ app.use(pino);
 
 
 const PORT = 3001;
+const AVERAGE_PRECISION = 2;
 const CPUS_COUNT = os.cpus().length;
 const CPUS_LIST = os.cpus();
 
 const getLoadAverageByCpu = loadAverageArr => {
-   return loadAverageArr.map(loadAv => loadAv / CPUS_COUNT);
+   return loadAverageArr.map(loadAv => parseFloat((loadAv / CPUS_COUNT).toPrecision(AVERAGE_PRECISION)));
 }
 
 

@@ -6,7 +6,7 @@ import {
 import Trace from "../utilities/classes/Trace";
 import { ReportFinished, ReportInProgress } from "../utilities/classes/Report";
 import { RequestStatusContext } from './context/RequestStatusContext';
-import { DataContext } from "./reducers/DataContext";
+import { DataStateContext, DataDispatchContext } from "./reducers/DataContext";
 import { ConfigContext } from "./reducers/ConfigContext";
 import { NotificationContext } from "./reducers/NotificationContext";
 
@@ -15,7 +15,8 @@ function DataTreatment() {
     const isInitialMount = useRef(true);
 
     const { isRequesting, setIsRequesting } = useContext(RequestStatusContext);
-    const { dispatchData, stateData } = useContext(DataContext);
+    const { stateData } = useContext(DataStateContext);
+    const { dispatchData } = useContext(DataDispatchContext);
     const { stateConfig } = useContext(ConfigContext);
     const { dispatchNotification } = useContext(NotificationContext);
     const [cpuData, setCpuData] = useState({});
@@ -101,7 +102,6 @@ function DataTreatment() {
     useEffect(() => {
         console.log("Change previous step to =>", currentStep);
         if (currentStep === null && isReseting) {
-            console.log("RESET : TODO REFACTO");
             setIsHighLoadAverageSuspected(false)
             setIsHighLoadAverageConfirmed(false)
             setIsRecoveryAverageSuspected(false)
@@ -136,11 +136,11 @@ function DataTreatment() {
             isInitialMount.current = false;
         } else {
             if (!isHighLoadAverageSuspected) {
-                console.log("RESET High LoadAverage Suspected");
+                //RESET High LoadAverage Suspected
                 setHighLoadAverageSuspected([]);
                 if (currentStep === 0) setCurrentStep(null)
             } else {
-                console.log("🔶👀 IS HIGH LOAD SUSPECTED");
+                console.log("🔶👀 HIGH LOAD SUSPECTED");
                 setCurrentStep(0)
             }
         }
@@ -151,7 +151,7 @@ function DataTreatment() {
             isInitialMount.current = false;
         } else {
             if (isHighLoadAverageSuspected) {
-                console.log("🔶👀 HIGH LOAD SUSPECTED ARRAY", highLoadAverageSuspected);
+                // console.log("🔶👀 HIGH LOAD SUSPECTED ARRAY", highLoadAverageSuspected);
                 let currentSuspectedWindowAverage = parseFloat(calculateTracesArrayAverage(highLoadAverageSuspected));
                 let isWindowMinToConfirmHighAverageReached = highLoadAverageSuspected.length >= stateConfig.getHighLoadAverageMinArrayLength();
                 let isCurrentlyInHighAverage = currentSuspectedWindowAverage > stateConfig.loadAverageByCpuConsiredAsHigh;
@@ -242,7 +242,7 @@ function DataTreatment() {
                 console.log("👎🏻 RECOVERY SUSPECTED ABORTED");
                 setRecoveryAverageSuspected([]);
             } else {
-                console.log("🔷👀 IS RECOVERY SUSPECTED");
+                console.log("🔷👀 RECOVERY SUSPECTED");
                 let newTrace = highLoadAverageConfirmed[highLoadAverageConfirmed.length - 1]; // last trace created
                 setRecoveryAverageSuspected([...recoveryAverageSuspected, newTrace])
             }
@@ -254,7 +254,7 @@ function DataTreatment() {
             isInitialMount.current = false;
         } else {
             if (isRecoveryAverageSuspected) {
-                console.log("🔷👀 RECOVERY SUSPECTED ARR", recoveryAverageSuspected);
+                // console.log("🔷👀 RECOVERY SUSPECTED ARR", recoveryAverageSuspected);
                 let currentSuspectedWindowAverage = parseFloat(calculateTracesArrayAverage(recoveryAverageSuspected)); // make an average of current window 
                 let isRecovering = currentSuspectedWindowAverage < stateConfig.loadAverageByCpuConsiredAsHigh;
                 let isWindowMinToConfirmReached = recoveryAverageSuspected.length >= stateConfig.getRecoveryArrayMinLength();

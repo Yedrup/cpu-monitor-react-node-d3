@@ -1,3 +1,5 @@
+const MONTHS =  ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul","Aug", "Sep", "Oct", "Nov", "Dec"];
+
 const MS_IN_1_MIN = 60000;
 const MS_IN_1_SEC = 1000;
 const SEC_IN_1_MIN = 60;
@@ -32,6 +34,18 @@ const returnTimeInMilliseconds = timeStamp => {
     return date.getTime();
 }
 
+
+const formatDateIntoString = dateObj => {
+    let year =dateObj.getFullYear();
+    let month =dateObj.getMonth();
+    let day =dateObj.getDate();
+    let hour =dateObj.getHours();
+    let minutes = dateObj.getMinutes();
+    let seconds = dateObj.getSeconds();
+    let milliseconds = dateObj.getMilliseconds();
+    return `${MONTHS[month]} ${day} ${hour}:${minutes}:${seconds}.${milliseconds}`
+  }
+
 const getDurationInHMS = (startTimeMilliseconds, endTimeMilliseconds) => {
     let differenceInMS = endTimeMilliseconds - startTimeMilliseconds;
     let differenceInSecondes = Math.floor(differenceInMS / MS_IN_1_SEC);
@@ -50,7 +64,7 @@ const calculateTracesArrayAverage = (arrOfTraces) => {
     let average = parseFloat(arrOfTraces.reduce((acc, currTrace) => {
         return parseFloat(acc) + parseFloat(currTrace.loadAverageLast1Min)
     }, 0) / arrOfTraces.length);
-    return average;
+    return average.toPrecision(2);
 }
 
 const getLengthOfArrForATimeWindow = (timeWindowInMs, intervalInMs) => {
@@ -110,6 +124,7 @@ module.exports = {
     returnTimeInMilliseconds,
     getDurationInHMS,
     getLengthOfArrForATimeWindow,
+    formatDateIntoString,
     //ARRAY
     unmergeArraysConsecutivlyJoined,
     removeElementFromArray,
