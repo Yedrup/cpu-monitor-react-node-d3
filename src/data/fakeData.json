@@ -6,10 +6,10 @@
             "dateObj": "2020-04-17T09:49:15.976Z",
             "configUsed": {
                 "loadAverageByCpuConsiredAsHigh": 0.6,
-                "durationMinCpuHighLoadInMs": 30000,
-                "durationMinRecoveryInMs": 30000,
+                "minimumDurationCpuHighLoadInMs": 30000,
+                "minimumDurationRecoveryInMs": 30000,
                 "intervalInMs": 10000,
-                "windowInMs": 180000
+                "timeWindowInMs": 180000
             },
             "dateInMs": 1587116955976,
             "loadAverageLast5Mins": "0.48",
@@ -162,10 +162,10 @@
                         "dateObj": "2020-04-17T09:52:52.699Z",
                         "configUsed": {
                             "loadAverageByCpuConsiredAsHigh": 0.6,
-                            "durationMinCpuHighLoadInMs": 30000,
-                            "durationMinRecoveryInMs": 30000,
+                            "minimumDurationCpuHighLoadInMs": 30000,
+                            "minimumDurationRecoveryInMs": 30000,
                             "intervalInMs": 10000,
-                            "windowInMs": 180000
+                            "timeWindowInMs": 180000
                         },
                         "dateInMs": 1587117172699,
                         "loadAverageLast5Mins": "0.52",
@@ -255,10 +255,10 @@
                         "dateObj": "2020-04-17T09:52:52.699Z",
                         "configUsed": {
                             "loadAverageByCpuConsiredAsHigh": 0.6,
-                            "durationMinCpuHighLoadInMs": 30000,
-                            "durationMinRecoveryInMs": 30000,
+                            "minimumDurationCpuHighLoadInMs": 30000,
+                            "minimumDurationRecoveryInMs": 30000,
                             "intervalInMs": 10000,
-                            "windowInMs": 180000
+                            "timeWindowInMs": 180000
                         },
                         "dateInMs": 1587117172699,
                         "loadAverageLast5Mins": "0.52",
@@ -348,10 +348,10 @@
                         "dateObj": "2020-04-17T09:52:52.699Z",
                         "configUsed": {
                             "loadAverageByCpuConsiredAsHigh": 0.6,
-                            "durationMinCpuHighLoadInMs": 30000,
-                            "durationMinRecoveryInMs": 30000,
+                            "minimumDurationCpuHighLoadInMs": 30000,
+                            "minimumDurationRecoveryInMs": 30000,
                             "intervalInMs": 10000,
-                            "windowInMs": 180000
+                            "timeWindowInMs": 180000
                         },
                         "dateInMs": 1587117172699,
                         "loadAverageLast5Mins": "0.52",
@@ -442,10 +442,10 @@
                     "dateObj": "2020-04-17T13:38:55.004Z",
                     "configUsed": {
                         "loadAverageByCpuConsiredAsHigh": 0.6,
-                        "durationMinCpuHighLoadInMs": 30000,
-                        "durationMinRecoveryInMs": 30000,
+                        "minimumDurationCpuHighLoadInMs": 30000,
+                        "minimumDurationRecoveryInMs": 30000,
                         "intervalInMs": 10000,
-                        "windowInMs": 180000
+                        "timeWindowInMs": 180000
                     },
                     "dateInMs": 1587130735004,
                     "loadAverageLast5Mins": 0.52,
@@ -571,10 +571,10 @@
                     "dateObj": "2020-04-17T13:38:14.929Z",
                     "configUsed": {
                         "loadAverageByCpuConsiredAsHigh": 0.6,
-                        "durationMinCpuHighLoadInMs": 30000,
-                        "durationMinRecoveryInMs": 30000,
+                        "minimumDurationCpuHighLoadInMs": 30000,
+                        "minimumDurationRecoveryInMs": 30000,
                         "intervalInMs": 10000,
-                        "windowInMs": 180000
+                        "timeWindowInMs": 180000
                     },
                     "dateInMs": 1587130694929,
                     "loadAverageLast5Mins": 0.51,

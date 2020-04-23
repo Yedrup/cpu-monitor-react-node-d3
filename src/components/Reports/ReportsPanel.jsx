@@ -1,10 +1,17 @@
 import React, {
+    memo,
     useState,
-    useEffect,
     Fragment
 } from 'react'
 import ReportTable from "./ReportTable"
-import { Paper, Tabs, Tab, Typography, Container, Avatar, Grid, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails, Box, Button } from '@material-ui/core';
+import {
+    Paper,
+    Tabs,
+    Tab,
+    Typography,
+    Avatar,
+    Box
+} from '@material-ui/core';
 import { ExpandMore } from '@material-ui/icons';
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from 'clsx';
@@ -23,14 +30,14 @@ const useStyles = makeStyles(theme => {
         },
         avatar: {
             display: "flex",
-            backgroundColor: theme.palette.primary.dark,
-            color: theme.palette.primary.contrastText,
+            backgroundColor: theme.palette.primary.darker,
+            color: theme.palette.primary.lighter,
             margin: ".5rem"
         }
     })
 });
 
-function ReportsPanel({ reports }) {
+function WrappedReportsPanel({ reports }) {
     const classes = useStyles();
     const {
         eventsFinalReports,
@@ -70,25 +77,6 @@ function ReportsPanel({ reports }) {
             reports: "Recovery Reports",
         }
     }
-
-
-    // const initializeExpandedPanelsStatus = arr => {
-    //     //booolean will be coming from switch
-    //     let newArr = Array(arr.length).fill(false);
-    //     return newArr;
-    // }
-
-    // const updateExpandedPanelsStatus = arr => {
-    //     // caution withn history, test if well update
-    //     if (arr.length === expandedPanelsStatus.length) {
-    //         console.log("same length, nothing to change")
-    //         return;
-    //     } else {
-    //         console.log("modification needed");
-    //         let newArray = [...arr, false];
-    //         setExpandedPanelsStatus(newArray)
-    //     }
-    // }
 
     // TABS
     const [currentTabVal, setCurrentTabVal] = useState(0);
@@ -158,9 +146,8 @@ function ReportsPanel({ reports }) {
                         {getTabContentTitle("highLoad", highLoadFinalReportsCount)}
                     </Typography>
                     {
-                    highLoadFinalReports && highLoadFinalReports.map((report, ind) => <ReportTable key={ind} report={report} index={ind} />)}
+                        highLoadFinalReports && highLoadFinalReports.map((report, ind) => <ReportTable key={ind} report={report} index={ind} />)}
                 </TabPanel>
-
                 <TabPanel value={currentTabVal} index={2}>
                     <Typography align="left" variant="h2" className={clsx(classes.tabContentTitle, classes.tabContentTitleFlexStart)} >
                         <Avatar classes={{
@@ -170,7 +157,7 @@ function ReportsPanel({ reports }) {
                         {getTabContentTitle("recovery", recoveryFinalReportsCount)}
                     </Typography>
                     {
-                    recoveryFinalReports && recoveryFinalReports.map((report, ind) => <ReportTable key={ind} report={report} index={ind} />)
+                        recoveryFinalReports && recoveryFinalReports.map((report, ind) => <ReportTable key={ind} report={report} index={ind} />)
                     }
 
                 </TabPanel>
@@ -182,5 +169,24 @@ function ReportsPanel({ reports }) {
 
 
 
+function compareReports(prevProps, nextProps) {
+    if(nextProps.reports.eventsFinalReports.length) {
+        let prevEventsReports = prevProps.reports.eventsFinalReports;
+        let nextEventsReports = nextProps.reports.eventsFinalReports;
+    
+        let prevEventsOldestReport = prevEventsReports[0];
+        let nextEventsOldestReport = nextEventsReports[0];
+    
+        // check if same number of reports than previous 
+        let isSameCountOfReports = prevEventsReports.length === nextEventsReports.length;
+        // we check if the oldest report is the same (in case of LRU) the count of reports is not enough to attest they are the same
+        let isSameOldestReport = prevEventsOldestReport?.highLoadReports.startDateInMs === nextEventsOldestReport.highLoadReports.startDateInMs;
+        
+        return isSameCountOfReports && isSameOldestReport;
+    } else {
+        return true
+    }
+}
 
+export const ReportsPanel = memo(WrappedReportsPanel, compareReports);
 export default ReportsPanel;

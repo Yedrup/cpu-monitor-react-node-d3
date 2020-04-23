@@ -36,6 +36,16 @@
     fill: white;
     font-size: 1.25rem;
 }
+.axis-subtitle-label {
+    stroke: rgba(255, 255, 255, 0.514);
+    fill: rgba(255, 255, 255, 0.753);
+    font-size: 1rem;
+}
+
+.axis-subtitle-label--important {
+    fill: rgb(0, 255, 221);
+    stroke: rgb(0, 255, 255);
+}
 
 .lines {
     stroke-width: 4px;

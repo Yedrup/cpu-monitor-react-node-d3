@@ -1,11 +1,13 @@
+
+
 const recovery = {
-    message : "recovery",
-    color : "success"
+    message : "Recovery",
+    severity : "success"
 }
 
 const highLoad = {
-    message : "high load",
-    color : "error"
+    message : "High load",
+    severity : "error"
 }
 
 const getCustomizedNotification = (type) => type === "recoveryConfirmed" ? recovery :highLoad;

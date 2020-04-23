@@ -1,12 +1,43 @@
 {
+    "common": {
+        "expandLabel": "Show More"
+    },
     "header": {
-        "title": "CPU Monitor"
+        "title": "CPU Monitor",
+        "darkTheme": "Dark Theme"
+    },
+    "cardsPresentation": {
+        "currentAverage": {
+            "title": "Current Average",
+            "subheader": "last minute average",
+            "conditionSentence": "",
+            "moreDetails": ""
+        },
+        "countRecovery": {
+            "title": "Recovery From High Load Averages Count",
+            "subheader": "",
+            "conditionSentence": "",
+            "moreDetails": "More details about these events are available in related section link"
+        },
+        "countHighLoad": {
+            "title": "High Load Averages Count",
+            "subheader": "",
+            "conditionSentence": "(including 1 currently in progress)",
+            "moreDetails": "More details about these events are available in related section link"
+        },
+        "windowAverage": {
+            "title": "Average during last",
+            "subheader": "",
+            "conditionSentence": "This is an estimate made while the current time window is not reached",
+            "moreDetails": ""
+        }
     },
     "chart": {
         "title": "Monitoring CPU",
         "axis": {
-            "xAxisLabel": "Time (last x minutes)",
-            "yAxisLabel": "CPU Load Average"
+            "xAxisLabelTitle": "Time",
+            "xAxisLabelSubtitle": "Last PLACEHOLDER minutes - updated every PLACEHOLDER seconds",
+            "yAxisLabelTitle": "CPU Load Average"
         },
         "tooltip": {
             "common": {
@@ -19,9 +50,16 @@
                 "status": {
                     "finished": "Status: Finished",
                     "inProgress": "Status: In Progress"
+                },
+                "eventInfo": {
+                    "started": "Event started",
+                    "finished": "Event finished"
                 }
             },
             "highLoad": {
+                "title": "High Load Average"
+            },
+            "temporary": {
                 "title": "High Load Average"
             },
             "recovery": {
@@ -41,7 +79,7 @@
                 "title": "Last Minute Average At Specific Time"
             },
             "limit": {
-                "title": "High Load Average : x"
+                "title": "High Load Average"
             }
         }
     },
@@ -59,6 +97,21 @@
         },
         "recovery": {
             "displayName": "Recovery"
+        }
+    },
+    "infoCPU": {
+        "title": "CPUS INFO",
+        "cpuCount": "CPU Number",
+        "model": "Model",
+        "speed": "Speed",
+        "cpuTitle": "cpu"
+    },
+    "notifications": {
+        "highLoad": {
+            "title": "high Load"
+        },
+        "recovery": {
+            "title": "Recovery"
         }
     }
 }

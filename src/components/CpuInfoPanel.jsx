@@ -1,13 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import { Card, CardActions, CardContent, Typography, Collapse, IconButton } from '@material-ui/core';
-import { ExpandMore } from '@material-ui/icons';
-import clsx from 'clsx';
-
+import {
+    Card,
+    CardActions,
+    CardContent,
+    Typography,
+    Collapse,
+    IconButton,
+    List,
+    ListItem,
+    ListItemText,
+    ListItemIcon,
+    Box
+} from '@material-ui/core';
+import { ExpandMore, Memory } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
+import clsx from 'clsx';
 
 import {
     callApi
 } from "../utilities/utilities";
+
+import * as LABELS from "../data/labels.json";
 
 function CpuInfo() {
     const useStyles = makeStyles((theme) => ({
@@ -27,7 +40,7 @@ function CpuInfo() {
     }));
 
     const classes = useStyles();
-    const [expanded, setExpanded] = React.useState(false);
+    const [expanded, setExpanded] = useState(false);
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
@@ -44,9 +57,9 @@ function CpuInfo() {
     return (
         <Card>
             <CardContent>
-                <Typography color="textSecondary" gutterBottom>CPUS INFO </Typography>
+                <Typography color="textSecondary" gutterBottom>{LABELS.infoCPU.title}</Typography>
                 <Typography color="primary">
-                    CPU Number: {cpuInfo.cpusCount}
+                {LABELS.infoCPU.cpuCount}: {cpuInfo.cpusCount}
                 </Typography>
                 <CardActions disableSpacing>
                     <IconButton
@@ -55,23 +68,40 @@ function CpuInfo() {
                         })}
                         onClick={handleExpandClick}
                         aria-expanded={expanded}
-                        aria-label="show more"
-                    >
+                        aria-label={LABELS.common.expandLabel}>
                         <ExpandMore />
                     </IconButton>
                 </CardActions>
                 <Collapse in={expanded} timeout="auto" unmountOnExit>
-                    <ul className="cpu-info">
+                    <List>
                         {cpuInfo.cpusList.map((cpu, index) => {
+                            const { model, speed } = cpu;
                             return (
-                                <li key={index}>
-                                    <span>cpu n°{index} </span>
-                                    <span>model:{cpu.model} </span>
-                                    <span>speed:{cpu.speed}</span>
-                                </li>
+                                <ListItem key={index}>
+                                    <ListItemIcon>
+                                        <Memory color="secondary" />
+                                    </ListItemIcon>
+                                    <ListItemText
+                                        primary={<Typography variant="h4">{LABELS.infoCPU.cpuTitle} {index + 1}</Typography>}
+                                        secondaryTypographyProps= {
+                                            {
+                                                component:"div"
+                                            }
+                                        }
+                                        secondary={
+                                            <Box>
+                                                <Typography component="p">
+                                                {LABELS.infoCPU.model}: {model}
+                                                </Typography>
+                                                <Typography component="p">
+                                                {LABELS.infoCPU.speed}: {speed}
+                                                </Typography>
+                                            </Box>
+                                        } />
+                                </ListItem>
                             )
                         })}
-                    </ul>
+                    </List>
                 </Collapse>
             </CardContent>
         </Card>

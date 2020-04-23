@@ -1,5 +1,5 @@
 
-const legend = (elementParent, props) => {
+const Legend = (elementParent, props) => {
     const { dataLegendCircle, spacing, circleRadius, textOffset, padding } = props;
     const groups = elementParent.selectAll("g")
         .data(dataLegendCircle);
@@ -10,7 +10,7 @@ const legend = (elementParent, props) => {
     groupsEnter
         .merge(groups)
         .attr('transform', (d, i) =>
-            `translate(${padding}, ${(i * spacing) + padding })`
+            `translate(${padding}, ${(i * spacing) + padding})`
         );
     groups.exit().remove()
 
@@ -29,4 +29,4 @@ const legend = (elementParent, props) => {
 
 
 
-export default legend
+export default Legend

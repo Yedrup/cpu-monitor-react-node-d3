@@ -5,7 +5,9 @@ import React, {
   useContext
 } from "react";
 import {
-  getLengthOfArrForATimeWindow
+  getLengthOfArrForATimeWindow,
+  convertMsInMin, 
+  convertMsInSec
 } from "../../utilities/utilities";
 import { RequestStatusContext } from '../context/RequestStatusContext';
 
@@ -15,18 +17,24 @@ export const ConfigContext = createContext();
 
 export const initialConfigState = {
   loadAverageByCpuConsiredAsHigh : .6,
-  durationMinCpuHighLoadInMs : 30000, /*1min*/
-  durationMinRecoveryInMs : 30000, /*1min*/
+  minimumDurationCpuHighLoadInMs : 30000, /*1min*/
+  minimumDurationRecoveryInMs : 30000, /*1min*/
   intervalInMs : 10000, /*10sec*/
-  windowInMs : 180000,
+  timeWindowInMs : 180000,
   getTimeWindowArrayLength : function() {
-    return getLengthOfArrForATimeWindow(this.windowInMs, this.intervalInMs);
+    return getLengthOfArrForATimeWindow(this.timeWindowInMs, this.intervalInMs);
   },
   getHighLoadAverageMinArrayLength : function() {
-    return getLengthOfArrForATimeWindow(this.durationMinCpuHighLoadInMs, this.intervalInMs) 
+    return getLengthOfArrForATimeWindow(this.minimumDurationCpuHighLoadInMs, this.intervalInMs) 
   },
   getRecoveryArrayMinLength : function() {
-    return getLengthOfArrForATimeWindow(this.durationMinRecoveryInMs, this.intervalInMs);
+    return getLengthOfArrForATimeWindow(this.minimumDurationRecoveryInMs, this.intervalInMs);
+  },
+  getTimeIntervalInSec : function() {
+    return convertMsInSec(this.intervalInMs);
+  },
+  getTimeWindowInMin : function() {
+    return convertMsInMin(this.timeWindowInMs);
   }
 };
 
@@ -44,7 +52,7 @@ export const configReducer = (state, action) => {
 };
 
 
-export const ConfigProvider = (props) => {
+export const ConfigProvider = ({children}) => {
   const { isRequesting, setIsRequesting } = useContext(RequestStatusContext);
   const [stateConfig, dispatchConfig] = useReducer(configReducer, initialConfigState);
 
@@ -59,7 +67,7 @@ export const ConfigProvider = (props) => {
   return (
     <ConfigContext.Provider
       value={{ dispatchConfig, stateConfig}}>
-      {props.children}
+      {children}
     </ConfigContext.Provider>
   );
 };

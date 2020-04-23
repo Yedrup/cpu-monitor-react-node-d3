@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef, useContext } from 'react';
 import {
     callApi,
-    unmergeArraysConsecutivlyJoined
+    unmergeArraysConsecutivlyJoined,
+    calculateTracesArrayAverage
 } from "../utilities/utilities";
 import Trace from "../utilities/classes/Trace";
 import { ReportFinished, ReportInProgress } from "../utilities/classes/Report";
@@ -59,13 +60,6 @@ function DataTreatment() {
             updatedTraces.shift();
         }
         return updatedTraces;
-    }
-
-    const calculateTracesArrayAverage = (arrOfTraces) => {
-        let average = parseFloat(arrOfTraces.reduce((acc, currTrace) => {
-            return parseFloat(acc) + parseFloat(currTrace.loadAverageLast1Min)
-        }, 0) / arrOfTraces.length);
-        return average;
     }
 
     const getHighLoadCleanConfirmedTraces = (highLoadsConfirmedAverages, recoveryConfirmedAverages, checkProp = "dateInMs") => {
@@ -140,7 +134,7 @@ function DataTreatment() {
                 setHighLoadAverageSuspected([]);
                 if (currentStep === 0) setCurrentStep(null)
             } else {
-                console.log("🔶👀 HIGH LOAD SUSPECTED");
+                console.log("🔶👀 START HIGH LOAD SUSPECTED");
                 setCurrentStep(0)
             }
         }
@@ -151,7 +145,7 @@ function DataTreatment() {
             isInitialMount.current = false;
         } else {
             if (isHighLoadAverageSuspected) {
-                // console.log("🔶👀 HIGH LOAD SUSPECTED ARRAY", highLoadAverageSuspected);
+                console.log("🔶👀 HIGH LOAD SUSPECTED");
                 let currentSuspectedWindowAverage = parseFloat(calculateTracesArrayAverage(highLoadAverageSuspected));
                 let isWindowMinToConfirmHighAverageReached = highLoadAverageSuspected.length >= stateConfig.getHighLoadAverageMinArrayLength();
                 let isCurrentlyInHighAverage = currentSuspectedWindowAverage > stateConfig.loadAverageByCpuConsiredAsHigh;
@@ -181,7 +175,7 @@ function DataTreatment() {
             } else {
                 console.log("IS HIGH LOAD CONFIRMED", isHighLoadAverageConfirmed);
                 let firstTraceOfPeriod = highLoadAverageSuspected[0]; // last trace created
-                console.log("📢 ALERT START OF INCIDENT");
+                console.log("📢 ALERT START OF HIGH LOAD CONFIRMED");
                 dispatchNotification({
                     type: 'CREATE_NEW_NOTIFACTION',
                     payload: { "type": "highLoadConfirmed", "trace": firstTraceOfPeriod }
@@ -200,7 +194,7 @@ function DataTreatment() {
             isInitialMount.current = false;
         } else {
             if (isHighLoadAverageConfirmed) {
-                console.log("🔴 HIGH LOAD CONFIRMED ARRAY", highLoadAverageConfirmed);
+                console.log("🔴 HIGH LOAD CONFIRMED");
                 let newTrace = highLoadAverageConfirmed[highLoadAverageConfirmed.length - 1];
                 let isALoadAverageDecrease = newTrace.loadAverageLast1Min < stateConfig.loadAverageByCpuConsiredAsHigh;
 
@@ -242,7 +236,7 @@ function DataTreatment() {
                 console.log("👎🏻 RECOVERY SUSPECTED ABORTED");
                 setRecoveryAverageSuspected([]);
             } else {
-                console.log("🔷👀 RECOVERY SUSPECTED");
+                console.log("🔷👀 START RECOVERY SUSPECTED");
                 let newTrace = highLoadAverageConfirmed[highLoadAverageConfirmed.length - 1]; // last trace created
                 setRecoveryAverageSuspected([...recoveryAverageSuspected, newTrace])
             }
@@ -254,7 +248,7 @@ function DataTreatment() {
             isInitialMount.current = false;
         } else {
             if (isRecoveryAverageSuspected) {
-                // console.log("🔷👀 RECOVERY SUSPECTED ARR", recoveryAverageSuspected);
+                console.log("🔷👀 RECOVERY SUSPECTED");
                 let currentSuspectedWindowAverage = parseFloat(calculateTracesArrayAverage(recoveryAverageSuspected)); // make an average of current window 
                 let isRecovering = currentSuspectedWindowAverage < stateConfig.loadAverageByCpuConsiredAsHigh;
                 let isWindowMinToConfirmReached = recoveryAverageSuspected.length >= stateConfig.getRecoveryArrayMinLength();

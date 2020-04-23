@@ -1,14 +1,18 @@
-import React, { useContext, useState, useRef, useEffect } from 'react';
-import { NotificationContext } from "../data/reducers/NotificationContext";
+import React, { useState, useEffect, memo } from 'react';
 import { Snackbar } from "@material-ui/core";
 import MuiAlert from '@material-ui/lab/Alert';
+import { AlertTitle } from '@material-ui/lab';
 
-function Notification() { 
-    const isInitialMount = useRef(true);
-    const { stateNotification, dispatchNotification } = useContext(NotificationContext)
-    const [isSnackOpen, setIsSnackOpen] = useState(false)
+
+function WrappedNotification(props) {
+    let { stateNotification, dispatchNotification } = props;
+    const [isSnackOpen, setIsSnackOpen] = useState(false);
+
     const Alert = props => {
-        return <MuiAlert elevation={6} variant="filled" {...props} />;
+        return <MuiAlert
+            elevation={6}
+            variant="filled"
+            {...props} />;
     }
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
@@ -18,34 +22,37 @@ function Notification() {
         dispatchNotification({ type: 'CLEAR_NOTIFICATION_AFTER_DISPLAY' })
     };
     useEffect(() => {
-        if (isInitialMount.current) {
-            isInitialMount.current = false;
-        } else {
-            if (stateNotification.isNotificationPending) {
-                setIsSnackOpen(true);
-            }
+        if (stateNotification.isNotificationPending ) {
+            setIsSnackOpen(true);
         }
-        return () => null
-    }, [stateNotification.isNotificationPending])
-    
+    }, [stateNotification ])
+
     return (
         <Snackbar
-        anchorOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-        }}
-        open={isSnackOpen}
-        autoHideDuration={stateNotification?.newNotification?.duration}
-        onClose={handleClose}>
+            anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+            }}
+            open={isSnackOpen}
+            autoHideDuration={stateNotification?.newNotification?.duration}
+            onClose={handleClose}
+        >
             <Alert
+                role="Alert"
                 onClose={handleClose}
-                severity={stateNotification?.newNotification?.display?.color}>
-                {stateNotification?.newNotification?.display?.message}
+                severity={stateNotification?.newNotification?.display?.severity}>
+                <AlertTitle>{stateNotification?.newNotification?.display?.message}</AlertTitle>
             </Alert>
         </Snackbar>
     )
 }
 
+function compareStateNotification(prevProps, nextProps) {
+    let isAPendingNotif = (nextProps.stateNotification.isNotificationPending === true) && (nextProps.stateNotification.newNotification !== null);
+    let isStateTheSame =  !isAPendingNotif
+    return isStateTheSame;
+}
+export const Notification = memo(WrappedNotification, compareStateNotification);
 export default Notification;
 
 

@@ -2,6 +2,7 @@ import React, { useContext, Fragment } from 'react'
 import { RequestStatusContext } from '../data/context/RequestStatusContext';
 import { ThemeContext } from '../data/context/ThemeContext';
 import { Typography, makeStyles, Switch, AppBar, Toolbar, Button, IconButton } from "@material-ui/core";
+import * as LABELS from "../data/labels.json";
 
 function Header() {
     const { isRequesting, setIsRequesting } = useContext(RequestStatusContext);
@@ -9,7 +10,8 @@ function Header() {
 
     const useStyles = makeStyles((theme) => ({
         root: {
-            flexGrow: 1
+            flexGrow: 1,
+            color: theme.palette.primary.lighter
         },
         title: {
             flexGrow: 1,
@@ -30,15 +32,14 @@ function Header() {
         <AppBar position="sticky" className={classes.root}>
             <Toolbar >
                 <Typography className={classes.title}>
-                    CPU Monitor
+                    {LABELS.header.title}
           </Typography>
                 <Switch
                     checked={currentThemeName === "darkTheme"}
                     onChange={handleChange}
                     name="switchTheme"
-                    inputProps={{ 'aria-label': 'checkbox' }}
-                /> 
-                <Typography component="span">Dark Theme</Typography>
+                    inputProps={{ 'aria-label': 'checkbox' }}/> 
+                <Typography component="span">{LABELS.header.darkTheme}</Typography>
             </Toolbar>
         </AppBar>
     )

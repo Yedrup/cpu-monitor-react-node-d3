@@ -52,7 +52,7 @@ const LABELS = {
 
 
 // function ReportTable({ report, index }) {
-function ReportTable ({ report, index }) {
+function ReportTable({ report, index }) {
 
     const {
         type,
@@ -215,7 +215,8 @@ function ReportTable ({ report, index }) {
                                                 <Typography>{label}</Typography>
                                                 <Typography>{value}</Typography>
                                             </ListItemText>
-                                        </StyledListItem>)
+                                        </StyledListItem>
+                                    )
                                 })
                             }
                         </List>

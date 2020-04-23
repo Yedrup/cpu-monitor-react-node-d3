@@ -7,9 +7,9 @@ function App() {
 
   return (
     <div >
-      <Header className="App-header" />
-      <Container align="center"  component="main" >
-        <Main />
+      <Header />
+      <Container align="center"  component="main"  >
+        <Main  />
       </Container>
     </div>
   );

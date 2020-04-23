@@ -82,10 +82,10 @@ const darkTheme = createMuiTheme({
         },
         error: {
             lighter: red[50],
-            light: red[100],
-            main: red[200],
-            dark: red[300],
-            darker: red[400],
+            light: red[200],
+            main: red[300],
+            dark: red[400],
+            darker: red[500],
             contrastText: "#FAFAFA"
         },
         tile: {
@@ -102,31 +102,31 @@ const darkTheme = createMuiTheme({
         ...typography,
         h1: {
             ...HEADERS.h1,
-            color: cyan[600]
+            color: cyan[50]
         },
         h2: {
             ...HEADERS.h2,
-            color: cyan[600]
+            color: cyan[300]
         },
         h3: {
             ...HEADERS.h3,
-            color: cyan[600]
+            color: cyan[300]
         },
         h4: {
             ...HEADERS.h4,
-            color: cyan[600]
+            color: cyan[300]
         },
         h5: {
             ...HEADERS.h5,
-            color: cyan[600]
+            color: cyan[300]
         },
         h6: {
             ...HEADERS.h6,
-            color: cyan[600]
+            color: cyan[300]
         },
         overline: {
             ...HEADERS.overline,
-            color: cyan[600]
+            color: cyan[400]
         }
     },
     overrides: {
@@ -174,7 +174,7 @@ const lightTheme = createMuiTheme({
             main: purple[500],
             dark: purple[700],
             darker: purple[900],
-            contrastText: "#FFF"
+            contrastText: purple[900]
         },
         secondary: {
             lighter: cyan[50],
@@ -182,7 +182,7 @@ const lightTheme = createMuiTheme({
             main: cyan[500],
             dark: cyan[700],
             darker: cyan[900],
-            contrastText: "#FFF"
+            contrastText: cyan[900]
         },
         error: {
             lighter: red[50],
@@ -190,7 +190,7 @@ const lightTheme = createMuiTheme({
             main: red[500],
             dark: red[700],
             darker: red[900],
-            contrastText: "#FFF"
+            contrastText: red[900]
         },
         tile: {
             backgroundColor: "#FAFAFA"
@@ -206,31 +206,31 @@ const lightTheme = createMuiTheme({
         ...typography,
         h1: {
             ...HEADERS.h1,
-            color: purple[600]
+            color: purple[700]
         },
         h2: {
             ...HEADERS.h2,
-            color: purple[600]
+            color: purple[700]
         },
         h3: {
             ...HEADERS.h3,
-            color: purple[600]
+            color: purple[700]
         },
         h4: {
             ...HEADERS.h4,
-            color: purple[600]
+            color: purple[700]
         },
         h5: {
             ...HEADERS.h5,
-            color: purple[600]
+            color: purple[700]
         },
         h6: {
             ...HEADERS.h6,
-            color: purple[600]
+            color: purple[700]
         },
         overline: {
             ...HEADERS.overline,
-            color: purple[600]
+            color: purple[700]
         }
     },
     overrides: {

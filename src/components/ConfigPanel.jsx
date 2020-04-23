@@ -1,20 +1,16 @@
-import React, { useContext } from 'react'
-import { ConfigContext } from '../data/reducers/ConfigContext';
+import React, { memo } from 'react'
 import { Button, Card, CardContent, Typography } from '@material-ui/core';
 
-function ConfigPanel() {
-    let { stateConfig, dispatchConfig } = useContext(ConfigContext);
+function WrappedConfigPanel(props) {
+    let { stateConfig, dispatchConfig } = props;
     let timeWindowArrayLength = stateConfig.getTimeWindowArrayLength();
     let highLoadAverageMinArrayLength = stateConfig.getHighLoadAverageMinArrayLength();
     let recoveryArrayMinLength = stateConfig.getRecoveryArrayMinLength();
 
     return (
-
-
         <Card>
             <CardContent>
                 <Typography variant="h6" color="primary">CONFIG PANNEL</Typography>
-
                 {Object.entries(stateConfig)
                     .map((conf, index) => {
                         let isAFunc = typeof conf[1] === "function";
@@ -32,9 +28,12 @@ function ConfigPanel() {
                 }}>change interval in ms</Button>
             </CardContent>
         </Card>
-
     )
 }
 
 
-export default ConfigPanel
+function compareState(prevProps, nextProps) {
+    return prevProps.stateConfig === nextProps.stateConfig
+}
+export const ConfigPanel = memo(WrappedConfigPanel, compareState);
+export default ConfigPanel;

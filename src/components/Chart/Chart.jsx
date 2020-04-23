@@ -3,7 +3,8 @@ import React, {
     useState,
     useRef,
     useLayoutEffect,
-    useEffect
+    useEffect,
+    useMemo
 } from 'react'
 
 import {
@@ -21,9 +22,13 @@ import {
 
 import { Box } from "@material-ui/core";
 import { ConfigContext } from '../../data/reducers/ConfigContext';
-import { DataStateContext} from '../../data/reducers/DataContext';
+import { DataStateContext } from '../../data/reducers/DataContext';
 
-import legend from "./utilities/legend"
+import Legend from "./utilities/legend";
+import { addPlaceholder } from "../../utilities/utilities"
+
+import * as LABELS from "../../data/labels.json"
+
 import './Chart.css';
 
 function Chart(props) {
@@ -38,9 +43,13 @@ function Chart(props) {
         }
     } = useContext(DataStateContext);
 
-    const { windowInMs, loadAverageByCpuConsiredAsHigh } = stateConfig
-    let timeWindowArrayLength = stateConfig.getTimeWindowArrayLength();
+    const {
+        loadAverageByCpuConsiredAsHigh,
+        intervalInMs
+    } = stateConfig
 
+    let timeWindowInMin = stateConfig.getTimeWindowInMin();
+    let intervalInSecond = stateConfig.getTimeIntervalInSec();
     const svgElementRef = useRef(null);
     const [svgElem, setSvgElem] = useState(null);
 
@@ -50,9 +59,12 @@ function Chart(props) {
     const innerWidth = width - margin.left - margin.right;
     const innerHeight = height - margin.bottom - margin.top;
 
-    const title = "Monitoring CPU"
-    const xAxisLabel = "Time (last x minutes)"; // get data from config
-    const yAxisLabel = "CPU Load Average";
+    let formattedWhiteSpacedLabel = useMemo(() => addPlaceholder(LABELS.chart.axis.xAxisLabelSubtitle, /PLACEHOLDER/gi, "\xa0\xa0\xa0\xa0\xa0\xa0\xa0"), [LABELS.chart.axis.xAxisLabelSubtitle, intervalInMs]);;
+    const title = LABELS.chart.title;
+    const yAxisLabel = LABELS.chart.axis.yAxisLabelTitle;
+    const xAxisLabelTitle = LABELS.chart.axis.xAxisLabelTitle;
+    const xAxisLabelSubtitle = formattedWhiteSpacedLabel;
+    // const { timeWindowInMin, intervalInSecond } = useMemo(() => getAxisSubtitleLabelDynamicValues(timeWindowInMs, intervalInMs), [timeWindowInMs, intervalInMs]);
 
     const defaultYMaxDomain = 3;
     const xValue = d => d.dateObj;
@@ -64,27 +76,27 @@ function Chart(props) {
     const getTplTracePoint = (trace) => {
         const { dateString, loadAverageLast1Min } = trace;
         return (`
-            <p>🕒 Time: ${ dateString}</p >
-            <p>🏷 Average: ${loadAverageLast1Min}</p>
+            <p>🕒 ${LABELS.chart.tooltip.common.time}: ${dateString}</p >
+            <p>🏷 ${LABELS.chart.tooltip.common.average.specificTime}: ${loadAverageLast1Min}</p>
         `)
     }
 
     const getTplTemporaryReport = (report) => {
         return (`
-            <h1>High Load Average</h1>
-            <p>🕙 Event started: ${ report.startDateString} </p>
-            <p>status: In progress</p>
+            <h1>${LABELS.chart.tooltip[report.type].title}</h1>
+            <p>🕙${LABELS.chart.tooltip.common.eventInfo.started}: ${report.startDateString} </p>
+            <p>${LABELS.chart.tooltip.common.status.inProgress}</p>
         `)
     }
     const getTplFinalReport = (report) => {
         const { duration, completeAverage, startDateString, endDateString } = report;
         return (`
-            <h1>High Load Average</h1>
-            <p>🕙 Event started: ${ startDateString} </p >
-            <p>🕥 Event finished: ${ endDateString} </p >
-            <p>⏱ Duration: ${duration}</p>
-            <p>🏷 Average during this event: ${completeAverage}</p>
-            <p>status: Finished</p>
+    <h1>${LABELS.chart.tooltip[report.type].title}</h1>
+            <p>🕙 ${LABELS.chart.tooltip.common.eventInfo.started}: ${startDateString} </p >
+            <p>🕥 ${LABELS.chart.tooltip.common.eventInfo.finished}: ${endDateString} </p >
+            <p>⏱ ${LABELS.chart.tooltip.common.duration}: ${duration}</p>
+            <p>🏷 ${LABELS.chart.tooltip.common.average.onPeriod}: ${completeAverage}</p>
+            <p>${LABELS.chart.tooltip.common.status.finished}</p>
         `)
     }
 
@@ -105,7 +117,7 @@ function Chart(props) {
             renderChart({ traces, highLoadFinalReportsToDisplay, recoveryFinalReportsToDisplay, highLoadTempReportToDisplay });
         }
         return () => null
-    }, [traces, highLoadFinalReportsToDisplay, recoveryFinalReportsToDisplay, highLoadTempReportToDisplay])
+    }, [traces, highLoadFinalReportsToDisplay, recoveryFinalReportsToDisplay, highLoadTempReportToDisplay,stateConfig])
 
     const defineMaxDomain = (data, value, defaultVal) => {
         let currentMaxInData = max(data, value);
@@ -140,26 +152,44 @@ function Chart(props) {
         //AXIS X  
         const xScale = scaleTime()
             .domain(extent(traces, xValue))
-            .range([0, innerWidth])
-            .nice();
+            .range([0, innerWidth]);
 
         const xAxis = axisBottom(xScale)
             .tickSize(-innerHeight)
             .tickPadding(3)
             .ticks(10)
-        // .ticks(timeWindowArrayLength/3);
 
+        const subLabelOffset = 30;
         const xAxisG = mainGroup.append("g")
             .attr("class", "x-axis-group")
+            .attr("transform", `translate(0, ${innerHeight})`)
             .call(xAxis)
-            .attr("transform", `translate(0, ${innerHeight})`);
 
-        xAxisG.append("text")
-            .attr("class", "axis-label")
-            .attr("y", 60)
+        const xAxisTextG = xAxisG.append("g")
+            .attr("transform", `translate(0, 40)`)
+            .attr("class", "axis-group-text");
+        xAxisTextG.append("text")
+            .attr("y", 0)
             .attr("x", innerWidth / 2)
-            .attr("fill", "black")
-            .text(xAxisLabel);
+            .attr("class", "axis-label")
+            .text(xAxisLabelTitle)
+        const subLabelComposed = xAxisTextG.append("text")
+            .attr("class", "axis-subtitle-label")
+            .attr("y", subLabelOffset)
+            .attr("x", innerWidth / 2)
+            .text(xAxisLabelSubtitle)
+        subLabelComposed.append("tspan")
+            .attr("class", "axis-subtitle-label--important")
+            .attr("font-weight", 300)
+            .attr("y", subLabelOffset)
+            .attr("x", 190)
+            .text(`${timeWindowInMin}`)
+        subLabelComposed.append("tspan")
+            .attr("class", "axis-subtitle-label--important")
+            .attr("font-weight", 300)
+            .attr("y", subLabelOffset)
+            .attr("x", 400)
+            .text(`${intervalInSecond}`);
 
         //AXIS Y
         const yScale = scaleLinear()
@@ -346,30 +376,26 @@ function Chart(props) {
 
         const dataLegendCircle = [
             {
-                title: "Time Frame High Load Average",
+                title: LABELS.chart.legend.timeFrames.highLoad.title,
                 class: "frame frame-highload",
                 radius: legendRadius
             },
             {
-                title: "Time Frame Recovery",
+                title: LABELS.chart.legend.timeFrames.recovery.title,
                 class: "frame frame-recovery",
                 radius: legendRadius
             },
             {
-                title: "Last Minute Average At Specific Time",
+                title: LABELS.chart.legend.points.title,
                 class: "data-circle",
                 radius: legendPointRadius
             }
         ]
 
-        const legendGroup = mainGroup.append("g")
-            .attr("transform", `translate(0, ${innerHeight - legendHeight + margin.bottom - legendYOffset})`);
-        legendGroup.append("rect")
-            .attr("class", "legend")
-            .attr("width", legendWidth)
-            .attr("height", legendHeight);
 
-        legendGroup.call(legend, {
+        const legendGroupEnter = mainGroup.append("g")
+            .attr("transform", `translate(0, ${innerHeight - legendHeight + margin.bottom - legendYOffset})`);
+        legendGroupEnter.call(Legend, {
             dataLegendCircle,
             spacing: 30,
             circleRadius: legendRadius,
@@ -377,7 +403,12 @@ function Chart(props) {
             padding: legendElementPadding
         });
 
-        const dashGroup = legendGroup.append("g");
+        legendGroupEnter.append("rect")
+            .attr("class", "legend")
+            .attr("width", legendWidth)
+            .attr("height", legendHeight);
+            
+        const dashGroup = legendGroupEnter.append("g");
 
 
         dashGroup.append("rect")
@@ -390,7 +421,7 @@ function Chart(props) {
         dashGroup.append("text")
             .attr("x", `${innerWidth - 180 - legendElementPadding}`)
             .attr("y", `${legendElementPadding}`)
-            .text("High Load Average : x")
+            .text(`${LABELS.chart.legend.limit.title} : ${loadAverageByCpuConsiredAsHigh}`)
             .attr("dy", 10)
             .attr("class", "legend-label")
     }

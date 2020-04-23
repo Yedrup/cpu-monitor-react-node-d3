@@ -17,9 +17,22 @@ const callApi = async ApiUrl => {
 }
 
 
+const addPlaceholder = (sentence, charToReplace, replacedBy) => {
+    let newSentence = sentence.replace(charToReplace, replacedBy);
+    return newSentence;
+};
+
 /*
  * DATES ******************************************************************************************
  */
+
+const convertMsInMin = timeInMs => {
+    return timeInMs / MS_IN_1_MIN;
+}
+
+const convertMsInSec = timeInMs => {
+    return timeInMs / MS_IN_1_SEC;
+}
 
 const convertMinInMs = timeInMin => {
     return timeInMin * MS_IN_1_MIN;
@@ -64,7 +77,7 @@ const calculateTracesArrayAverage = (arrOfTraces) => {
     let average = parseFloat(arrOfTraces.reduce((acc, currTrace) => {
         return parseFloat(acc) + parseFloat(currTrace.loadAverageLast1Min)
     }, 0) / arrOfTraces.length);
-    return average.toPrecision(2);
+    return parseFloat(average.toPrecision(2));
 }
 
 const getLengthOfArrForATimeWindow = (timeWindowInMs, intervalInMs) => {
@@ -118,9 +131,13 @@ module.exports = {
     calculateTracesArrayAverage,
     //API CALL
     callApi,
+    //FORMAT
+    addPlaceholder,
     //DATES
     convertMinInMs,
     convertSecInMs,
+    convertMsInMin,
+    convertMsInSec,
     returnTimeInMilliseconds,
     getDurationInHMS,
     getLengthOfArrForATimeWindow,
