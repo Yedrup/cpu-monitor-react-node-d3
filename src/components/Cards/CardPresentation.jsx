@@ -39,9 +39,8 @@ const CardContentCustom = withStyles((theme) => ({
     }
 }))(CardContent);
 
-const CardPresentation = ({ isConditionalSentence = false, traces, mainValue, text = {} }) => {
+const CardPresentation = ({ isConditionalSentence = true, traces, mainValue, text = {} }) => {
     const theme = useTheme();
-
 
     const { title, subheader, conditionSentence, moreDetails } = text;
 

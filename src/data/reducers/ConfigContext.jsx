@@ -21,6 +21,7 @@ export const initialConfigState = {
   minimumDurationRecoveryInMs : 30000, /*1min*/
   intervalInMs : 10000, /*10sec*/
   timeWindowInMs : 180000,
+  timeHistoryWindowInMs: 280000,
   getTimeWindowArrayLength : function() {
     return getLengthOfArrForATimeWindow(this.timeWindowInMs, this.intervalInMs);
   },
@@ -35,6 +36,9 @@ export const initialConfigState = {
   },
   getTimeWindowInMin : function() {
     return convertMsInMin(this.timeWindowInMs);
+  },
+  getTimeHistoryWindowInMin : function() {
+    return convertMsInMin(this.timeHistoryWindowInMs);
   }
 };
 

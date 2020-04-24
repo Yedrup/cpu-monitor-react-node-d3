@@ -2,8 +2,8 @@ import React, {
   useContext, useEffect, useState, useMemo
 } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Card, List, withWidth, withStyles } from '@material-ui/core';
-import { DataStateContext, DataDispatchContext } from "../data/reducers/DataContext";
+import { Grid, withWidth } from '@material-ui/core';
+import { DataStateContext } from "../data/reducers/DataContext";
 import { NotificationContext } from "../data/reducers/NotificationContext";
 import ConfigPanel from "./ConfigPanel";
 import CpuInfo from "./CpuInfoPanel";
@@ -28,8 +28,6 @@ function Main(props) {
   const { stateData: {
     traces,
     eventsFinalReports,
-    highLoadFinalReports,
-    recoveryFinalReports,
     isHighLoadCurrentlyInProgress,
     isLastAverageWindowAnEstimate,
     lastWindowAverage
@@ -72,8 +70,8 @@ function Main(props) {
 
   const timeWindowInMin = stateConfig.getTimeWindowInMin();
   let lastTrace = traces[traces?.length - 1] || {};
-  let highLoadCount = isHighLoadCurrentlyInProgress ? highLoadFinalReports.length + 1 : highLoadFinalReports.length;
-  let recoveryCount = recoveryFinalReports.length;
+  let highLoadCount = isHighLoadCurrentlyInProgress ? eventsFinalReports?.length + 1 : eventsFinalReports?.length || 0;
+  let recoveryCount = eventsFinalReports?.length || 0;
   const { loadAverageLast1Min = 0 } = lastTrace;
 
   let updateTextObjForWindowAverage = (textObj, timeWindowInMin) => {
@@ -82,7 +80,7 @@ function Main(props) {
       title: `${textObj.title} ${timeWindowInMin} minutes`
     }
   }
-  let updatedTextObjForWindowAverage = useMemo(() => updateTextObjForWindowAverage(LABELS.cardsPresentation.windowAverage, timeWindowInMin), [timeWindowInMin])
+  const updatedTextObjForWindowAverage = useMemo(() => updateTextObjForWindowAverage(LABELS.cardsPresentation.windowAverage, timeWindowInMin), [timeWindowInMin])
 
   const classes = useStyles();
   return (
@@ -173,9 +171,7 @@ function Main(props) {
           sm={12}
           md={12} >
           <ReportsPanel reports={{
-            eventsFinalReports,
-            highLoadFinalReports,
-            recoveryFinalReports
+            eventsFinalReports
           }} />
         </Grid>
 

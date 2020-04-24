@@ -84,28 +84,41 @@ const getLengthOfArrForATimeWindow = (timeWindowInMs, intervalInMs) => {
     return Math.round(timeWindowInMs / intervalInMs);
 }
 /*
- * ARRAY ******************************************************************************************
+ * OBJECTS ******************************************************************************************
  */
 
+ const isObjectHavingKeys = obj => {
+    return Object.keys(obj).length;
+ }
 const removeElementFromArray = (arr, value) => {
     return arr.filter((element) => {
         return element !== value;
     });
 }
 
+const filterArrayOfObjectByProperty = (arr,prop) => {
+    if(!arr.length) return [];
+    let filtered =  arr.reduce((acc,object) => {
+        let newAcc = [...acc, { ...object[prop]}];
+        return newAcc;
+    },[])
+    return filtered
+}
 
-//TODO: REFACTO THESE TWO FUNCTIONS TO GET ONLY ONE
-const removeTracesFromReportObjToDisplayLRU = (arrOfReportsObj, prop, olderTraceDisplayed) => {
+const removeFromTracesArrToDisplayLRU = (arrOfReportsObj, prop, olderTraceDisplayed) => {
     let filtered = arrOfReportsObj.filter(currentReport => {
         return currentReport[prop] > olderTraceDisplayed
     });
     return filtered
 }
 
-const removeFromTracesArrToDisplayLRU = (traces, prop, olderTraceDisplayed) => {
-    let filtered = traces.filter(currentTraces => {
-        return currentTraces[prop] > olderTraceDisplayed
-    });
+const eventsHistoricLRU = (arrayOfEventsReports, prop, historicTimeWindow) => {
+    let now = Date.now();
+    let limitReportsInMs = now - historicTimeWindow;
+    // to keep events integrity (high loads + recovery), only the events having a recovery endDates <= historicTimeWindow are removed
+    let filtered = arrayOfEventsReports.filter(event => {
+        return event.recoveryReports.endDateInMs >= limitReportsInMs
+    })
     return filtered
 }
 
@@ -142,10 +155,12 @@ module.exports = {
     getDurationInHMS,
     getLengthOfArrForATimeWindow,
     formatDateIntoString,
-    //ARRAY
+    //OBJECTS
+    isObjectHavingKeys,
+    filterArrayOfObjectByProperty,
     unmergeArraysConsecutivlyJoined,
     removeElementFromArray,
-    removeTracesFromReportObjToDisplayLRU,
+    eventsHistoricLRU,
     removeFromTracesArrToDisplayLRU,
     getPeakAndTroughFromTraces
 };

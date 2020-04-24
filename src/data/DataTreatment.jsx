@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useRef, useContext } from 'react';
+import React, { useState, useEffect, useRef, useContext, useMemo } from 'react';
 import {
     callApi,
     unmergeArraysConsecutivlyJoined,
-    calculateTracesArrayAverage
+    calculateTracesArrayAverage,
+    isObjectHavingKeys
 } from "../utilities/utilities";
 import Trace from "../utilities/classes/Trace";
 import { ReportFinished, ReportInProgress } from "../utilities/classes/Report";
@@ -21,6 +22,7 @@ function DataTreatment() {
     const { stateConfig } = useContext(ConfigContext);
     const { dispatchNotification } = useContext(NotificationContext);
     const [cpuData, setCpuData] = useState({});
+    const [isCpuData, setIsCpuData] = useState(false);
 
     // STEPS 
     const [currentStep, setCurrentStep] = useState(null);
@@ -84,15 +86,21 @@ function DataTreatment() {
     }, [isRequesting]);
 
     useEffect(() => {
-        let newTrace = new Trace(cpuData, stateConfig);
-        let updatedTraces = cpuData.loadAverageLast1Min ? manageTracesLRU(stateData.traces, newTrace) : [];
-        dispatchData({
-            type: 'UPDATE_TRACES',
-            payload: updatedTraces
-        })
-        controlTrace(stateData.traces, newTrace);
+        if(!isCpuData) {
+            let isCpuDataAvailable = isObjectHavingKeys(cpuData);
+            setIsCpuData(isCpuDataAvailable);
+        }
+        if(isCpuData) {
+            let newTrace = new Trace(cpuData, stateConfig);
+            let updatedTraces = cpuData.loadAverageLast1Min ? manageTracesLRU(stateData.traces, newTrace) : [];
+            dispatchData({
+                type: 'UPDATE_TRACES',
+                payload: updatedTraces
+            })
+            controlTrace(stateData.traces, newTrace);
+        }
         return () => null;
-    }, [cpuData])
+    }, [cpuData, isCpuData])
     useEffect(() => {
         console.log("Change previous step to =>", currentStep);
         if (currentStep === null && isReseting) {

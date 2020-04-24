@@ -1,12 +1,11 @@
 import React, {
     createContext,
-    useReducer,
-    useContext
+    useReducer
 } from "react";
 
 import {
-    removeTracesFromReportObjToDisplayLRU,
     removeFromTracesArrToDisplayLRU,
+    eventsHistoricLRU,
     calculateTracesArrayAverage
 } from "../../utilities/utilities"
 
@@ -29,24 +28,28 @@ export const initialDataState = {
 
     //FINAL REPORTS
     eventsFinalReports: [], // event : association {high load , recovery} 
-    highLoadFinalReports: [],// recoveringAverageReport:[{}],
-    recoveryFinalReports: [],// highLoadAverageReport:[{}],
 };
 
 
 const updateReportsDisplayed = (highLoadFinalReportsToDisplay, recoveryFinalReportsToDisplay, valueToCompareTo) => {
-    let updatedHightLoadFinalReportsDisplayed = removeTracesFromReportObjToDisplayLRU(highLoadFinalReportsToDisplay, "endDateInMs", valueToCompareTo);
-    let updatedRecoveryFinalReportsDisplayed = removeTracesFromReportObjToDisplayLRU(recoveryFinalReportsToDisplay, "endDateInMs", valueToCompareTo);
+    // update the reports to be displayed in the time window of the chart 
+    let updatedHightLoadFinalReportsDisplayed = removeFromTracesArrToDisplayLRU(highLoadFinalReportsToDisplay, "endDateInMs", valueToCompareTo);
+    let updatedRecoveryFinalReportsDisplayed = removeFromTracesArrToDisplayLRU(recoveryFinalReportsToDisplay, "endDateInMs", valueToCompareTo);
     return {
         updatedHightLoadFinalReportsDisplayed,
         updatedRecoveryFinalReportsDisplayed
     }
 }
 
-const estimateLastXMinAverage = (traces, lastTrace) => {
+const updateEventsHistoric = (eventsFinalReports, lastTrace) => {
+    //we use lastTrace to access to the current config and timeHistoryWindowInMs (useContext not possible to use)
+    let currentHistoricTimeWindowInMs = lastTrace.configUsed.timeHistoryWindowInMs;
+    let updated = eventsHistoricLRU(eventsFinalReports, "endDateInMs", currentHistoricTimeWindowInMs);
+    return updated;
+}
 
-    if(!traces.length) return 0;
-        let timeWindowArrayLength = lastTrace?.configUsed?.getTimeWindowArrayLength();
+const estimateLastXMinutesAverage = (traces, lastTrace) => {
+    let timeWindowArrayLength = lastTrace?.configUsed?.getTimeWindowArrayLength() || 2;
     if (traces.length < timeWindowArrayLength) {
         let estimate = (lastTrace.loadAverageLast5Mins + lastTrace?.loadAverageLast15Mins) / 2;
         estimate = parseFloat(estimate.toPrecision(2));
@@ -64,33 +67,40 @@ const estimateLastXMinAverage = (traces, lastTrace) => {
 }
 
 export const DataReducer = (state, action) => {
-    let lastTrace = state.traces[state.traces.length - 1];
+    let lastTrace = state.traces.length ? state.traces[state.traces.length - 1] : action.payload[0];
     let olderTraceTimeInMs = state.traces[0]?.dateInMs;
     let lastTraceTimeInMs = lastTrace?.dateInMs;
 
     switch (action.type) {
         case "UPDATE_TRACES":
-            let { updatedHightLoadFinalReportsDisplayed, updatedRecoveryFinalReportsDisplayed } = updateReportsDisplayed(state.highLoadFinalReportsToDisplay, state.recoveryFinalReportsToDisplay, olderTraceTimeInMs);
+            //LRU being already done using config context with time Window max length in datatreatment, we know that the oldest trace is the limit
+            let {
+                updatedHightLoadFinalReportsDisplayed,
+                updatedRecoveryFinalReportsDisplayed
+            } = updateReportsDisplayed(state.highLoadFinalReportsToDisplay, state.recoveryFinalReportsToDisplay, olderTraceTimeInMs);
             let updatedTraces = action.payload;
-            let {isLastAverageWindowAnEstimate, lastWindowAverage} =  estimateLastXMinAverage(updatedTraces, lastTrace )
+            let updatedLastTrace = updatedTraces[updatedTraces.length - 1];
+            let { isLastAverageWindowAnEstimate, lastWindowAverage } = estimateLastXMinutesAverage(updatedTraces, updatedLastTrace);
+
+            let updatedHistoric = updateEventsHistoric(state.eventsFinalReports, updatedLastTrace);
+
             return {
                 ...state,
                 traces: [...updatedTraces],
                 highLoadFinalReportsToDisplay: updatedHightLoadFinalReportsDisplayed,
                 recoveryFinalReportsToDisplay: updatedRecoveryFinalReportsDisplayed,
+                eventsFinalReports: [...updatedHistoric],
                 isLastAverageWindowAnEstimate,
                 lastWindowAverage
 
             };
         case "CREATE_REPORT_HIGH_LOAD_IN_PROGRESS":
-            // console.log("CREATE_REPORT_HIGH_LOAD_IN_PROGRESS", action.payload);
             return {
                 ...state,
                 highLoadTempReportToDisplay: action.payload,
                 isHighLoadCurrentlyInProgress: true
             };
         case "UPDATE_REPORT_HIGH_LOAD_IN_PROGRESS":
-            // console.log("UPDATE_REPORT_HIGH_LOAD_IN_PROGRESS", action.payload);
             olderTraceTimeInMs = state.traces[0]?.dateInMs;
             let tempReportTraces = action.payload;
             let updatedTracesDisplay = removeFromTracesArrToDisplayLRU(tempReportTraces, "dateInMs", olderTraceTimeInMs)
@@ -99,12 +109,9 @@ export const DataReducer = (state, action) => {
                 highLoadTempReportToDisplay: { ...state.highLoadTempReportToDisplay, traces: updatedTracesDisplay, lastUpdateInMs: lastTraceTimeInMs }
             };
         case "UPDATE_FINAL_REPORTS":
-            // console.log("UPDATE_FINAL_REPORTS", action.payload);
             return {
                 ...state,
                 eventsFinalReports: [...state.eventsFinalReports, { ...action.payload }],
-                highLoadFinalReports: [...state.highLoadFinalReports, action.payload.highLoadReports],
-                recoveryFinalReports: [...state.recoveryFinalReports, action.payload.recoveryReports],
                 highLoadFinalReportsToDisplay: [...state.highLoadFinalReportsToDisplay, action.payload.highLoadReports],
                 recoveryFinalReportsToDisplay: [...state.recoveryFinalReportsToDisplay, action.payload.recoveryReports],
                 highLoadTempReportToDisplay: null,
