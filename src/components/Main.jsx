@@ -66,6 +66,7 @@ function Main(props) {
   useEffect(() => {
     setcurrentChartSize({ ...chartSizesVal[currentBreakpoint] })
     return () => null
+    //eslint-disable-next-line
   }, [currentBreakpoint])
 
   const timeWindowInMin = stateConfig.getTimeWindowInMin();
@@ -97,8 +98,7 @@ function Main(props) {
         container
         item
         direction="row"
-        justify="space-between"
-        mt={15}>
+        justify="space-between">
 
         <Grid
           component={CardPresentation}
@@ -147,6 +147,7 @@ function Main(props) {
       <Grid
         container
         item
+        display="flex"
         spacing={3}
         direction="row"
         justify="flex-start">
@@ -154,27 +155,30 @@ function Main(props) {
         <Grid
           item
           xs={12}
-          sm={8}
-          >
+          md={8}
+        >
           <Chart
             width={currentChartSize.width}
-            height={currentChartSize.height} 
-            />
+            height={currentChartSize.height}
+          />
         </Grid>
 
-        <Grid
-          item
-          xs={12}
-           >
-          <ReportsPanel reports={{
-            eventsFinalReports
-          }} />
-        </Grid>
-        <Grid item xs={12} sm={5} xl={4}>
+        <Grid 
+        item 
+        xs={12} 
+        md={4}
+        >
           <ConfigPanel
             stateConfig={stateConfig}
             dispatchConfig={dispatchConfig} />
           <CpuInfo />
+        </Grid>
+        <Grid
+          item
+          xs={12}>
+          <ReportsPanel reports={{
+            eventsFinalReports
+          }} />
         </Grid>
       </Grid>
     </Grid>

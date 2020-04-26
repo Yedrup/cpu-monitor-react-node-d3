@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useContext, useMemo } from 'react';
+import { useState, useEffect, useRef, useContext } from 'react';
 import {
     callApi,
     unmergeArraysConsecutivlyJoined,
@@ -83,14 +83,15 @@ function DataTreatment() {
             });
         }
         return () => null;
+        // eslint-disable-next-line
     }, [isRequesting]);
 
     useEffect(() => {
-        if(!isCpuData) {
+        if (!isCpuData) {
             let isCpuDataAvailable = isObjectHavingKeys(cpuData);
             setIsCpuData(isCpuDataAvailable);
         }
-        if(isCpuData) {
+        if (isCpuData) {
             let newTrace = new Trace(cpuData, stateConfig);
             let updatedTraces = cpuData.loadAverageLast1Min ? manageTracesLRU(stateData.traces, newTrace) : [];
             dispatchData({
@@ -100,7 +101,9 @@ function DataTreatment() {
             controlTrace(stateData.traces, newTrace);
         }
         return () => null;
+        // eslint-disable-next-line
     }, [cpuData, isCpuData])
+
     useEffect(() => {
         console.log("Change previous step to =>", currentStep);
         if (currentStep === null && isReseting) {
@@ -111,6 +114,7 @@ function DataTreatment() {
             setIsRecoveryAverageConfirmed(false)
         }
         return () => null;
+        // eslint-disable-next-line
     }, [currentStep])
 
     /********* ALGO STEPS TODO: remove step logic from this file  */
@@ -147,6 +151,7 @@ function DataTreatment() {
             }
         }
         return () => null;
+        // eslint-disable-next-line
     }, [isHighLoadAverageSuspected])
     useEffect(() => {
         if (isInitialMount.current) {
@@ -168,6 +173,7 @@ function DataTreatment() {
             }
         }
         return () => null;
+        // eslint-disable-next-line
     }, [highLoadAverageSuspected])
 
     //STEP index 1 _ 🔴 CONFIRMED HIGH LOAD AVERAGE  + 🔷👀SUSPECT RECOVERY  
@@ -196,6 +202,7 @@ function DataTreatment() {
             }
         }
         return () => null;
+        // eslint-disable-next-line
     }, [isHighLoadAverageConfirmed]);
     useEffect(() => {
         if (isInitialMount.current) {
@@ -233,6 +240,7 @@ function DataTreatment() {
             }
         }
         return () => null;
+        // eslint-disable-next-line
     }, [highLoadAverageConfirmed])
 
     // 🔷👀 RECOVERY SUSPECTED
@@ -250,6 +258,7 @@ function DataTreatment() {
             }
         }
         return () => null;
+        // eslint-disable-next-line
     }, [isRecoveryAverageSuspected]);
     useEffect(() => {
         if (isInitialMount.current) {
@@ -272,6 +281,7 @@ function DataTreatment() {
             }
         }
         return () => null;
+        // eslint-disable-next-line
     }, [recoveryAverageSuspected])
 
 
@@ -297,6 +307,7 @@ function DataTreatment() {
             }
         }
         return () => null;
+        // eslint-disable-next-line
     }, [isRecoveryAverageConfirmed])
     useEffect(() => {
         if (isInitialMount.current) {
@@ -319,6 +330,7 @@ function DataTreatment() {
             }
         }
         return () => null;
+        // eslint-disable-next-line
     }, [recoveryAverageConfirmed])
 
     // main function 

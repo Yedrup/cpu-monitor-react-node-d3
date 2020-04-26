@@ -1,7 +1,6 @@
 // one card to rule them all
 import React from 'react';
-import { Card, CardHeader, CardContent, withStyles, Typography, Divider } from '@material-ui/core';
-// import { useTheme } from '@material-ui/styles';
+import { Card, CardHeader, CardContent, withStyles, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 
@@ -79,8 +78,6 @@ const CardPresentation = ({ isConditionalSentence = true, traces, mainValue, tex
                 title={title}
                 subheader={subheader}
             />
-            {/* <Divider variant="fullWidth" /> */}
-
             <CardContentCustom>
                 <Typography className={classes.mainValue} /*color="success"*/>
                     {mainValue}

@@ -1,8 +1,4 @@
-/* TODO: better class naming + use variable from theming? */
-.tick {
-    color: rgb(201, 201, 201)
-}
-
+/* TODO: remove this file when a solution is found to get these lines outside */
 .tooltip {
     position: absolute;
     z-index: 999;

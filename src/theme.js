@@ -107,6 +107,14 @@ const darkTheme = createMuiTheme({
             darker: red[500],
             contrastText: "#FAFAFA"
         },
+        success: {
+            lighter: green[50],
+            light: green[200],
+            main: green[300],
+            dark: green[400],
+            darker: green[500],
+            contrastText: "#FAFAFA"
+        },
         tile: {
             backgroundColor: "#121212"
         },
@@ -210,6 +218,14 @@ const lightTheme = createMuiTheme({
             dark: red[700],
             darker: red[900],
             contrastText: red[900]
+        },
+        success: {
+            lighter: green[50],
+            light: green[100],
+            main: green[500],
+            dark: green[700],
+            darker: green[900],
+            contrastText: green[900]
         },
         tile: {
             backgroundColor: "#FAFAFA"

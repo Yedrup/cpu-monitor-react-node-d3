@@ -26,7 +26,7 @@ import { DataStateContext } from '../../data/reducers/DataContext';
 
 import Legend from "./utilities/Legend";
 import { getTplTracePoint, getTplTemporaryReport, getTplFinalReport } from "./utilities/Tooltips";
-import { addPlaceholder } from "../../utilities/utilities"
+import { addPlaceholder } from "../../utilities/utilities";
 
 import * as LABELS from "../../data/labels.json"
 
@@ -36,74 +36,74 @@ import { fade } from '@material-ui/core/styles/colorManipulator';
 import './Chart.css';
 
 
-const useStyles = makeStyles((theme) => ({
-    cardContent: {
-        width: "100%",
-    },
-    tooltipVisible: {
-        padding: ".5rem 1rem",
-        font: "1rem",
-        backgroundColor: fade(theme.palette.primary.darker, .7),
-        color: theme.palette.primary.lighter,
-        border: 0,
-        opacity: 1,
-        borderRadius: ".2rem",
-    },
-    svg: {
-        width: "100%",
-        height: "100%",
-        backgroundColor: "rgba(121, 121, 121, 0.947)"
-    },
-    axisLabel: {
-        stroke: "white",
-        fill: "white",
-        fontSize: "1.25rem"
-    },
-    axisSubtitleLabel: {
-        stroke: "rgba(255, 255, 255, 0.514)",
-        fill: "rgba(255, 255, 255, 0.753)",
-        fontSize: "1rem"
-    },
-    axisSubtitleLabelOverlined: {
-        fill: "rgb(0, 255, 221)",
-        stroke: "rgb(0, 255, 255)"
-    },
-    legend: {
-        backgroundColor: "rgba(255, 255, 255, 0.242)",
-        fill: "rgba(255, 255, 255, 0.303)",
-    },
-    legendLabel: {
-        fill: "black",
-        stroke: "black",
-        fontWeight: "bold",
-    },
-    maxLine: {
-        fill: "none",
-        stroke: "rgb(0, 0, 0)",
-        strokeDasharray: "70, 10",
-        strokeWidth: "4px",
-    },
-    lines: {
-        strokeWidth: "4px",
-        fill: "none",
-    },
-    dataLine: {
-        stroke: "rgb(70, 221, 255)",
-        mixBlendMode: "hard-light",
-        strokeLinejoin: "miter",
-    },
-    dataCircle: {
-        fill: "rgb(106, 0, 255)"
-    },
-    frameHighLoad: {
-        fill: "#FF0000",
-        opacity: .2
-    },
-    frameRecovery: {
-        fill: "rgb(34, 255, 0)",
-        opacity: .2
-    }
-}));
+const useStyles = makeStyles((theme) => {
+    let isDarkTheme = theme.palette.type === "dark";
+    return ({
+        cardContent: {
+            width: "100%",
+        },
+        tooltipVisible: {
+            padding: ".5rem 1rem",
+            font: "1rem",
+            backgroundColor: fade(theme.palette.primary.darker, .8),
+            color: theme.palette.primary.lighter,
+            border: 0,
+            opacity: 1,
+            borderRadius: ".2rem",
+        },
+        svg: {
+            width: "100%",
+            height: "100%",
+            border: isDarkTheme ? fade(theme.palette.primary.light, .1) : fade(theme.palette.primary.light, .1)
+        },
+        axisLabel: {
+            fill: theme.palette.primary.contrastText,
+            stroke: fade(theme.palette.primary.contrastText, .2),
+            fontSize: "1.25rem"
+        },
+        axisSubtitleLabel: {
+            fill: isDarkTheme ? theme.palette.grey[400] : theme.palette.grey[600],
+            stroke: isDarkTheme ? fade(theme.palette.grey[400], .2) : fade(theme.palette.grey[600], .2),
+            fontSize: "1rem"
+        },
+        axisSubtitleLabelOverlined: {
+            stroke: fade(theme.palette.primary.dark, .8),
+            fill: theme.palette.primary.main,
+        },
+        ticks: {
+            color: isDarkTheme ? theme.palette.grey[500] : theme.palette.grey.main
+        },
+        legend: {
+            fill: fade(theme.palette.primary.main, .1),
+        },
+        legendLabel: {
+            fill: isDarkTheme ? theme.palette.grey[400] : theme.palette.grey[600],
+            fontWeight: "bold",
+        },
+        maxLine: {
+            stroke: theme.palette.error.dark,
+            strokeWidth: "2px",
+        },
+        lines: {
+            strokeWidth: "4px",
+            fill: "none",
+        },
+        dataLine: {
+            stroke: isDarkTheme? theme.palette.primary.dark :theme.palette.primary.darker,
+            mixBlendMode: "hard-light",
+            strokeLinejoin: "miter",
+        },
+        dataCircle: {
+            fill: theme.palette.primary.dark
+        },
+        frameHighLoad: {
+            fill: isDarkTheme ? fade(theme.palette.error.main, .4) : fade(theme.palette.error.main, .5)
+        },
+        frameRecovery: {
+            fill: isDarkTheme ? fade(theme.palette.success.main, .4) : fade(theme.palette.success.main, .5)
+        }
+    })
+});
 
 // need to import it, same as other cards
 const CardHeaderCustom = withStyles((theme) => ({
@@ -140,7 +140,6 @@ function Chart(props) {
 
     const {
         loadAverageByCpuConsiredAsHigh,
-        intervalInMs
     } = stateConfig
 
     let timeWindowInMin = stateConfig.getTimeWindowInMin();
@@ -150,23 +149,48 @@ function Chart(props) {
 
     const height = props.height;
     const width = props.width;
-    const margin = { top: 90, right: 90, bottom: 190, left: 90 }
+    const margin = { top: 0, right: 30, bottom: 190, left: 60 }
     const innerWidth = width - margin.left - margin.right;
     const innerHeight = height - margin.bottom - margin.top;
 
-    let formattedWhiteSpacedLabel = useMemo(() => addPlaceholder(LABELS.chart.axis.xAxisLabelSubtitle, /PLACEHOLDER/gi, "\xa0\xa0\xa0\xa0\xa0\xa0\xa0"), [LABELS.chart.axis.xAxisLabelSubtitle, intervalInMs]);;
+    let formattedWhiteSpacedLabel = useMemo(() => addPlaceholder(LABELS.chart.axis.xAxisLabelSubtitle, /PLACEHOLDER/gi, "\xa0\xa0\xa0\xa0\xa0\xa0\xa0"), []);;
     const title = LABELS.chart.title;
     const yAxisLabel = LABELS.chart.axis.yAxisLabelTitle;
     const xAxisLabelTitle = LABELS.chart.axis.xAxisLabelTitle;
     const xAxisLabelSubtitle = formattedWhiteSpacedLabel;
 
-    const defaultYMaxDomain = 3;
+    const defaultYMaxDomain = 2;
     const xValue = d => d.dateObj;
     const yValue = d => +d.loadAverageLast1Min;
-    const pointRadius = 5;
+    const pointRadius = 6;
+
+  // TODO: Legend needs to be totally outside
+  const legendWidth = innerWidth;
+  const legendHeight = 100;
+  const legendYOffset = -40;
+  const legendRadius = 10;
+  const legendElementPadding = 20;
+  const legendPointRadius = pointRadius;
+
+  const dataLegendCircle = [
+    {
+        title: LABELS.chart.legend.timeFrames.highLoad.title,
+        class: `${classes.frameHighLoad}`,
+        radius: legendRadius
+    },
+    {
+        title: LABELS.chart.legend.timeFrames.recovery.title,
+        class: `${classes.frameRecovery}`,
+        radius: legendRadius
+    },
+    {
+        title: LABELS.chart.legend.points.title,
+        class: `${classes.dataCircle}`,
+        radius: legendPointRadius
+    }
+]
 
 
-    const tooltipTransitionInMs = 100;
     const tooltipTpl = (tpl) => {
         return (tpl);
     }
@@ -184,6 +208,7 @@ function Chart(props) {
             renderChart({ traces, highLoadFinalReportsToDisplay, recoveryFinalReportsToDisplay, highLoadTempReportToDisplay });
         }
         return () => null
+        // eslint-disable-next-line
     }, [traces, highLoadFinalReportsToDisplay, recoveryFinalReportsToDisplay, highLoadTempReportToDisplay, stateConfig, props])
 
     const defineMaxDomain = (data, value, defaultVal) => {
@@ -219,7 +244,7 @@ function Chart(props) {
             .tickPadding(3)
             .ticks(10)
 
-        const subLabelOffset = 30;
+        const subLabelOffset = 40;
         const xAxisG = mainGroup.append("g")
             .attr("class", "x-axis-group")
             .attr("transform", `translate(0, ${innerHeight})`)
@@ -242,13 +267,13 @@ function Chart(props) {
             .attr("class", `${classes.axisSubtitleLabelOverlined}`)
             .attr("font-weight", 300)
             .attr("y", subLabelOffset)
-            .attr("x", 190)
+            .attr("x", 235)
             .text(`${timeWindowInMin}`)
         subLabelComposed.append("tspan")
             .attr("class", `${classes.axisSubtitleLabelOverlined}`)
             .attr("font-weight", 300)
             .attr("y", subLabelOffset)
-            .attr("x", 400)
+            .attr("x", 445)
             .text(`${intervalInSecond}`);
 
         //AXIS Y
@@ -274,6 +299,8 @@ function Chart(props) {
             .attr("transform", "rotate(-90)")
             .text(yAxisLabel);
 
+        const ticks = selectAll(".tick");
+        ticks.attr("class", `${classes.ticks}`)
 
         // FRAMES 
         //utilities
@@ -292,9 +319,9 @@ function Chart(props) {
 
         // FRAME group
         const timeFrameGroup = mainGroup.append("g");
-
         // TEMPORARY HIGH LOAD IN PROGRESS TODO: isolate that Same logic in file and call it into group parent
         if (isHighLoadInProgress) {
+            // eslint-disable-next-line
             const framesTemporaryHighLoadInProgress = timeFrameGroup
                 .datum(highLoadTempReportToDisplay)
                 .append("rect")
@@ -341,12 +368,12 @@ function Chart(props) {
 
         // RECOVERY FINAL REPORT   
         const framesRecovery = timeFrameGroup
-            .selectAll(`${classes.recovery}`)
+            .selectAll(`${classes.frameRecovery}`)
             .data(recoveryFinalReportsToDisplay);
         framesRecovery.enter()
             .append("rect")
             .merge(framesRecovery)
-            .attr("class", `${classes.recovery}`)
+            .attr("class", `${classes.frameRecovery}`)
             .attr("x", d => xScale(new Date(getStartDateForDisplayFrame(d))))
             .attr("width", d => getWidth(d))
             .attr("height", innerHeight)
@@ -364,7 +391,6 @@ function Chart(props) {
 
         // MAX LINE
         const maxLoadAverage = mainGroup.append("g");
-
         maxLoadAverage.append("line")
             .attr("class", `${classes.maxLine}`)
             .attr("x1", 0)
@@ -380,15 +406,12 @@ function Chart(props) {
         const lineGenerator = line()
             .x(d => xScale(xValue(d)))
             .y(d => yScale(yValue(d)))
-
         const lineGroup = mainGroup.append("g")
             .attr("class", "line-group")
-
         lineGroup.append("path")
             .datum(traces)
             .attr("class", `${clsx(classes.lines, classes.dataLine)}`)
-            .attr("d", d => lineGenerator(d))
-
+            .attr("d", d => lineGenerator(d));
 
         // POINTS ALWAYS ON TOP OF LINES
         lineGroup.selectAll("line-circle")
@@ -407,35 +430,7 @@ function Chart(props) {
             .on("mouseout", () => {
                 tooltip.classed(`${classes.tooltipVisible}`, false);
             });
-
-
-        // TODO: Legend needs to be totally outside
-        const legendWidth = innerWidth;
-        const legendHeight = 100;
-        const legendYOffset = 10;
-        const legendRadius = 10;
-        const legendElementPadding = 20;
-        const legendPointRadius = pointRadius;
-
-        const dataLegendCircle = [
-            {
-                title: LABELS.chart.legend.timeFrames.highLoad.title,
-                class: "frame frame-highload",
-                radius: legendRadius
-            },
-            {
-                title: LABELS.chart.legend.timeFrames.recovery.title,
-                class: "frame frame-recovery",
-                radius: legendRadius
-            },
-            {
-                title: LABELS.chart.legend.points.title,
-                class: `${classes.dataCircle}`,
-                radius: legendPointRadius
-            }
-        ]
-
-
+            
         const legendGroupEnter = mainGroup.append("g")
             .attr("transform", `translate(0, ${innerHeight - legendHeight + margin.bottom - legendYOffset})`);
 
@@ -455,7 +450,6 @@ function Chart(props) {
 
 
         const dashGroup = legendGroupEnter.append("g");
-
         dashGroup.append("rect")
             .attr("x", `${innerWidth - 250 - legendElementPadding}`)
             .attr("y", `${legendElementPadding + 5}`)
@@ -471,7 +465,6 @@ function Chart(props) {
             .attr("class", `${classes.legendLabel}`)
     }
 
-    //TODO: use theming
     return (
         <Card display="flex" elevation={2}>
             <CardHeaderCustom

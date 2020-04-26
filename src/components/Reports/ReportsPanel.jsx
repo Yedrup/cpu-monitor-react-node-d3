@@ -16,7 +16,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import clsx from 'clsx';
 
 import { filterArrayOfObjectByProperty } from "../../utilities/utilities"
-import * as fakedata from "../../data/fakeData.json"
 
 const useStyles = makeStyles(theme => {
     return ({
@@ -42,14 +41,6 @@ function WrappedReportsPanel({ reports }) {
     const {
         eventsFinalReports
     } = reports;
-
-    // Fake data
-    // const eventsFinalReports = fakedata.eventsFinalReports;
-    // const eventsFinalReportsCount = fakedata.eventsFinalReports.length;
-    // const highLoadFinalReportsCount = fakedata.highLoadFinalReports.length;
-    // const highLoadFinalReports = fakedata.highLoadFinalReports;
-    // const recoveryFinalReports = fakedata.recoveryFinalReports;
-    // const recoveryFinalReportsCount = fakedata.highLoadFinalReports.length;
 
     const eventsFinalReportsCount = eventsFinalReports?.length || 0;
 

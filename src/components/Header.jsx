@@ -1,11 +1,9 @@
-import React, { useContext, Fragment } from 'react'
-import { RequestStatusContext } from '../data/context/RequestStatusContext';
+import React, { useContext } from 'react'
 import { ThemeContext } from '../data/context/ThemeContext';
-import { Typography, makeStyles, Switch, AppBar, Toolbar, Button, IconButton } from "@material-ui/core";
+import { Typography, makeStyles, Switch, AppBar, Toolbar } from "@material-ui/core";
 import * as LABELS from "../data/labels.json";
 
 function Header() {
-    const { isRequesting, setIsRequesting } = useContext(RequestStatusContext);
     const { currentThemeName, setCurrentThemeName } = useContext(ThemeContext);
 
     const useStyles = makeStyles((theme) => ({

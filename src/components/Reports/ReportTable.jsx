@@ -57,10 +57,7 @@ function ReportTable({ report, index }) {
     const {
         type,
         traces,
-        startDateInMs,
         startDateString,
-        isReportFinished,
-        endDateInMs,
         endDateString,
         peack,
         though,

@@ -57,7 +57,7 @@ export const configReducer = (state, action) => {
 
 
 export const ConfigProvider = ({children}) => {
-  const { isRequesting, setIsRequesting } = useContext(RequestStatusContext);
+  const { setIsRequesting } = useContext(RequestStatusContext);
   const [stateConfig, dispatchConfig] = useReducer(configReducer, initialConfigState);
 
   useEffect(() => {
@@ -66,6 +66,7 @@ export const ConfigProvider = ({children}) => {
       setIsRequesting(true);
     }, stateConfig.intervalInMs);
     return () => clearInterval(interval);
+    //eslint-disable-next-line
   }, [stateConfig]);
 
   return (

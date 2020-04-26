@@ -5,7 +5,7 @@ const MS_IN_1_SEC = 1000;
 const SEC_IN_1_MIN = 60;
 const MIN_IN_1_H = 60;
 
-const callApi = async ApiUrl => {
+export const callApi = async ApiUrl => {
     try {
         const response = await fetch(ApiUrl);
         let data = await response.json();
@@ -17,7 +17,7 @@ const callApi = async ApiUrl => {
 }
 
 
-const addPlaceholder = (sentence, charToReplace, replacedBy) => {
+export const addPlaceholder = (sentence, charToReplace, replacedBy) => {
     let newSentence = sentence.replace(charToReplace, replacedBy);
     return newSentence;
 };
@@ -26,30 +26,30 @@ const addPlaceholder = (sentence, charToReplace, replacedBy) => {
  * DATES ******************************************************************************************
  */
 
-const convertMsInMin = timeInMs => {
+export const convertMsInMin = timeInMs => {
     return timeInMs / MS_IN_1_MIN;
 }
 
-const convertMsInSec = timeInMs => {
+export const convertMsInSec = timeInMs => {
     return timeInMs / MS_IN_1_SEC;
 }
 
-const convertMinInMs = timeInMin => {
+export const convertMinInMs = timeInMin => {
     return timeInMin * MS_IN_1_MIN;
 }
 
-const convertSecInMs = timeInSec => {
+export const convertSecInMs = timeInSec => {
     return timeInSec * MS_IN_1_SEC;
 }
 
-const returnTimeInMilliseconds = timeStamp => {
+export const returnTimeInMilliseconds = timeStamp => {
     let date = new Date(timeStamp);
     return date.getTime();
 }
 
 
-const formatDateIntoString = dateObj => {
-    let year =dateObj.getFullYear();
+export const formatDateIntoString = dateObj => {
+    // let year =dateObj.getFullYear();
     let month =dateObj.getMonth();
     let day =dateObj.getDate();
     let hour =dateObj.getHours();
@@ -59,7 +59,7 @@ const formatDateIntoString = dateObj => {
     return `${MONTHS[month]} ${day} ${hour}:${minutes}:${seconds}.${milliseconds}`
   }
 
-const getDurationInHMS = (startTimeMilliseconds, endTimeMilliseconds) => {
+export const getDurationInHMS = (startTimeMilliseconds, endTimeMilliseconds) => {
     let differenceInMS = endTimeMilliseconds - startTimeMilliseconds;
     let differenceInSecondes = Math.floor(differenceInMS / MS_IN_1_SEC);
     let differenceInMinutes = Math.floor(differenceInSecondes / SEC_IN_1_MIN);
@@ -73,30 +73,31 @@ const getDurationInHMS = (startTimeMilliseconds, endTimeMilliseconds) => {
     return `${h}:${m}:${s}s`
 }
 
-const calculateTracesArrayAverage = (arrOfTraces) => {
+export const calculateTracesArrayAverage = (arrOfTraces) => {
     let average = parseFloat(arrOfTraces.reduce((acc, currTrace) => {
         return parseFloat(acc) + parseFloat(currTrace.loadAverageLast1Min)
     }, 0) / arrOfTraces.length);
     return parseFloat(average.toPrecision(2));
 }
 
-const getLengthOfArrForATimeWindow = (timeWindowInMs, intervalInMs) => {
+export const getLengthOfArrForATimeWindow = (timeWindowInMs, intervalInMs) => {
     return Math.round(timeWindowInMs / intervalInMs);
 }
 /*
  * OBJECTS ******************************************************************************************
  */
 
- const isObjectHavingKeys = obj => {
+export const isObjectHavingKeys = obj => {
     return Object.keys(obj).length;
  }
-const removeElementFromArray = (arr, value) => {
+ 
+ export const removeElementFromArray = (arr, value) => {
     return arr.filter((element) => {
         return element !== value;
     });
 }
 
-const filterArrayOfObjectByProperty = (arr,prop) => {
+export const filterArrayOfObjectByProperty = (arr,prop) => {
     if(!arr.length) return [];
     let filtered =  arr.reduce((acc,object) => {
         let newAcc = [...acc, { ...object[prop]}];
@@ -105,14 +106,14 @@ const filterArrayOfObjectByProperty = (arr,prop) => {
     return filtered
 }
 
-const removeFromTracesArrToDisplayLRU = (arrOfReportsObj, prop, olderTraceDisplayed) => {
+export const removeFromTracesArrToDisplayLRU = (arrOfReportsObj, prop, olderTraceDisplayed) => {
     let filtered = arrOfReportsObj.filter(currentReport => {
         return currentReport[prop] > olderTraceDisplayed
     });
     return filtered
 }
 
-const eventsHistoricLRU = (arrayOfEventsReports, prop, historicTimeWindow) => {
+export const eventsHistoricLRU = (arrayOfEventsReports, prop, historicTimeWindow) => {
     let now = Date.now();
     let limitReportsInMs = now - historicTimeWindow;
     // to keep events integrity (high loads + recovery), only the events having a recovery endDates <= historicTimeWindow are removed
@@ -122,13 +123,13 @@ const eventsHistoricLRU = (arrayOfEventsReports, prop, historicTimeWindow) => {
     return filtered
 }
 
-const unmergeArraysConsecutivlyJoined = (arrayWithDuplicated, array, propTocheck) => {
+export const unmergeArraysConsecutivlyJoined = (arrayWithDuplicated, array, propTocheck) => {
     const firstDublicatedElement = array[0];
     const indexTraceStartPortionToRm = arrayWithDuplicated.findIndex(currElem => currElem[propTocheck] === firstDublicatedElement[propTocheck]);
     return arrayWithDuplicated.slice(0, indexTraceStartPortionToRm + 1);  // +1 to join the end of first part to the next part in chart
 }
 
-const getPeakAndTroughFromTraces = (traces, propToCheck) => {
+export const getPeakAndTroughFromTraces = (traces, propToCheck) => {
     let peakAndTrough = traces.reduce((acc, trace) => {
         acc.though = (acc.though === undefined || trace[propToCheck] < acc.though) ? trace[propToCheck] : acc.though;
         acc.peack = (acc.peack === undefined || trace[propToCheck] > acc.peack) ? trace[propToCheck] : acc.peack;
@@ -136,31 +137,28 @@ const getPeakAndTroughFromTraces = (traces, propToCheck) => {
     }, {});
     return peakAndTrough;
 }
-
-
-
-module.exports = {
-    //TRACES
-    calculateTracesArrayAverage,
-    //API CALL
-    callApi,
-    //FORMAT
-    addPlaceholder,
-    //DATES
-    convertMinInMs,
-    convertSecInMs,
-    convertMsInMin,
-    convertMsInSec,
-    returnTimeInMilliseconds,
-    getDurationInHMS,
-    getLengthOfArrForATimeWindow,
-    formatDateIntoString,
-    //OBJECTS
-    isObjectHavingKeys,
-    filterArrayOfObjectByProperty,
-    unmergeArraysConsecutivlyJoined,
-    removeElementFromArray,
-    eventsHistoricLRU,
-    removeFromTracesArrToDisplayLRU,
-    getPeakAndTroughFromTraces
-};
+// exports = {
+//     //TRACES
+//     calculateTracesArrayAverage,
+//     //API CALL
+//     callApi,
+//     //FORMAT
+//     addPlaceholder,
+//     //DATES
+//     convertMinInMs,
+//     convertSecInMs,
+//     convertMsInMin,
+//     convertMsInSec,
+//     returnTimeInMilliseconds,
+//     getDurationInHMS,
+//     getLengthOfArrForATimeWindow,
+//     formatDateIntoString,
+//     //OBJECTS
+//     isObjectHavingKeys,
+//     filterArrayOfObjectByProperty,
+//     unmergeArraysConsecutivlyJoined,
+//     removeElementFromArray,
+//     eventsHistoricLRU,
+//     removeFromTracesArrToDisplayLRU,
+//     getPeakAndTroughFromTraces
+// };
