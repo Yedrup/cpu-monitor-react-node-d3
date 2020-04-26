@@ -31,7 +31,6 @@ import {
 
 import { fade } from '@material-ui/core/styles/colorManipulator';
 
-import { useTheme } from '@material-ui/styles';
 
 const LABELS = {
     common: {
@@ -109,9 +108,7 @@ function ReportTable({ report, index }) {
         }
     ]
 
-    const theme = useTheme();
-
-    const useStyles = makeStyles({
+    const useStyles = makeStyles((theme) => ({
         table: {
             minWidth: 700,
         },
@@ -143,7 +140,7 @@ function ReportTable({ report, index }) {
         colorIconFlat: {
             color: theme.palette.icons.flat
         }
-    });
+    }));
 
     const classes = useStyles();
 

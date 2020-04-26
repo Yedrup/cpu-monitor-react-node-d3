@@ -10,24 +10,28 @@
         "currentAverage": {
             "title": "Current Average",
             "subheader": "last minute average",
+            "iconName": "AvTimer",
             "conditionSentence": "",
             "moreDetails": ""
         },
         "countRecovery": {
             "title": "Recovery From High Load Averages Count",
             "subheader": "",
+            "iconName": "TrendingDown",
             "conditionSentence": "",
             "moreDetails": "More details about these events are available in related section link"
         },
         "countHighLoad": {
             "title": "High Load Averages Count",
             "subheader": "",
+            "iconName": "TrendingUp",
             "conditionSentence": "(including 1 currently in progress)",
             "moreDetails": "More details about these events are available in related section link"
         },
         "windowAverage": {
             "title": "Average during last",
             "subheader": "",
+            "iconName": "History",
             "conditionSentence": "This is an estimate made while the current time window is not reached",
             "moreDetails": ""
         }

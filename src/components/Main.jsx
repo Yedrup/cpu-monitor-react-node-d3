@@ -16,23 +16,23 @@ import { ConfigContext } from '../data/reducers/ConfigContext';
 
 import * as LABELS from "../data/labels?.json";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) =>({
   main: {
     marginTop: "1rem",
   }
-});
+}));
 
 
 function Main(props) {
   const { width: currentBreakpoint } = props;
-  const { stateData: {
-    traces,
-    eventsFinalReports,
-    isHighLoadCurrentlyInProgress,
-    isLastAverageWindowAnEstimate,
-    lastWindowAverage
-  }
-
+  const {
+    stateData: {
+      traces,
+      eventsFinalReports,
+      isHighLoadCurrentlyInProgress,
+      isLastAverageWindowAnEstimate,
+      lastWindowAverage
+    }
   } = useContext(DataStateContext);
   const { stateConfig, dispatchConfig } = useContext(ConfigContext);
   const { stateNotification, dispatchNotification } = useContext(NotificationContext)
@@ -82,7 +82,6 @@ function Main(props) {
     }
   }
   const updatedTextObjForWindowAverage = useMemo(() => updateTextObjForWindowAverage(LABELS.cardsPresentation.windowAverage, timeWindowInMin), [timeWindowInMin])
-
   const classes = useStyles();
   return (
     <Grid
@@ -163,10 +162,10 @@ function Main(props) {
           />
         </Grid>
 
-        <Grid 
-        item 
-        xs={12} 
-        md={4}
+        <Grid
+          item
+          xs={12}
+          md={4}
         >
           <ConfigPanel
             stateConfig={stateConfig}

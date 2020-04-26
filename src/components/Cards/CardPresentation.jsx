@@ -1,8 +1,51 @@
 // one card to rule them all
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Card, CardHeader, CardContent, withStyles, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import {
+    TrendingDown,
+    TrendingFlat,
+    TrendingUp,
+    Timelapse,
+    History,
+    AvTimer
+} from '@material-ui/icons';
+import clsx from "clsx";
 
+
+const IconCust = ({ iconName }) => {
+
+
+    const useStyles = makeStyles((theme) => ({
+        icon: {
+            marginRight: ".5rem",
+            fontSize: "1.8rem",
+        },
+        colorIconDefault: {
+            color: theme.palette.icons.default
+        },
+        colorIconHighLoad: {
+            color: theme.palette.icons.highLoad
+        },
+        colorIconRecovery: {
+            color: theme.palette.icons.recovery
+        },
+        colorIconFlat: {
+            color: theme.palette.icons.flat
+        }
+    }));
+    const classes = useStyles();
+
+    switch (iconName) {
+        case 'TrendingDown': return <TrendingDown className={clsx(classes.icon, classes.colorIconRecovery)} />
+        case 'TrendingFlat': return <TrendingFlat className={clsx(classes.icon, classes.colorIconFlat)} />
+        case 'TrendingUp': return <TrendingUp className={clsx(classes.icon, classes.colorIconHighLoad)} />
+        case 'Timelapse': return <Timelapse className={clsx(classes.icon, classes.colorIconFlat)} />
+        case 'History': return <History className={clsx(classes.icon, classes.colorIconDefault)} />
+        case 'AvTimer': return <AvTimer className={clsx(classes.icon, classes.colorIconDefault)} />
+        default: return null
+    }
+}
 
 
 
@@ -36,11 +79,13 @@ const CardHeaderCustom = withStyles((theme) => ({
         justifyContent: "baseline",
         [theme.breakpoints.down('sm')]: {
             height: "5.5rem"
-        }
+        },
     },
     title: {
         color: theme.palette.primary.contrastText,
-        fontSize: "1rem"
+        fontSize: "1rem",
+        alignItems: "flex-start",
+        display: "flex"
     },
     subheader: {
         color: theme.palette.grey
@@ -59,7 +104,7 @@ const CardPresentation = ({ isConditionalSentence = true, traces, mainValue, tex
 
     const useStyles = makeStyles((theme) => ({
         mainValue: {
-            fontSize: "2rem",
+            fontSize: "2.5rem",
             fontWeight: "bold",
             color: theme.palette.primary.main
         },
@@ -70,16 +115,21 @@ const CardPresentation = ({ isConditionalSentence = true, traces, mainValue, tex
 
     const classes = useStyles();
 
-    const { title, subheader, conditionSentence, moreDetails } = text;
+    const { title, subheader, conditionSentence, moreDetails, iconName } = text;
 
     return (
         <CardCustom elevation={2}>
             <CardHeaderCustom
-                title={title}
+                title={(
+                    <Fragment>
+                        <IconCust iconName={iconName} />
+                        {title}
+                    </Fragment>
+                )}
                 subheader={subheader}
             />
             <CardContentCustom>
-                <Typography className={classes.mainValue} /*color="success"*/>
+                <Typography className={classes.mainValue}>
                     {mainValue}
                 </Typography >
                 <Typography color="primary" className={classes.content}>{isConditionalSentence ? conditionSentence : ""}</Typography>
