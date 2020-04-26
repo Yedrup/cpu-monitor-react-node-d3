@@ -18,7 +18,7 @@ import * as LABELS from "../data/labels?.json";
 
 const useStyles = makeStyles({
   main: {
-    marginTop: "2rem",
+    marginTop: "1rem",
   }
 });
 
@@ -46,20 +46,20 @@ function Main(props) {
       height: "500"
     },
     sm: {
-      width: "740",
+      width: "800",
       height: "500"
     },
     md: {
-      width: "600",
-      height: "545"
+      width: "800",
+      height: "500"
     },
     lg: {
       width: "800",
-      height: "545"
+      height: "500"
     },
     xl: {
       width: "800",
-      height: "545"
+      height: "580"
     }
 
   }
@@ -96,7 +96,6 @@ function Main(props) {
       <Grid
         container
         item
-        spacing={3}
         direction="row"
         justify="space-between"
         mt={15}>
@@ -104,7 +103,8 @@ function Main(props) {
         <Grid
           component={CardPresentation}
           item
-          xs={2}
+          xs={6}
+          sm={2}
           lastTrace={{ ...lastTrace }}
           mainValue={loadAverageLast1Min}
           text={LABELS?.cardsPresentation.currentAverage}>
@@ -113,7 +113,8 @@ function Main(props) {
         <Grid
           component={CardPresentation}
           item
-          xs={2}
+          xs={6}
+          sm={2}
           lastTrace={{ ...lastTrace }}
           mainValue={lastWindowAverage}
           isConditionalSentence={isLastAverageWindowAnEstimate}
@@ -123,7 +124,8 @@ function Main(props) {
         <Grid
           component={CardPresentation}
           item
-          xs={4}
+          xs={6}
+          sm={2}
           traces={traces}
           isConditionalSentence={isHighLoadCurrentlyInProgress}
           text={LABELS?.cardsPresentation.countHighLoad}
@@ -133,7 +135,8 @@ function Main(props) {
         <Grid
           component={CardPresentation}
           item
-          xs={4}
+          xs={6}
+          sm={2}
           lastTrace={{ ...lastTrace }}
           mainValue={recoveryCount}
           text={LABELS?.cardsPresentation.countRecovery}>
@@ -151,30 +154,28 @@ function Main(props) {
         <Grid
           item
           xs={12}
-          sm={12}
-          md={8} >
+          sm={8}
+          >
           <Chart
             width={currentChartSize.width}
-            height={currentChartSize.height} />
-        </Grid>
-
-        <Grid item xs={12} sm={5} md={4}>
-          <ConfigPanel
-            stateConfig={stateConfig}
-            dispatchConfig={dispatchConfig} />
-          <CpuInfo />
+            height={currentChartSize.height} 
+            />
         </Grid>
 
         <Grid
           item
           xs={12}
-          sm={12}
-          md={12} >
+           >
           <ReportsPanel reports={{
             eventsFinalReports
           }} />
         </Grid>
-
+        <Grid item xs={12} sm={5} xl={4}>
+          <ConfigPanel
+            stateConfig={stateConfig}
+            dispatchConfig={dispatchConfig} />
+          <CpuInfo />
+        </Grid>
       </Grid>
     </Grid>
   );

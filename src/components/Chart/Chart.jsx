@@ -20,18 +20,113 @@ import {
     axisBottom,
 } from "d3";
 
-import { Box } from "@material-ui/core";
+import clsx from 'clsx';
 import { ConfigContext } from '../../data/reducers/ConfigContext';
 import { DataStateContext } from '../../data/reducers/DataContext';
 
-import Legend from "./utilities/legend";
+import Legend from "./utilities/Legend";
+import { getTplTracePoint, getTplTemporaryReport, getTplFinalReport } from "./utilities/Tooltips";
 import { addPlaceholder } from "../../utilities/utilities"
 
 import * as LABELS from "../../data/labels.json"
 
+import { Card, CardContent, CardHeader, withStyles } from "@material-ui/core";
+import { makeStyles } from '@material-ui/core/styles';
+import { fade } from '@material-ui/core/styles/colorManipulator';
 import './Chart.css';
 
+
+const useStyles = makeStyles((theme) => ({
+    cardContent: {
+        width: "100%",
+    },
+    tooltipVisible: {
+        padding: ".5rem 1rem",
+        font: "1rem",
+        backgroundColor: fade(theme.palette.primary.darker, .7),
+        color: theme.palette.primary.lighter,
+        border: 0,
+        opacity: 1,
+        borderRadius: ".2rem",
+    },
+    svg: {
+        width: "100%",
+        height: "100%",
+        backgroundColor: "rgba(121, 121, 121, 0.947)"
+    },
+    axisLabel: {
+        stroke: "white",
+        fill: "white",
+        fontSize: "1.25rem"
+    },
+    axisSubtitleLabel: {
+        stroke: "rgba(255, 255, 255, 0.514)",
+        fill: "rgba(255, 255, 255, 0.753)",
+        fontSize: "1rem"
+    },
+    axisSubtitleLabelOverlined: {
+        fill: "rgb(0, 255, 221)",
+        stroke: "rgb(0, 255, 255)"
+    },
+    legend: {
+        backgroundColor: "rgba(255, 255, 255, 0.242)",
+        fill: "rgba(255, 255, 255, 0.303)",
+    },
+    legendLabel: {
+        fill: "black",
+        stroke: "black",
+        fontWeight: "bold",
+    },
+    maxLine: {
+        fill: "none",
+        stroke: "rgb(0, 0, 0)",
+        strokeDasharray: "70, 10",
+        strokeWidth: "4px",
+    },
+    lines: {
+        strokeWidth: "4px",
+        fill: "none",
+    },
+    dataLine: {
+        stroke: "rgb(70, 221, 255)",
+        mixBlendMode: "hard-light",
+        strokeLinejoin: "miter",
+    },
+    dataCircle: {
+        fill: "rgb(106, 0, 255)"
+    },
+    frameHighLoad: {
+        fill: "#FF0000",
+        opacity: .2
+    },
+    frameRecovery: {
+        fill: "rgb(34, 255, 0)",
+        opacity: .2
+    }
+}));
+
+// need to import it, same as other cards
+const CardHeaderCustom = withStyles((theme) => ({
+    root: {
+        textAlign: "left",
+        height: "2rem",
+        alignItems: "baseline",
+        justifyContent: "baseline",
+        paddingBottom: 0,
+    },
+    title: {
+        color: theme.palette.primary.contrastText,
+        fontSize: "1rem"
+    },
+    subheader: {
+        color: theme.palette.grey
+    }
+}))(CardHeader);
+
+
+
 function Chart(props) {
+    const classes = useStyles();
 
     const { stateConfig } = useContext(ConfigContext);
     const {
@@ -64,7 +159,6 @@ function Chart(props) {
     const yAxisLabel = LABELS.chart.axis.yAxisLabelTitle;
     const xAxisLabelTitle = LABELS.chart.axis.xAxisLabelTitle;
     const xAxisLabelSubtitle = formattedWhiteSpacedLabel;
-    // const { timeWindowInMin, intervalInSecond } = useMemo(() => getAxisSubtitleLabelDynamicValues(timeWindowInMs, intervalInMs), [timeWindowInMs, intervalInMs]);
 
     const defaultYMaxDomain = 3;
     const xValue = d => d.dateObj;
@@ -73,33 +167,6 @@ function Chart(props) {
 
 
     const tooltipTransitionInMs = 100;
-    const getTplTracePoint = (trace) => {
-        const { dateString, loadAverageLast1Min } = trace;
-        return (`
-            <p>🕒 ${LABELS.chart.tooltip.common.time}: ${dateString}</p >
-            <p>🏷 ${LABELS.chart.tooltip.common.average.specificTime}: ${loadAverageLast1Min}</p>
-        `)
-    }
-
-    const getTplTemporaryReport = (report) => {
-        return (`
-            <h1>${LABELS.chart.tooltip[report.type].title}</h1>
-            <p>🕙${LABELS.chart.tooltip.common.eventInfo.started}: ${report.startDateString} </p>
-            <p>${LABELS.chart.tooltip.common.status.inProgress}</p>
-        `)
-    }
-    const getTplFinalReport = (report) => {
-        const { duration, completeAverage, startDateString, endDateString } = report;
-        return (`
-    <h1>${LABELS.chart.tooltip[report.type].title}</h1>
-            <p>🕙 ${LABELS.chart.tooltip.common.eventInfo.started}: ${startDateString} </p >
-            <p>🕥 ${LABELS.chart.tooltip.common.eventInfo.finished}: ${endDateString} </p >
-            <p>⏱ ${LABELS.chart.tooltip.common.duration}: ${duration}</p>
-            <p>🏷 ${LABELS.chart.tooltip.common.average.onPeriod}: ${completeAverage}</p>
-            <p>${LABELS.chart.tooltip.common.status.finished}</p>
-        `)
-    }
-
     const tooltipTpl = (tpl) => {
         return (tpl);
     }
@@ -117,7 +184,7 @@ function Chart(props) {
             renderChart({ traces, highLoadFinalReportsToDisplay, recoveryFinalReportsToDisplay, highLoadTempReportToDisplay });
         }
         return () => null
-    }, [traces, highLoadFinalReportsToDisplay, recoveryFinalReportsToDisplay, highLoadTempReportToDisplay,stateConfig])
+    }, [traces, highLoadFinalReportsToDisplay, recoveryFinalReportsToDisplay, highLoadTempReportToDisplay, stateConfig, props])
 
     const defineMaxDomain = (data, value, defaultVal) => {
         let currentMaxInData = max(data, value);
@@ -129,26 +196,19 @@ function Chart(props) {
         select(".mainGroup").remove(); // avoid duplication before draw
         selectAll(".tooltip").remove(); // remove the tooltip when it's display on body. TODO: find a better way
 
+        const tooltip = select("body").append("div") // TODO: extrat from render + ideally use mui tooltip
+            .attr("class", "tooltip")
         const isHighLoadInProgress = !!highLoadTempReportToDisplay;
 
-        const tooltip = select("body").append("div") // TODO: extrat from render + ideally use mui tooltip
-            .attr("class", "tooltip");
 
         const svg = select(svgElem)
-            .attr("class", "svg");
+            .attr("class", `${classes.svg}`);
 
         const mainGroup = svg.append("g")
             .attr("transform", `translate(${margin.left},${margin.right})`)
             .attr("class", "mainGroup");
-        mainGroup.append("text")
-            .attr("y", -20)
-            .attr("x", innerWidth / 3)
-            .text(title)
-            .attr("class", "title")
-
 
         // GROUPS
-
         //AXIS X  
         const xScale = scaleTime()
             .domain(extent(traces, xValue))
@@ -171,21 +231,21 @@ function Chart(props) {
         xAxisTextG.append("text")
             .attr("y", 0)
             .attr("x", innerWidth / 2)
-            .attr("class", "axis-label")
+            .attr("class", `${classes.axisLabel}`)
             .text(xAxisLabelTitle)
         const subLabelComposed = xAxisTextG.append("text")
-            .attr("class", "axis-subtitle-label")
+            .attr("class", `${classes.axisSubtitleLabel}`)
             .attr("y", subLabelOffset)
             .attr("x", innerWidth / 2)
             .text(xAxisLabelSubtitle)
         subLabelComposed.append("tspan")
-            .attr("class", "axis-subtitle-label--important")
+            .attr("class", `${classes.axisSubtitleLabelOverlined}`)
             .attr("font-weight", 300)
             .attr("y", subLabelOffset)
             .attr("x", 190)
             .text(`${timeWindowInMin}`)
         subLabelComposed.append("tspan")
-            .attr("class", "axis-subtitle-label--important")
+            .attr("class", `${classes.axisSubtitleLabelOverlined}`)
             .attr("font-weight", 300)
             .attr("y", subLabelOffset)
             .attr("x", 400)
@@ -207,7 +267,7 @@ function Chart(props) {
             .call(yAxis);
 
         yAxisG.append("text")
-            .attr("class", "axis-label")
+            .attr("class", `${classes.axisLabel}`)
             .attr("y", -45)
             .attr("x", - innerHeight / 2)
             .attr("text-anchor", "middle")
@@ -231,56 +291,48 @@ function Chart(props) {
         }
 
         // FRAME group
-        const timeFrameGroup = mainGroup.append("g").attr("class", "timeframe");
+        const timeFrameGroup = mainGroup.append("g");
 
         // TEMPORARY HIGH LOAD IN PROGRESS TODO: isolate that Same logic in file and call it into group parent
         if (isHighLoadInProgress) {
             const framesTemporaryHighLoadInProgress = timeFrameGroup
                 .datum(highLoadTempReportToDisplay)
                 .append("rect")
-                .attr("class", "frame frame-highload-in-progress")
+                .attr("class", `${classes.frameHighLoad}`)
                 .attr("height", innerHeight)
                 .attr("x", d => xScale(new Date(getStartDateForDisplayFrame(d))))
                 .attr("width", d => getWidth(d, "lastUpdateInMs"))
                 .on("mouseover", d => {
-                    tooltip.transition()
-                        .duration(tooltipTransitionInMs)
-                        .style("opacity", .9);
+                    tooltip.classed(`${classes.tooltipVisible}`, true);
                     tooltip.html(tooltipTpl(getTplTemporaryReport(d)))
                         .style("left", `${event.pageX}px`)
                         .style("top", `${event.pageY - 10}px`);
                 })
                 .on("mouseout", d => {
-                    tooltip.transition()
-                        .duration(tooltipTransitionInMs)
-                        .style("opacity", 0);
+                    tooltip.classed(`${classes.tooltipVisible}`, false)
                 });
 
         }
 
         // HIGH LOAD FINAL REPORT 
         const framesHighLoad = timeFrameGroup
-            .selectAll('frame-highload')
+            .selectAll(`${classes.frameHighLoad}`)
             .data(highLoadFinalReportsToDisplay);
         framesHighLoad.enter()
             .append("rect")
             .merge(framesHighLoad)
-            .attr("class", "frame frame-highload")
+            .attr("class", `${classes.frameHighLoad}`)
             .attr("x", d => xScale(new Date(getStartDateForDisplayFrame(d))))
             .attr("width", d => getWidth(d))
             .attr("height", innerHeight)
             .on("mouseover", d => {
-                tooltip.transition()
-                    .duration(tooltipTransitionInMs)
-                    .style("opacity", .9);
+                tooltip.classed(`${classes.tooltipVisible}`, true)
                 tooltip.html(tooltipTpl(getTplFinalReport(d)))
                     .style("left", `${event.pageX}px`)
                     .style("top", `${event.pageY - 10}px`);
             })
             .on("mouseout", d => {
-                tooltip.transition()
-                    .duration(tooltipTransitionInMs)
-                    .style("opacity", 0);
+                tooltip.classed(`${classes.tooltipVisible}`, false);
             });
 
         framesHighLoad.exit()
@@ -289,37 +341,32 @@ function Chart(props) {
 
         // RECOVERY FINAL REPORT   
         const framesRecovery = timeFrameGroup
-            .selectAll('frame-recovery')
+            .selectAll(`${classes.recovery}`)
             .data(recoveryFinalReportsToDisplay);
         framesRecovery.enter()
             .append("rect")
             .merge(framesRecovery)
-            .attr("class", "frame frame-recovery")
+            .attr("class", `${classes.recovery}`)
             .attr("x", d => xScale(new Date(getStartDateForDisplayFrame(d))))
             .attr("width", d => getWidth(d))
             .attr("height", innerHeight)
             .on("mouseover", d => {
-                tooltip.transition()
-                    .duration(tooltipTransitionInMs)
-                    .style("opacity", .9);
+                tooltip.classed(`${classes.tooltipVisible}`, true);
                 tooltip.html(tooltipTpl(getTplFinalReport(d)))
                     .style("left", `${event.pageX}px`)
                     .style("top", `${event.pageY - 28}px`);
             })
             .on("mouseout", d => {
-                tooltip.transition()
-                    .duration(tooltipTransitionInMs)
-                    .style("opacity", 0);
+                tooltip.classed(`${classes.tooltipVisible}`, false)
             });
         framesRecovery.exit()
             .remove()
 
         // MAX LINE
-        const maxLoadAverage = mainGroup.append("g")
-            .attr("class", "max-group")
+        const maxLoadAverage = mainGroup.append("g");
 
         maxLoadAverage.append("line")
-            .attr("class", "max-line")
+            .attr("class", `${classes.maxLine}`)
             .attr("x1", 0)
             .attr("y1", yScale(loadAverageByCpuConsiredAsHigh))
             .attr("x2", innerWidth)
@@ -339,7 +386,7 @@ function Chart(props) {
 
         lineGroup.append("path")
             .datum(traces)
-            .attr("class", "lines data-line")
+            .attr("class", `${clsx(classes.lines, classes.dataLine)}`)
             .attr("d", d => lineGenerator(d))
 
 
@@ -347,22 +394,18 @@ function Chart(props) {
         lineGroup.selectAll("line-circle")
             .data(traces)
             .enter().append("circle")
-            .attr("class", "data-circle")
+            .attr("class", `${classes.dataCircle}`)
             .attr("r", pointRadius)
             .attr("cx", d => xScale(xValue(d)))
             .attr("cy", d => yScale(yValue(d)))
             .on("mouseover", d => {
-                tooltip.transition()
-                    .duration(tooltipTransitionInMs)
-                    .style("opacity", .9);
+                tooltip.classed(`${classes.tooltipVisible}`, true);
                 tooltip.html(tooltipTpl(getTplTracePoint(d)))
                     .style("left", `${event.pageX}px`)
                     .style("top", `${event.pageY - 30}px`);
             })
             .on("mouseout", () => {
-                tooltip.transition()
-                    .duration(tooltipTransitionInMs)
-                    .style("opacity", 0);
+                tooltip.classed(`${classes.tooltipVisible}`, false);
             });
 
 
@@ -387,7 +430,7 @@ function Chart(props) {
             },
             {
                 title: LABELS.chart.legend.points.title,
-                class: "data-circle",
+                class: `${classes.dataCircle}`,
                 radius: legendPointRadius
             }
         ]
@@ -395,48 +438,53 @@ function Chart(props) {
 
         const legendGroupEnter = mainGroup.append("g")
             .attr("transform", `translate(0, ${innerHeight - legendHeight + margin.bottom - legendYOffset})`);
+
+        legendGroupEnter.append("rect")
+            .attr("class", `${classes.legend}`)
+            .attr("width", legendWidth)
+            .attr("height", legendHeight);
+
         legendGroupEnter.call(Legend, {
             dataLegendCircle,
             spacing: 30,
             circleRadius: legendRadius,
             textOffset: 15,
+            className: `${classes.legendLabel}`,
             padding: legendElementPadding
         });
 
-        legendGroupEnter.append("rect")
-            .attr("class", "legend")
-            .attr("width", legendWidth)
-            .attr("height", legendHeight);
-            
-        const dashGroup = legendGroupEnter.append("g");
 
+        const dashGroup = legendGroupEnter.append("g");
 
         dashGroup.append("rect")
             .attr("x", `${innerWidth - 250 - legendElementPadding}`)
             .attr("y", `${legendElementPadding + 5}`)
             .attr("width", 60)
             .attr("height", .5)
-            .attr("class", "max-line")
+            .attr("class", `${classes.maxLine}`)
 
         dashGroup.append("text")
             .attr("x", `${innerWidth - 180 - legendElementPadding}`)
             .attr("y", `${legendElementPadding}`)
             .text(`${LABELS.chart.legend.limit.title} : ${loadAverageByCpuConsiredAsHigh}`)
             .attr("dy", 10)
-            .attr("class", "legend-label")
+            .attr("class", `${classes.legendLabel}`)
     }
 
     //TODO: use theming
     return (
-        <Box display="flex">
-            <svg
-                // style={{backgroundColor: grey[200]}}
-                width={props.width}
-                height={props.height}
-                ref={svgElementRef}
-            >
-            </svg>
-        </Box>
+        <Card display="flex" elevation={2}>
+            <CardHeaderCustom
+                title={title}
+            />
+            <CardContent className={classes.cardContent}>
+                <svg
+                    viewBox={`0 0 ${props.width} ${580} `}
+                    ref={svgElementRef}
+                >
+                </svg>
+            </CardContent>
+        </Card>
     );
 
 

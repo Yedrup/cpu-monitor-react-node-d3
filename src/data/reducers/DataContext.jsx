@@ -41,9 +41,9 @@ const updateReportsDisplayed = (highLoadFinalReportsToDisplay, recoveryFinalRepo
     }
 }
 
-const updateEventsHistoric = (eventsFinalReports, lastTrace) => {
+const updateEventsHistoric = (eventsFinalReports, lastTrace = {}) => {
     //we use lastTrace to access to the current config and timeHistoryWindowInMs (useContext not possible to use)
-    let currentHistoricTimeWindowInMs = lastTrace.configUsed.timeHistoryWindowInMs;
+    let currentHistoricTimeWindowInMs = lastTrace.configUsed?.timeHistoryWindowInMs;
     let updated = eventsHistoricLRU(eventsFinalReports, "endDateInMs", currentHistoricTimeWindowInMs);
     return updated;
 }
@@ -51,7 +51,7 @@ const updateEventsHistoric = (eventsFinalReports, lastTrace) => {
 const estimateLastXMinutesAverage = (traces, lastTrace) => {
     let timeWindowArrayLength = lastTrace?.configUsed?.getTimeWindowArrayLength() || 2;
     if (traces.length < timeWindowArrayLength) {
-        let estimate = (lastTrace.loadAverageLast5Mins + lastTrace?.loadAverageLast15Mins) / 2;
+        let estimate = (lastTrace?.loadAverageLast5Mins + lastTrace?.loadAverageLast15Mins) / 2;
         estimate = parseFloat(estimate.toPrecision(2));
         return {
             isLastAverageWindowAnEstimate: true,

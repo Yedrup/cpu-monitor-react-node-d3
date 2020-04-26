@@ -11,11 +11,13 @@ function Header() {
     const useStyles = makeStyles((theme) => ({
         root: {
             flexGrow: 1,
+            height: "3rem",
+            justifyContent: "center",
             color: theme.palette.primary.lighter
         },
         title: {
             flexGrow: 1,
-            fontSize: "2rem"
+            fontSize: "1.5rem"
         },
     }));
 

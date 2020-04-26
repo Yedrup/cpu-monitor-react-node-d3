@@ -1,6 +1,8 @@
 
+
+
 const Legend = (elementParent, props) => {
-    const { dataLegendCircle, spacing, circleRadius, textOffset, padding } = props;
+    const { dataLegendCircle, spacing, circleRadius, textOffset, padding, className } = props;
     const groups = elementParent.selectAll("g")
         .data(dataLegendCircle);
 
@@ -24,7 +26,7 @@ const Legend = (elementParent, props) => {
         .attr("x", textOffset)
         .attr("dy", ".3rem")
         .text(d => d.title)
-        .attr("class", "legend-label")
+        .attr("class", className)
 }
 
 

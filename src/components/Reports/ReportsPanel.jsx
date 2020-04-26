@@ -103,8 +103,7 @@ function WrappedReportsPanel({ reports }) {
         return !arrayLength ? LABELS.common.noReport : arrayLength && arrayLength > 1 ? LABELS[tabDataType].reports : LABELS[tabDataType].report
     }
     return (
-        <Fragment>
-            <Paper square>
+            <Paper  elevation={2}>
                 <Tabs value={currentTabVal}
                     variant="fullWidth"
                     indicatorColor="primary"
@@ -163,8 +162,6 @@ function WrappedReportsPanel({ reports }) {
                     }
                 </TabPanel>
             </Paper>
-
-        </Fragment >
     );
 }
 

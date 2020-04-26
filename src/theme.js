@@ -11,10 +11,13 @@ import {
 } from '@material-ui/core/colors';
 
 
+
+
 const HEADERS = {
     h1: {
         fontSize: "1.5rem",
         fontWeight: "bold",
+
     },
     h2: {
         fontSize: "1.4rem",
@@ -29,16 +32,32 @@ const HEADERS = {
         fontWeight: "bold",
     },
     h5: {
-        fontSize: "1.1rem",
         fontWeight: "bold",
+        '@media (max-width:600px)': {
+            fontSize: '.5rem',
+        },
+        '@media (min-width:600px) and (max-width:960px)': {
+            fontSize: '1rem',
+        },
+        '@media (min-width:960px)': {
+            fontSize: "1.1rem"
+        }
     },
     h6: {
         fontSize: "1rem",
         fontWeight: "bold",
     },
     overline: {
-        fontSize: "3rem",
         fontWeight: "bold",
+        '@media (max-width:600px)': {
+            fontSize: '1rem',
+        },
+        '@media (min-width:600px) and (max-width:960px)': {
+            fontSize: '2rem',
+        },
+        '@media (min-width:960px)': {
+            fontSize: '3rem',
+        }
     }
 }
 
@@ -69,7 +88,7 @@ const darkTheme = createMuiTheme({
             light: cyan[100],
             main: cyan[200],
             dark: cyan[300],
-            darker: cyan[400],
+            darker: cyan[900],
             contrastText: cyan[50]
         },
         secondary: {
