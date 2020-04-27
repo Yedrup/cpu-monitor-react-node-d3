@@ -57,5 +57,5 @@ export default Notification;
 
 
 /*
- TO DO : check update material ui  to solve the error thrown by React'StrictMode : "Warning: findDOMNode is deprecated in StrictMode. findDOMNode was passed an instance of Transition which is inside StrictMode."
+ TODO: check update material ui  to solve the error thrown by React'StrictMode : "Warning: findDOMNode is deprecated in StrictMode. findDOMNode was passed an instance of Transition which is inside StrictMode."
 */

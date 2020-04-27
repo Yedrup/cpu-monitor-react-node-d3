@@ -1,32 +1,78 @@
 import React, { memo } from 'react'
-import { Button, Card, CardContent, Typography } from '@material-ui/core';
+import { Card, CardHeader, CardContent, withStyles, List, ListItemText } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import * as LABELS from "../data/labels.json"
+
 
 function WrappedConfigPanel(props) {
-    let { stateConfig, dispatchConfig } = props;
-    let timeWindowArrayLength = stateConfig.getTimeWindowArrayLength();
-    let highLoadAverageMinArrayLength = stateConfig.getHighLoadAverageMinArrayLength();
-    let recoveryArrayMinLength = stateConfig.getRecoveryArrayMinLength();
+    let { stateConfig } = props;
+    const useStyles = makeStyles((theme) => ({
+        item: {
+            marginBottom: 20
+        },
+        label: {
+            fontSize: "1rem",
+            fontWeight: "bold",
+            color: theme.palette.primary.main
+        }
+    }))
+    const CardHeaderCustom = withStyles((theme) => ({
+        root: {
+            textAlign: "left",
+            height: "4.5rem",
+            paddingBottom: 0,
+            alignItems: "baseline",
+            justifyContent: "baseline",
+            [theme.breakpoints.down('sm')]: {
+                height: "5.5rem"
+            },
+        },
+        title: {
+            color: theme.palette.primary.contrastText,
+            fontSize: "1rem",
+            alignItems: "flex-start",
+            display: "flex"
+        },
+        subheader: {
+            color: theme.palette.grey
+        }
+    }))(CardHeader);
+
+    const CardContentCustom = withStyles((theme) => ({
+        root: {
+            flex: 1,
+            paddingTop: 0,
+            display: "flex",
+            textAlign: "left",
+            flexDirection: "column",
+            alignItems: "flex-start"
+        }
+    }))(CardContent);
+
+    const classes = useStyles();
 
     return (
         <Card>
-            <CardContent>
-                <Typography variant="h6" color="primary">CONFIG PANNEL</Typography>
-                {Object.entries(stateConfig)
-                    .map((conf, index) => {
-                        let isAFunc = typeof conf[1] === "function";
-                        return (isAFunc ? null : <p key={index}> <span>{conf[0]}: </span>{conf[1]}</p>)
-                    }
-                    )}
-                <p>timeWindowArrayLength:{timeWindowArrayLength}</p>
-                <p>highLoadAverageMinArrayLength:{highLoadAverageMinArrayLength}</p>
-                <p>recoveryArrayMinLength:{recoveryArrayMinLength}</p>
-                <Button variant="contained" color="secondary" onClick={() => {
-                    dispatchConfig({
-                        type: 'UPDATE_INTERVAL',
-                        payload: 3000
-                    })
-                }}>change interval in ms</Button>
-            </CardContent>
+            <CardHeaderCustom
+                title="Configuration"
+            />
+            <CardContentCustom >
+                <List>
+                    {Object.entries(stateConfig)
+                        .map((conf, index) => {
+                            let isAFunc = typeof conf[1] === "function";
+                            return (
+                                isAFunc
+                                    ? null
+                                    : (<ListItemText className={classes.item} key={index}>
+                                        <span >{LABELS.configutation[conf[0]]}: </span>
+                                        <span className={classes.label} >{conf[1]}</span>
+                                    </ListItemText>)
+                            )
+                        }
+                        )}
+                </List>
+            </CardContentCustom>
         </Card>
     )
 }

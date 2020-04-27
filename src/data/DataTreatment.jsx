@@ -48,17 +48,14 @@ function DataTreatment() {
 
 
 
-
-
     const [isTemporaryHighLoadReportCreated, setIsTemporaryHighLoadReportCreated] = useState(false)
 
-    /********* UTILITIES */
 
+    /********* UTILITIES */
     const manageTracesLRU = (traces, newTrace) => {
         let updatedTraces = [...traces, newTrace];
         let maxLength = stateConfig.getTimeWindowArrayLength();
         if (updatedTraces.length > maxLength) {
-            //TODO: if update stateConfig, see to slice if new timeWindowArrayLength is smaller
             updatedTraces.shift();
         }
         return updatedTraces;
@@ -74,9 +71,10 @@ function DataTreatment() {
 
     /*** Main state effect */
 
+    // call api
     useEffect(() => {
         if (isRequesting) {
-            console.log("requesting api ...");
+            //console.log("requesting api ...");
             callApi("api/cpu/averages").then(data => {
                 setCpuData(data);
                 setIsRequesting(false);
@@ -86,6 +84,7 @@ function DataTreatment() {
         // eslint-disable-next-line
     }, [isRequesting]);
 
+    // triggered when cpuData is received
     useEffect(() => {
         if (!isCpuData) {
             let isCpuDataAvailable = isObjectHavingKeys(cpuData);
@@ -104,6 +103,7 @@ function DataTreatment() {
         // eslint-disable-next-line
     }, [cpuData, isCpuData])
 
+    // change the steps
     useEffect(() => {
         console.log("Change previous step to =>", currentStep);
         if (currentStep === null && isReseting) {
@@ -119,7 +119,6 @@ function DataTreatment() {
 
     /********* ALGO STEPS TODO: remove step logic from this file  */
     // Management of high load average and recovery as steps.
-    // reference of steps
     const steps = [
         {
             state: highLoadAverageSuspected, // Maybe high load average
@@ -198,7 +197,6 @@ function DataTreatment() {
                 setCurrentStep(1);
                 //copy high load suspected to high load confirmed
                 setHighLoadAverageConfirmed([...highLoadAverageSuspected])
-                //if (!isHighLoadAverageConfirmed) setHighLoadAverageConfirmed([]) //RESET meaning when it passes to false, no copying suspect etc
             }
         }
         return () => null;
@@ -212,7 +210,6 @@ function DataTreatment() {
                 console.log("🔴 HIGH LOAD CONFIRMED");
                 let newTrace = highLoadAverageConfirmed[highLoadAverageConfirmed.length - 1];
                 let isALoadAverageDecrease = newTrace.loadAverageLast1Min < stateConfig.loadAverageByCpuConsiredAsHigh;
-
                 // create a new temporary report in reducer
                 if (!isTemporaryHighLoadReportCreated) {
                     let newTemporaryReport = new ReportInProgress("temporary", highLoadAverageConfirmed)
@@ -221,7 +218,6 @@ function DataTreatment() {
                         payload: newTemporaryReport
                     })
                     setIsTemporaryHighLoadReportCreated(true);
-
                 } else {
                     // simply update with traces
                     dispatchData({
@@ -314,7 +310,6 @@ function DataTreatment() {
             isInitialMount.current = false;
         } else {
             if (isRecoveryAverageConfirmed) {
-                console.log("UPDATE ARRAY - recoveryAverageConfirmed", recoveryAverageConfirmed);
                 let { highLoadAverageNewReport, recoveringAverageNewReport } = getFinalReports(highLoadAverageConfirmed, recoveryAverageConfirmed);
 
                 dispatchData({

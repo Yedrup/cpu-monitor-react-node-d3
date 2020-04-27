@@ -9,7 +9,7 @@ export const callApi = async ApiUrl => {
     try {
         const response = await fetch(ApiUrl);
         let data = await response.json();
-        console.log("API response =>", data);
+        // console.log("API response =>", data);
         return data;
     } catch (err) {
         console.log(err);

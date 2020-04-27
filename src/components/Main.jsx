@@ -14,7 +14,7 @@ import CardPresentation from "./Cards/CardPresentation";
 
 import { ConfigContext } from '../data/reducers/ConfigContext';
 
-import * as LABELS from "../data/labels?.json";
+import * as LABELS from "../data/labels.json";
 
 const useStyles = makeStyles((theme) =>({
   main: {

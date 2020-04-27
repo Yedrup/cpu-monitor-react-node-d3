@@ -152,6 +152,72 @@
             "loadAverageLast15Mins": "0.50"
         }
     ],
+    "tracesSuspected": [
+        {
+            "loadAverageLast1Min": 0.78,
+            "dateString": "Apr 27 8:45:16.424",
+            "dateObj": "2020-04-27T06:45:16.424Z",
+            "configUsed": {
+                "loadAverageByCpuConsiredAsHigh": 0.6,
+                "minimumDurationCpuHighLoadInMs": 30000,
+                "minimumDurationRecoveryInMs": 30000,
+                "intervalInMs": 10000,
+                "timeWindowInMs": 180000,
+                "timeHistoryWindowInMs": 280000
+            },
+            "dateInMs": 1587969916424,
+            "loadAverageLast5Mins": 0.67,
+            "loadAverageLast15Mins": 0.65
+        },
+        {
+            "loadAverageLast1Min": 0.76,
+            "dateString": "Apr 27 8:45:26.657",
+            "dateObj": "2020-04-27T06:45:26.657Z",
+            "dateInMs": 1587969926657,
+            "loadAverageLast5Mins": 0.67,
+            "loadAverageLast15Mins": 0.65
+        },
+        {
+            "loadAverageLast1Min": 0.74,
+            "dateString": "Apr 27 8:45:36.661",
+            "dateObj": "2020-04-27T06:45:36.661Z",
+            "dateInMs": 1587969936661,
+            "loadAverageLast5Mins": 0.67,
+            "loadAverageLast15Mins": 0.65
+        },
+        {
+            "loadAverageLast1Min": 0.7,
+            "dateString": "Apr 27 8:45:46.618",
+            "dateObj": "2020-04-27T06:45:46.618Z",
+            "dateInMs": 1587969946618,
+            "loadAverageLast5Mins": 0.66,
+            "loadAverageLast15Mins": 0.65
+        },
+        {
+            "loadAverageLast1Min": 0.73,
+            "dateString": "Apr 27 8:45:56.668",
+            "dateObj": "2020-04-27T06:45:56.668Z",
+            "dateInMs": 1587969956668,
+            "loadAverageLast5Mins": 0.67,
+            "loadAverageLast15Mins": 0.65
+        },
+        {
+            "loadAverageLast1Min": 0.68,
+            "dateString": "Apr 27 8:46:6.669",
+            "dateObj": "2020-04-27T06:46:06.669Z",
+            "dateInMs": 1587969966669,
+            "loadAverageLast5Mins": 0.66,
+            "loadAverageLast15Mins": 0.65
+        },
+        {
+            "loadAverageLast1Min": 0.65,
+            "dateString": "Apr 27 8:46:16.668",
+            "dateObj": "2020-04-27T06:46:16.668Z",
+            "dateInMs": 1587969976668,
+            "loadAverageLast5Mins": 0.66,
+            "loadAverageLast15Mins": 0.65
+        }
+    ],
     "eventsFinalReports": [
         {
             "highLoadReports": {

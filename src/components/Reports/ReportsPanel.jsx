@@ -1,9 +1,8 @@
 import React, {
     memo,
-    useState,
-    Fragment
+    useState
 } from 'react'
-import ReportTable from "./ReportTable"
+import ReportTable from "./ReportTable";
 import {
     Paper,
     Tabs,
@@ -13,9 +12,11 @@ import {
     Box
 } from '@material-ui/core';
 import { makeStyles } from "@material-ui/core/styles";
+import { fade } from '@material-ui/core/styles/colorManipulator';
 import clsx from 'clsx';
 
-import { filterArrayOfObjectByProperty } from "../../utilities/utilities"
+import { filterArrayOfObjectByProperty } from "../../utilities/utilities";
+import * as LABELS from "../../data/labels.json"
 
 const useStyles = makeStyles(theme => {
     return ({
@@ -32,6 +33,18 @@ const useStyles = makeStyles(theme => {
             backgroundColor: theme.palette.primary.darker,
             color: theme.palette.primary.lighter,
             margin: ".5rem"
+        },
+        event: {
+            padding: ".5rem 1rem",
+            '&:nth-of-type(odd)': {
+                backgroundColor: fade(theme.palette.primary.light, .1),
+            },
+            '&:nth-of-type(even)': {
+                backgroundColor: fade(theme.palette.primary.darker, .1)
+            },
+        },
+        eventTitle: {
+            padding: ".5rem 1rem"
         }
     })
 });
@@ -43,27 +56,6 @@ function WrappedReportsPanel({ reports }) {
     } = reports;
 
     const eventsFinalReportsCount = eventsFinalReports?.length || 0;
-
-    const LABELS = {
-        common: {
-            noReport: "There is no Report yet",
-        },
-        events: {
-            tabTitle: "All Events Reports",
-            report: "Event Report",
-            reports: "Events Reports",
-        },
-        highLoad: {
-            tabTitle: "High Load Average Reports",
-            report: "High Load Report",
-            reports: "High Load Reports",
-        },
-        recovery: {
-            tabTitle: "Recovery Reports",
-            report: "Recovery Report",
-            reports: "Recovery Reports",
-        }
-    }
 
     let highLoadReports = filterArrayOfObjectByProperty(eventsFinalReports, "highLoadReports");
     let recoveryReports = filterArrayOfObjectByProperty(eventsFinalReports, "recoveryReports");    
@@ -91,7 +83,7 @@ function WrappedReportsPanel({ reports }) {
     }
 
     const getTabContentTitle = (tabDataType, arrayLength) => {
-        return !arrayLength ? LABELS.common.noReport : arrayLength && arrayLength > 1 ? LABELS[tabDataType].reports : LABELS[tabDataType].report
+        return !arrayLength ? LABELS.tableReport.common.noReport : arrayLength && arrayLength > 1 ? LABELS.tableReport[tabDataType].reports : LABELS.tableReport[tabDataType].report
     }
     return (
             <Paper  elevation={2}>
@@ -100,9 +92,9 @@ function WrappedReportsPanel({ reports }) {
                     indicatorColor="primary"
                     textColor="primary"
                     onChange={handleChangeTab} >
-                    <Tab label={LABELS.events.tabTitle} />
-                    <Tab label={LABELS.highLoad.tabTitle} />
-                    <Tab label={LABELS.recovery.tabTitle} />
+                    <Tab label={LABELS.tableReport.events.tabTitle} />
+                    <Tab label={LABELS.tableReport.highLoad.tabTitle} />
+                    <Tab label={LABELS.tableReport.recovery.tabTitle} />
                 </Tabs>
                 <TabPanel value={currentTabVal} index={0}>
                     <Typography className={classes.tabContentTitle} component="div">
@@ -117,10 +109,13 @@ function WrappedReportsPanel({ reports }) {
                     {
                         eventsFinalReports && Object.values(eventsFinalReports).map((currentEvent, index) => {
                             const { highLoadReports, recoveryReports } = currentEvent;
-                            return (<Fragment key={index}>
+                            return (
+                                <div key={index} className={classes.event}>
+                                <Typography className={classes.eventTitle} variant="h2">Event n° {index + 1}</Typography>
                                 <ReportTable report={highLoadReports} index={index} />
                                 <ReportTable report={recoveryReports} m={6} index={index} />
-                            </Fragment>)
+                                </div>
+                            )
 
                         })
                     }

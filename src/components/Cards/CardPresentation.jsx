@@ -73,7 +73,6 @@ const CardCustom = withStyles((theme) => ({
 const CardHeaderCustom = withStyles((theme) => ({
     root: {
         textAlign: "left",
-        height: "4.5rem",
         paddingBottom: 0,
         alignItems: "baseline",
         justifyContent: "baseline",

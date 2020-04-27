@@ -45,11 +45,12 @@ const useStyles = makeStyles((theme) => {
         tooltipVisible: {
             padding: ".5rem 1rem",
             font: "1rem",
+            fontWeight: "bold",
             backgroundColor: fade(theme.palette.primary.darker, .8),
             color: theme.palette.primary.lighter,
             border: 0,
             opacity: 1,
-            borderRadius: ".2rem",
+            borderRadius: theme.shape.borderRadius
         },
         svg: {
             width: "100%",
@@ -89,12 +90,12 @@ const useStyles = makeStyles((theme) => {
             fill: "none",
         },
         dataLine: {
-            stroke: isDarkTheme? theme.palette.primary.dark :theme.palette.primary.darker,
+            stroke: isDarkTheme ? theme.palette.primary.dark : theme.palette.primary.darker,
             mixBlendMode: "hard-light",
             strokeLinejoin: "miter",
         },
         dataCircle: {
-            fill: theme.palette.primary.dark
+            fill: isDarkTheme? theme.palette.primary.lighter : theme.palette.primary.darker
         },
         frameHighLoad: {
             fill: isDarkTheme ? fade(theme.palette.error.main, .4) : fade(theme.palette.error.main, .5)
@@ -149,7 +150,7 @@ function Chart(props) {
 
     const height = props.height;
     const width = props.width;
-    const margin = { top: 0, right: 30, bottom: 190, left: 60 }
+    const margin = { top: 0, right: 30, bottom: 200, left: 60 }
     const innerWidth = width - margin.left - margin.right;
     const innerHeight = height - margin.bottom - margin.top;
 
@@ -159,36 +160,36 @@ function Chart(props) {
     const xAxisLabelTitle = LABELS.chart.axis.xAxisLabelTitle;
     const xAxisLabelSubtitle = formattedWhiteSpacedLabel;
 
+    const yLabelOffset = -20;
     const defaultYMaxDomain = 2;
     const xValue = d => d.dateObj;
     const yValue = d => +d.loadAverageLast1Min;
-    const pointRadius = 6;
+    const pointRadius = 5;
 
-  // TODO: Legend needs to be totally outside
-  const legendWidth = innerWidth;
-  const legendHeight = 100;
-  const legendYOffset = -40;
-  const legendRadius = 10;
-  const legendElementPadding = 20;
-  const legendPointRadius = pointRadius;
+    const legendWidth = innerWidth;
+    const legendHeight = 100;
+    const legendYOffset = -20;
+    const legendRadius = 10;
+    const legendElementPadding = 20;
+    const legendPointRadius = pointRadius;
 
-  const dataLegendCircle = [
-    {
-        title: LABELS.chart.legend.timeFrames.highLoad.title,
-        class: `${classes.frameHighLoad}`,
-        radius: legendRadius
-    },
-    {
-        title: LABELS.chart.legend.timeFrames.recovery.title,
-        class: `${classes.frameRecovery}`,
-        radius: legendRadius
-    },
-    {
-        title: LABELS.chart.legend.points.title,
-        class: `${classes.dataCircle}`,
-        radius: legendPointRadius
-    }
-]
+    const dataLegendCircle = [
+        {
+            title: LABELS.chart.legend.timeFrames.highLoad.title,
+            class: `${classes.frameHighLoad}`,
+            radius: legendRadius
+        },
+        {
+            title: LABELS.chart.legend.timeFrames.recovery.title,
+            class: `${classes.frameRecovery}`,
+            radius: legendRadius
+        },
+        {
+            title: LABELS.chart.legend.points.title,
+            class: `${classes.dataCircle}`,
+            radius: legendPointRadius
+        }
+    ]
 
 
     const tooltipTpl = (tpl) => {
@@ -218,10 +219,11 @@ function Chart(props) {
 
 
     const renderChart = ({ traces, highLoadFinalReportsToDisplay, recoveryFinalReportsToDisplay, highLoadTempReportToDisplay }) => {
-        select(".mainGroup").remove(); // avoid duplication before draw
-        selectAll(".tooltip").remove(); // remove the tooltip when it's display on body. TODO: find a better way
+        // avoid duplication before draw
+        select(".mainGroup").remove();
+        selectAll(".tooltip").remove(); 
 
-        const tooltip = select("body").append("div") // TODO: extrat from render + ideally use mui tooltip
+        const tooltip = select("body").append("div")
             .attr("class", "tooltip")
         const isHighLoadInProgress = !!highLoadTempReportToDisplay;
 
@@ -293,7 +295,7 @@ function Chart(props) {
 
         yAxisG.append("text")
             .attr("class", `${classes.axisLabel}`)
-            .attr("y", -45)
+            .attr("y", yLabelOffset)
             .attr("x", - innerHeight / 2)
             .attr("text-anchor", "middle")
             .attr("transform", "rotate(-90)")
@@ -319,7 +321,7 @@ function Chart(props) {
 
         // FRAME group
         const timeFrameGroup = mainGroup.append("g");
-        // TEMPORARY HIGH LOAD IN PROGRESS TODO: isolate that Same logic in file and call it into group parent
+        // TEMPORARY HIGH LOAD IN PROGRESS 
         if (isHighLoadInProgress) {
             // eslint-disable-next-line
             const framesTemporaryHighLoadInProgress = timeFrameGroup
@@ -430,7 +432,7 @@ function Chart(props) {
             .on("mouseout", () => {
                 tooltip.classed(`${classes.tooltipVisible}`, false);
             });
-            
+
         const legendGroupEnter = mainGroup.append("g")
             .attr("transform", `translate(0, ${innerHeight - legendHeight + margin.bottom - legendYOffset})`);
 
@@ -452,14 +454,14 @@ function Chart(props) {
         const dashGroup = legendGroupEnter.append("g");
         dashGroup.append("rect")
             .attr("x", `${innerWidth - 250 - legendElementPadding}`)
-            .attr("y", `${legendElementPadding + 5}`)
+            .attr("y", `${legendElementPadding}`)
             .attr("width", 60)
             .attr("height", .5)
             .attr("class", `${classes.maxLine}`)
 
         dashGroup.append("text")
             .attr("x", `${innerWidth - 180 - legendElementPadding}`)
-            .attr("y", `${legendElementPadding}`)
+            .attr("y", `${legendElementPadding - 5}`)
             .text(`${LABELS.chart.legend.limit.title} : ${loadAverageByCpuConsiredAsHigh}`)
             .attr("dy", 10)
             .attr("class", `${classes.legendLabel}`)
@@ -472,7 +474,7 @@ function Chart(props) {
             />
             <CardContent className={classes.cardContent}>
                 <svg
-                    viewBox={`0 0 ${props.width} ${580} `}
+                    viewBox={`0 0 ${850} ${650} `}
                     ref={svgElementRef}
                 >
                 </svg>

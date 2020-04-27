@@ -19,14 +19,14 @@
             "subheader": "",
             "iconName": "TrendingDown",
             "conditionSentence": "",
-            "moreDetails": "More details about these events are available in related section link"
+            "moreDetails": ""
         },
         "countHighLoad": {
             "title": "High Load Averages Count",
             "subheader": "",
             "iconName": "TrendingUp",
             "conditionSentence": "(including 1 currently in progress)",
-            "moreDetails": "More details about these events are available in related section link"
+            "moreDetails": ""
         },
         "windowAverage": {
             "title": "Average during last",
@@ -87,6 +87,26 @@
             }
         }
     },
+    "tableReport": {
+        "common": {
+            "noReport": "No Report yet"
+        },
+        "events": {
+            "tabTitle": "All Events Reports",
+            "report": "Event Report",
+            "reports": "Events Reports"
+        },
+        "highLoad": {
+            "tabTitle": "High Load Average Reports",
+            "report": "High Load Report",
+            "reports": "High Load Reports"
+        },
+        "recovery": {
+            "tabTitle": "Recovery Reports",
+            "report": "Recovery Report",
+            "reports": "Recovery Reports"
+        }
+    },
     "report": {
         "common": {
             "duration": "Duration",
@@ -117,5 +137,16 @@
         "recovery": {
             "title": "Recovery"
         }
+    },
+    "configutation": {
+        "loadAverageByCpuConsiredAsHigh": "Average Limit defined as High Load Average",
+        "minimumDurationCpuHighLoadInMs": "Minimum duration of High Load Average period in milliseconds",
+        "minimumDurationRecoveryInMs": "Minimum duration of Recovery from High Load Average period in milliseconds",
+        "intervalInMs": "Interval in milliseconds",
+        "timeWindowInMs": "Chart Time Window in milliseconds",
+        "timeHistoryWindowInMs": "History Time Window in milliseconds",
+        "timeWindowArrayLength": "",
+        "highLoadAverageMinArrayLength": "",
+        "recoveryArrayMinLength": ""
     }
 }

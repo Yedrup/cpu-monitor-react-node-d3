@@ -16,12 +16,12 @@ export const ConfigContext = createContext();
 
 
 export const initialConfigState = {
-  loadAverageByCpuConsiredAsHigh : .6,
-  minimumDurationCpuHighLoadInMs : 30000, /*1min*/
-  minimumDurationRecoveryInMs : 30000, /*1min*/
+  loadAverageByCpuConsiredAsHigh : 1,
+  minimumDurationCpuHighLoadInMs : 120000, /*2min*/
+  minimumDurationRecoveryInMs : 120000, /*2min*/
   intervalInMs : 10000, /*10sec*/
-  timeWindowInMs : 180000,
-  timeHistoryWindowInMs: 280000,
+  timeWindowInMs : 600000,/*10min*/
+  timeHistoryWindowInMs: 600000,/*10min*/
   getTimeWindowArrayLength : function() {
     return getLengthOfArrForATimeWindow(this.timeWindowInMs, this.intervalInMs);
   },
@@ -45,7 +45,6 @@ export const initialConfigState = {
 export const configReducer = (state, action) => {
   switch (action.type) {
       case 'UPDATE_INTERVAL':
-          console.log("UPDATE_INTERVAL");
           return {
               ...state,
               intervalInMs: action.payload
@@ -61,7 +60,6 @@ export const ConfigProvider = ({children}) => {
   const [stateConfig, dispatchConfig] = useReducer(configReducer, initialConfigState);
 
   useEffect(() => {
-    console.log("CONFIG HAS CHANGED ==>", stateConfig);
     const interval = setInterval(() => {
       setIsRequesting(true);
     }, stateConfig.intervalInMs);
