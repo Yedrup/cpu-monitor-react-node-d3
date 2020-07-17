@@ -1,19 +1,25 @@
-import React, { useState, useEffect, createContext, useRef } from "react";
+import React, { useState, useEffect, createContext, useRef } from 'react';
 
-import { MuiThemeProvider, CssBaseline, createMuiTheme } from "@material-ui/core";
-import themes from "../../theme";
+import {
+  MuiThemeProvider,
+  CssBaseline,
+  createMuiTheme,
+} from '@material-ui/core';
+import themes from '../../theme';
 
 export const ThemeContext = createContext();
 
-export const ThemeProvider = (props) => {
+export const ThemeProvider = ({ children }) => {
   const setTheme = (themeNameToStore) => {
-    window.localStorage.setItem("themeCPUMonitorIsDark", themeNameToStore);
+    window.localStorage.setItem('themeCPUMonitorIsDark', themeNameToStore);
     return themeNameToStore;
   };
-  const initializedThemeName = localStorage.getItem("themeCPUMonitorIsDark") || "darkTheme";
+  const initializedThemeName =
+    localStorage.getItem('themeCPUMonitorIsDark') || 'darkTheme';
   const isInitialMount = useRef(true);
-  const [currentThemeName, setCurrentThemeName] = useState(setTheme(initializedThemeName));
-
+  const [currentThemeName, setCurrentThemeName] = useState(
+    setTheme(initializedThemeName)
+  );
 
   useEffect(() => {
     if (isInitialMount.current) {
@@ -21,19 +27,19 @@ export const ThemeProvider = (props) => {
     } else {
       setTheme(currentThemeName);
     }
-    return () => null
-  }, [currentThemeName])
+    return () => null;
+  }, [currentThemeName]);
 
   const muiTheme = createMuiTheme(themes[currentThemeName]);
 
   return (
     <ThemeContext.Provider value={{ currentThemeName, setCurrentThemeName }}>
-      <MuiThemeProvider theme={muiTheme} >
+      <MuiThemeProvider theme={muiTheme}>
         <CssBaseline />
-        {props.children}
+        {children}
       </MuiThemeProvider>
     </ThemeContext.Provider>
-  )
-}
+  );
+};
 
 export default ThemeProvider;

@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import RequestProvider from "./data/context/RequestStatusContext";
-import ThemeProvider from "./data/context/ThemeContext";
-import NotificationProvider from "./data/reducers/NotificationContext";
-import ConfigProvider from "./data/reducers/ConfigContext";
-import DataProvider from "./data/reducers/DataContext";
-import DataTreatment from "./data/DataTreatment";
+import RequestProvider from './data/context/RequestStatusContext';
+import ThemeProvider from './data/context/ThemeContext';
+import NotificationProvider from './data/reducers/NotificationContext';
+import ConfigProvider from './data/reducers/ConfigContext';
+import DataProvider from './data/reducers/DataContext';
+import DataTreatment from './data/DataTreatment';
 
 import App from './App';
 import * as serviceWorker from './serviceWorker';

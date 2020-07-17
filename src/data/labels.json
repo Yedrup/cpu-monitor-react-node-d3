@@ -113,7 +113,7 @@
             "startDateString": "Start",
             "endDateString": "End",
             "completeAverage": "Average",
-            "peack": "Peack",
+            "peak": "Peak",
             "though": "Though"
         },
         "highLoad": {
@@ -138,8 +138,8 @@
             "title": "Recovery"
         }
     },
-    "configutation": {
-        "loadAverageByCpuConsiredAsHigh": "Average Limit defined as High Load Average",
+    "configuration": {
+        "loadAverageByCpuConsideredAsHigh": "Average Limit defined as High Load Average",
         "minimumDurationCpuHighLoadInMs": "Minimum duration of High Load Average period in milliseconds",
         "minimumDurationRecoveryInMs": "Minimum duration of Recovery from High Load Average period in milliseconds",
         "intervalInMs": "Interval in milliseconds",

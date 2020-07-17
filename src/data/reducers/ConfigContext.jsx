@@ -1,63 +1,64 @@
-import React, {
-  createContext,
-  useEffect,
-  useReducer,
-  useContext
-} from "react";
+import React, { createContext, useEffect, useReducer, useContext } from 'react';
 import {
   getLengthOfArrForATimeWindow,
-  convertMsInMin, 
-  convertMsInSec
-} from "../../utilities/utilities";
+  convertMsInMin,
+  convertMsInSec,
+} from '../../utilities/utilities';
 import { RequestStatusContext } from '../context/RequestStatusContext';
-
 
 export const ConfigContext = createContext();
 
-
 export const initialConfigState = {
-  loadAverageByCpuConsiredAsHigh : 1,
-  minimumDurationCpuHighLoadInMs : 120000, /*2min*/
-  minimumDurationRecoveryInMs : 120000, /*2min*/
-  intervalInMs : 10000, /*10sec*/
-  timeWindowInMs : 600000,/*10min*/
-  timeHistoryWindowInMs: 600000,/*10min*/
-  getTimeWindowArrayLength : function() {
+  loadAverageByCpuConsideredAsHigh: 1,
+  minimumDurationCpuHighLoadInMs: 120000 /*2min*/,
+  minimumDurationRecoveryInMs: 120000 /*2min*/,
+  intervalInMs: 10000 /*10sec*/,
+  timeWindowInMs: 600000 /*10min*/,
+  timeHistoryWindowInMs: 600000 /*10min*/,
+  getTimeWindowArrayLength: function () {
     return getLengthOfArrForATimeWindow(this.timeWindowInMs, this.intervalInMs);
   },
-  getHighLoadAverageMinArrayLength : function() {
-    return getLengthOfArrForATimeWindow(this.minimumDurationCpuHighLoadInMs, this.intervalInMs) 
+  getHighLoadAverageMinArrayLength: function () {
+    return getLengthOfArrForATimeWindow(
+      this.minimumDurationCpuHighLoadInMs,
+      this.intervalInMs
+    );
   },
-  getRecoveryArrayMinLength : function() {
-    return getLengthOfArrForATimeWindow(this.minimumDurationRecoveryInMs, this.intervalInMs);
+  getRecoveryArrayMinLength: function () {
+    return getLengthOfArrForATimeWindow(
+      this.minimumDurationRecoveryInMs,
+      this.intervalInMs
+    );
   },
-  getTimeIntervalInSec : function() {
+  getTimeIntervalInSec: function () {
     return convertMsInSec(this.intervalInMs);
   },
-  getTimeWindowInMin : function() {
+  getTimeWindowInMin: function () {
     return convertMsInMin(this.timeWindowInMs);
   },
-  getTimeHistoryWindowInMin : function() {
+  getTimeHistoryWindowInMin: function () {
     return convertMsInMin(this.timeHistoryWindowInMs);
-  }
+  },
 };
 
 export const configReducer = (state, action) => {
   switch (action.type) {
-      case 'UPDATE_INTERVAL':
-          return {
-              ...state,
-              intervalInMs: action.payload
-          };
-      default:
-          return state
+    case 'UPDATE_INTERVAL':
+      return {
+        ...state,
+        intervalInMs: action.payload,
+      };
+    default:
+      return state;
   }
 };
 
-
-export const ConfigProvider = ({children}) => {
+export const ConfigProvider = ({ children }) => {
   const { setIsRequesting } = useContext(RequestStatusContext);
-  const [stateConfig, dispatchConfig] = useReducer(configReducer, initialConfigState);
+  const [stateConfig, dispatchConfig] = useReducer(
+    configReducer,
+    initialConfigState
+  );
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -68,8 +69,7 @@ export const ConfigProvider = ({children}) => {
   }, [stateConfig]);
 
   return (
-    <ConfigContext.Provider
-      value={{ dispatchConfig, stateConfig}}>
+    <ConfigContext.Provider value={{ dispatchConfig, stateConfig }}>
       {children}
     </ConfigContext.Provider>
   );

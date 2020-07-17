@@ -1,19 +1,17 @@
 import React from 'react';
-import Header from "./components/Header";
-import Main from "./components/Main";
+import Header from './components/Header';
+import Main from './components/Main';
 import { Container } from '@material-ui/core';
 
 function App() {
-
   return (
-    <div >
+    <div>
       <Header />
-      <Container align="center"  component="main"  >
-        <Main  />
+      <Container align="center" component="main">
+        <Main />
       </Container>
     </div>
   );
-
 }
 
 export default App;

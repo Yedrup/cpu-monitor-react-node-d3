@@ -1,23 +1,23 @@
-import React, { useState, useEffect,createContext } from "react";
+import React, { useState, useEffect, createContext } from 'react';
 
 export const RequestStatusContext = createContext();
 
-export const RequestStatusProvider =  (props) => {
+export const RequestStatusProvider = ({ children }) => {
   const [isRequesting, setIsRequesting] = useState(true);
   const store = {
     isRequesting,
-    setIsRequesting
-  }
+    setIsRequesting,
+  };
 
   useEffect(() => {
     return () => null;
   }, [isRequesting]);
 
   return (
-  <RequestStatusContext.Provider value={store}>
-    {props.children}
-  </RequestStatusContext.Provider>
-  )
-}
+    <RequestStatusContext.Provider value={store}>
+      {children}
+    </RequestStatusContext.Provider>
+  );
+};
 
- export default RequestStatusProvider;
+export default RequestStatusProvider;

@@ -1,27 +1,24 @@
-import React, {
-  useContext, useEffect, useState, useMemo
-} from 'react';
+import React, { useContext, useEffect, useState, useMemo } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, withWidth } from '@material-ui/core';
-import { DataStateContext } from "../data/reducers/DataContext";
-import { NotificationContext } from "../data/reducers/NotificationContext";
-import ConfigPanel from "./ConfigPanel";
-import CpuInfo from "./CpuInfoPanel";
-import Notification from "./Notifaction";
+import { DataStateContext } from '../data/reducers/DataContext';
+import { NotificationContext } from '../data/reducers/NotificationContext';
+import ConfigPanel from './ConfigPanel';
+import CpuInfo from './CpuInfoPanel';
+import Notification from './Notification';
 import Chart from './Chart/Chart';
 import ReportsPanel from './Reports/ReportsPanel';
-import CardPresentation from "./Cards/CardPresentation";
+import CardPresentation from './Cards/CardPresentation';
 
 import { ConfigContext } from '../data/reducers/ConfigContext';
 
-import * as LABELS from "../data/labels.json";
+import * as LABELS from '../data/labels.json';
 
-const useStyles = makeStyles((theme) =>({
+const useStyles = makeStyles((theme) => ({
   main: {
-    marginTop: "1rem",
-  }
+    marginTop: '1rem',
+  },
 }));
-
 
 function Main(props) {
   const { width: currentBreakpoint } = props;
@@ -31,74 +28,75 @@ function Main(props) {
       eventsFinalReports,
       isHighLoadCurrentlyInProgress,
       isLastAverageWindowAnEstimate,
-      lastWindowAverage
-    }
+      lastWindowAverage,
+    },
   } = useContext(DataStateContext);
   const { stateConfig, dispatchConfig } = useContext(ConfigContext);
-  const { stateNotification, dispatchNotification } = useContext(NotificationContext)
-
+  const { stateNotification, dispatchNotification } = useContext(
+    NotificationContext
+  );
 
   // hack to get the svg size responsive
-  const [currentChartSize, setcurrentChartSize] = useState({})
+  const [currentChartSize, setcurrentChartSize] = useState({});
   const chartSizesVal = {
     xs: {
-      width: "500",
-      height: "500"
+      width: '500',
+      height: '500',
     },
     sm: {
-      width: "800",
-      height: "500"
+      width: '800',
+      height: '500',
     },
     md: {
-      width: "800",
-      height: "500"
+      width: '800',
+      height: '500',
     },
     lg: {
-      width: "800",
-      height: "500"
+      width: '800',
+      height: '500',
     },
     xl: {
-      width: "800",
-      height: "580"
-    }
-
-  }
+      width: '800',
+      height: '580',
+    },
+  };
   useEffect(() => {
-    setcurrentChartSize({ ...chartSizesVal[currentBreakpoint] })
-    return () => null
+    setcurrentChartSize({ ...chartSizesVal[currentBreakpoint] });
+    return () => null;
     //eslint-disable-next-line
-  }, [currentBreakpoint])
+  }, [currentBreakpoint]);
 
   const timeWindowInMin = stateConfig.getTimeWindowInMin();
   let lastTrace = traces[traces?.length - 1] || {};
-  let highLoadCount = isHighLoadCurrentlyInProgress ? eventsFinalReports?.length + 1 : eventsFinalReports?.length || 0;
+  let highLoadCount = isHighLoadCurrentlyInProgress
+    ? eventsFinalReports?.length + 1
+    : eventsFinalReports?.length || 0;
   let recoveryCount = eventsFinalReports?.length || 0;
   const { loadAverageLast1Min = 0 } = lastTrace;
 
   let updateTextObjForWindowAverage = (textObj, timeWindowInMin) => {
     return {
       ...textObj,
-      title: `${textObj.title} ${timeWindowInMin} minutes`
-    }
-  }
-  const updatedTextObjForWindowAverage = useMemo(() => updateTextObjForWindowAverage(LABELS.cardsPresentation.windowAverage, timeWindowInMin), [timeWindowInMin])
+      title: `${textObj.title} ${timeWindowInMin} minutes`,
+    };
+  };
+  const updatedTextObjForWindowAverage = useMemo(
+    () =>
+      updateTextObjForWindowAverage(
+        LABELS.cardsPresentation.windowAverage,
+        timeWindowInMin
+      ),
+    [timeWindowInMin]
+  );
   const classes = useStyles();
   return (
-    <Grid
-      container
-      spacing={3}
-      className={classes.main}>
-
+    <Grid container spacing={3} className={classes.main}>
       <Notification
         stateNotification={stateNotification}
-        dispatchNotification={dispatchNotification} />
+        dispatchNotification={dispatchNotification}
+      />
 
-      <Grid
-        container
-        item
-        direction="row"
-        justify="space-between">
-
+      <Grid container item direction="row" justify="space-between">
         <Grid
           component={CardPresentation}
           item
@@ -106,8 +104,8 @@ function Main(props) {
           sm={2}
           lastTrace={{ ...lastTrace }}
           mainValue={loadAverageLast1Min}
-          text={LABELS?.cardsPresentation.currentAverage}>
-        </Grid>
+          text={LABELS?.cardsPresentation.currentAverage}
+        ></Grid>
 
         <Grid
           component={CardPresentation}
@@ -117,8 +115,8 @@ function Main(props) {
           lastTrace={{ ...lastTrace }}
           mainValue={lastWindowAverage}
           isConditionalSentence={isLastAverageWindowAnEstimate}
-          text={updatedTextObjForWindowAverage}>
-        </Grid>
+          text={updatedTextObjForWindowAverage}
+        ></Grid>
 
         <Grid
           component={CardPresentation}
@@ -128,8 +126,8 @@ function Main(props) {
           traces={traces}
           isConditionalSentence={isHighLoadCurrentlyInProgress}
           text={LABELS?.cardsPresentation.countHighLoad}
-          mainValue={highLoadCount}>
-        </Grid>
+          mainValue={highLoadCount}
+        ></Grid>
 
         <Grid
           component={CardPresentation}
@@ -138,9 +136,8 @@ function Main(props) {
           sm={2}
           lastTrace={{ ...lastTrace }}
           mainValue={recoveryCount}
-          text={LABELS?.cardsPresentation.countRecovery}>
-        </Grid>
-
+          text={LABELS?.cardsPresentation.countRecovery}
+        ></Grid>
       </Grid>
 
       <Grid
@@ -149,35 +146,28 @@ function Main(props) {
         display="flex"
         spacing={3}
         direction="row"
-        justify="flex-start">
-
-        <Grid
-          item
-          xs={12}
-          md={8}
-        >
+        justify="flex-start"
+      >
+        <Grid item xs={12} md={8}>
           <Chart
             width={currentChartSize.width}
             height={currentChartSize.height}
           />
         </Grid>
 
-        <Grid
-          item
-          xs={12}
-          md={4}
-        >
+        <Grid item xs={12} md={4}>
           <ConfigPanel
             stateConfig={stateConfig}
-            dispatchConfig={dispatchConfig} />
+            dispatchConfig={dispatchConfig}
+          />
           <CpuInfo />
         </Grid>
-        <Grid
-          item
-          xs={12}>
-          <ReportsPanel reports={{
-            eventsFinalReports
-          }} />
+        <Grid item xs={12}>
+          <ReportsPanel
+            reports={{
+              eventsFinalReports,
+            }}
+          />
         </Grid>
       </Grid>
     </Grid>

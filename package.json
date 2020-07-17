@@ -4,7 +4,7 @@
   "private": true,
   "license": "ISC",
   "author": "purdey.chambraud@gmail.com",
-  "description": "This a monitor built with react(react-create-app), d3 and expressjs.Its purpose is to display the cpu load average ",
+  "description": "This a monitor built with React(react-create-app), D3 and Express.Its purpose is to display the CPU load average and notify in case there is a high load average and the duration, it gives the load average of last x min (can be set)",
   "proxy": "http://localhost:3001",
   "dependencies": {
     "@material-ui/core": "^4.9.9",

@@ -5,7 +5,7 @@
             "dateString": "Apr 17 11:49:15.976",
             "dateObj": "2020-04-17T09:49:15.976Z",
             "configUsed": {
-                "loadAverageByCpuConsiredAsHigh": 0.6,
+                "loadAverageByCpuConsideredAsHigh": 0.6,
                 "minimumDurationCpuHighLoadInMs": 30000,
                 "minimumDurationRecoveryInMs": 30000,
                 "intervalInMs": 10000,
@@ -158,7 +158,7 @@
             "dateString": "Apr 27 8:45:16.424",
             "dateObj": "2020-04-27T06:45:16.424Z",
             "configUsed": {
-                "loadAverageByCpuConsiredAsHigh": 0.6,
+                "loadAverageByCpuConsideredAsHigh": 0.6,
                 "minimumDurationCpuHighLoadInMs": 30000,
                 "minimumDurationRecoveryInMs": 30000,
                 "intervalInMs": 10000,
@@ -227,7 +227,7 @@
                         "dateString": "Apr 17 11:52:52.699",
                         "dateObj": "2020-04-17T09:52:52.699Z",
                         "configUsed": {
-                            "loadAverageByCpuConsiredAsHigh": 0.6,
+                            "loadAverageByCpuConsideredAsHigh": 0.6,
                             "minimumDurationCpuHighLoadInMs": 30000,
                             "minimumDurationRecoveryInMs": 30000,
                             "intervalInMs": 10000,
@@ -276,7 +276,7 @@
                 "isReportFinished": true,
                 "endDateInMs": 1587117212659,
                 "endDateString": "Apr 17 11:53:32.659",
-                "peack": "0.73",
+                "peak": "0.73",
                 "though": "0.59",
                 "completeAverage": "0.66",
                 "duration": "0:0:39s"
@@ -306,7 +306,7 @@
                 "isReportFinished": true,
                 "endDateInMs": 1587117232660,
                 "endDateString": "Apr 17 11:53:52.660",
-                "peack": "0.59",
+                "peak": "0.59",
                 "though": "0.53",
                 "completeAverage": "0.57",
                 "duration": "0:0:20s"
@@ -320,7 +320,7 @@
                         "dateString": "Apr 17 11:52:52.699",
                         "dateObj": "2020-04-17T09:52:52.699Z",
                         "configUsed": {
-                            "loadAverageByCpuConsiredAsHigh": 0.6,
+                            "loadAverageByCpuConsideredAsHigh": 0.6,
                             "minimumDurationCpuHighLoadInMs": 30000,
                             "minimumDurationRecoveryInMs": 30000,
                             "intervalInMs": 10000,
@@ -369,7 +369,7 @@
                 "isReportFinished": true,
                 "endDateInMs": 1587117212659,
                 "endDateString": "Apr 17 11:53:32.659",
-                "peack": "0.73",
+                "peak": "0.73",
                 "though": "0.59",
                 "completeAverage": "0.66",
                 "duration": "0:0:39s"
@@ -399,7 +399,7 @@
                 "isReportFinished": true,
                 "endDateInMs": 1587117232660,
                 "endDateString": "Apr 17 11:53:52.660",
-                "peack": "0.59",
+                "peak": "0.59",
                 "though": "0.53",
                 "completeAverage": "0.57",
                 "duration": "0:0:20s"
@@ -413,7 +413,7 @@
                         "dateString": "Apr 17 11:52:52.699",
                         "dateObj": "2020-04-17T09:52:52.699Z",
                         "configUsed": {
-                            "loadAverageByCpuConsiredAsHigh": 0.6,
+                            "loadAverageByCpuConsideredAsHigh": 0.6,
                             "minimumDurationCpuHighLoadInMs": 30000,
                             "minimumDurationRecoveryInMs": 30000,
                             "intervalInMs": 10000,
@@ -462,7 +462,7 @@
                 "isReportFinished": true,
                 "endDateInMs": 1587117212659,
                 "endDateString": "Apr 17 11:53:32.659",
-                "peack": "0.73",
+                "peak": "0.73",
                 "though": "0.59",
                 "completeAverage": "0.66",
                 "duration": "0:0:39s"
@@ -492,7 +492,7 @@
                 "isReportFinished": true,
                 "endDateInMs": 1587117232660,
                 "endDateString": "Apr 17 11:53:52.660",
-                "peack": "0.59",
+                "peak": "0.59",
                 "though": "0.53",
                 "completeAverage": "0.57",
                 "duration": "0:0:20s"
@@ -507,7 +507,7 @@
                     "dateString": "Apr 17 15:38:55.4",
                     "dateObj": "2020-04-17T13:38:55.004Z",
                     "configUsed": {
-                        "loadAverageByCpuConsiredAsHigh": 0.6,
+                        "loadAverageByCpuConsideredAsHigh": 0.6,
                         "minimumDurationCpuHighLoadInMs": 30000,
                         "minimumDurationRecoveryInMs": 30000,
                         "intervalInMs": 10000,
@@ -542,7 +542,7 @@
             "endDateInMs": 1587130755005,
             "endDateString": "Apr 17 15:39:15.5",
             "endDateObj": "2020-04-17T13:39:15.005Z",
-            "peack": 0.58,
+            "peak": 0.58,
             "though": 0.52,
             "completeAverage": "0.55",
             "duration": "0:0:20s"
@@ -582,7 +582,7 @@
             "endDateInMs": 1587130945092,
             "endDateString": "Apr 17 15:42:25.92",
             "endDateObj": "2020-04-17T13:42:25.092Z",
-            "peack": 0.65,
+            "peak": 0.65,
             "though": 0.54,
             "completeAverage": "0.59",
             "duration": "0:0:20s"
@@ -622,7 +622,7 @@
             "endDateInMs": 1587131115022,
             "endDateString": "Apr 17 15:45:15.22",
             "endDateObj": "2020-04-17T13:45:15.022Z",
-            "peack": 0.59,
+            "peak": 0.59,
             "though": 0.54,
             "completeAverage": "0.57",
             "duration": "0:0:20s"
@@ -636,7 +636,7 @@
                     "dateString": "Apr 17 15:38:14.929",
                     "dateObj": "2020-04-17T13:38:14.929Z",
                     "configUsed": {
-                        "loadAverageByCpuConsiredAsHigh": 0.6,
+                        "loadAverageByCpuConsideredAsHigh": 0.6,
                         "minimumDurationCpuHighLoadInMs": 30000,
                         "minimumDurationRecoveryInMs": 30000,
                         "intervalInMs": 10000,
@@ -687,7 +687,7 @@
             "endDateInMs": 1587130735004,
             "endDateString": "Apr 17 15:38:55.4",
             "endDateObj": "2020-04-17T13:38:55.004Z",
-            "peack": 0.74,
+            "peak": 0.74,
             "though": 0.58,
             "completeAverage": "0.65",
             "duration": "0:0:40s"
@@ -799,7 +799,7 @@
             "endDateInMs": 1587130925015,
             "endDateString": "Apr 17 15:42:5.15",
             "endDateObj": "2020-04-17T13:42:05.015Z",
-            "peack": 0.86,
+            "peak": 0.86,
             "though": 0.59,
             "completeAverage": "0.70",
             "duration": "0:1:50s"
@@ -935,7 +935,7 @@
             "endDateInMs": 1587131095020,
             "endDateString": "Apr 17 15:44:55.20",
             "endDateObj": "2020-04-17T13:44:55.020Z",
-            "peack": 0.97,
+            "peak": 0.97,
             "though": 0.52,
             "completeAverage": "0.75",
             "duration": "0:2:20s"

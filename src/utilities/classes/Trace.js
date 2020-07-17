@@ -1,6 +1,4 @@
-import {
-  formatDateIntoString
-} from "../utilities"
+import { formatDateIntoString } from '../utilities';
 
 class Trace {
   constructor(cpuData, configUsed) {
